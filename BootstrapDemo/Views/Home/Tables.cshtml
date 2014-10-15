@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Tables";
+}
+
+<h1>Tables</h1>
+
+<hr />
+
+<p>Table rendering stuff...</p>
+
+<h3>Examples</h3>
+
+<h5>Table wrapped in a panel</h5>
+
+@using(var panel = Html.Bootstrap().BeginPanel(new Panel("testPanel").Collapsible()))
+{ 
+    @panel.Header("panel header")
+    using(var body = panel.BeginBody())
+    { 
+        using(var table = Html.Bootstrap().BeginTable(new Table()))
+        {
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+            @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+        }
+    }
+}
+
+<h5>Table wrapped in a panel</h5>
+
+@using (var table = Html.Bootstrap().BeginTable(new Table().Striped().WrapInPanel("table panel title", PanelStyle.Default, true)))
+{
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+}

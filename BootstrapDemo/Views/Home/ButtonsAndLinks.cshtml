@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Buttons and Links";
+}
+
+<h1>Buttons and Links</h1>
+
+<hr />
+
+<h3>Buttons</h3>
+
+<h5>Options</h5>
+
+@Html.Bootstrap().Button("Default")
+@Html.Bootstrap().Button("Primary").Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Success").Style(ButtonStyle.Success)
+@Html.Bootstrap().Button("Info").Style(ButtonStyle.Info)
+@Html.Bootstrap().Button("Warning").Style(ButtonStyle.Warning)
+@Html.Bootstrap().Button("Danger").Style(ButtonStyle.Danger)
+
+<h5>Sizes</h5>
+
+@Html.Bootstrap().Button("Large").Size(ButtonSize.Large).Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Large").Size(ButtonSize.Large)
+<br />
+@Html.Bootstrap().Button("Default").Size(ButtonSize.Default).Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Default").Size(ButtonSize.Default)
+<br />
+@Html.Bootstrap().Button("Small").Size(ButtonSize.Small).Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Small").Size(ButtonSize.Small)
+<br />
+@Html.Bootstrap().Button("Mini (Extra-Small)").Size(ButtonSize.Mini).Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Mini (Extra-Small)").Size(ButtonSize.Mini)
+
+<h5>Active (Pressed)</h5>
+
+@Html.Bootstrap().Button("Primary").Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Primary (Active)").Style(ButtonStyle.Primary).Active()
+
+<h5>Disabled</h5>
+
+@Html.Bootstrap().Button("Primary").Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Primary (Disabled)").Style(ButtonStyle.Primary).Disabled()
+
+<h3>Links</h3>
+
+@Html.Bootstrap().Link("Default Link", "#")
+<br />
+@Html.Bootstrap().LinkButton("LinkButton", "#")
+@Html.Bootstrap().LinkButton("LinkButton (Primary)", "#").Style(ButtonStyle.Primary)
+@Html.Bootstrap().LinkButton("LinkButton (Large)", "#").Size(ButtonSize.Large)
+@Html.Bootstrap().LinkButton("LinkButton (Disabled)", "#").Style(ButtonStyle.Primary).Disabled()
+
+<h3>Action Links</h3>
+
+@Html.Bootstrap().ActionLink("ActionLink (ActionResult)", MVC.Home.ButtonsAndLinks())
+<br />
+@Html.Bootstrap().ActionLink("ActionLink (ActionName)", "ButtonsAndLinks")
+<br />
+@Html.Bootstrap().ActionLink("ActionLink (ActionName, ControllerName)", "ButtonsAndLinks", "Home")
+<br />
+@Html.Bootstrap().ActionLink("ActionLink async (ActionResult)", MVC.Home.ButtonsAndLinksAsync())

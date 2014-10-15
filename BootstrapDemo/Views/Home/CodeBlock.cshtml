@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "CodeBlock";
+}
+
+<h1>CodeBlock</h1>
+
+<p>CodeBlock control</p>
+
+<h3>Examples</h3>
+
+<h5>CodeBlock (from string)</h5>
+
+@Html.Bootstrap().CodeBlock("// just a short code block\r\npublic void SomeFunc()\r\n{\r\n    DoSomething();\r\n}\r\n\r\npublic void SomeOtherFunc()\r\n{\r\n    DoSomethingElse();\r\n}").LineNumbers()
+
+<h5>CodeBlock Builder</h5>
+
+@using (var code = Html.Bootstrap().BeginCodeBlock())
+{
+    <code>
+        // another short block of code
+        public void DoSomeAction()
+        {
+            DoStepOne();
+            DoStepTwo();
+        }
+    </code>
+}
+
+<h5>CodeBlock Builder</h5>
+
+@using (var code = Html.Bootstrap().BeginCodeBlock(new CodeBlock().LineNumbers(15)))
+{
+    <code>
+        // another short block of code
+        public void DoSomeOtherAction()
+        {
+            DoStepOne();
+            DoStepTwo();
+        }
+        &nbsp;
+        private void DoStepOne()
+        {
+            // something should happen here
+        }
+        &nbsp;
+        private void DoStepTwo()
+        {
+            // something else should happen here
+        }
+    </code>
+}
+

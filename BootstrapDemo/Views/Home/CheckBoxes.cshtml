@@ -1,0 +1,54 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.CheckBoxModel
+
+@{
+	ViewBag.Title = "CheckBoxes";
+}
+
+<h1>CheckBoxes</h1>
+
+<p>Checkbox controls</p>
+
+<h3>Examples</h3>
+
+<h5>CheckBox (simple)</h5>
+
+@Html.Bootstrap().CheckBox("fieldName")
+
+<h5>CheckBox (with value)</h5>
+
+@Html.Bootstrap().CheckBox("fieldName2", "pickle").Label("labels can be used too...")
+
+<h5>CheckBoxesFromEnum</h5>
+
+@Html.Bootstrap().CheckBoxesFromEnum("Color1").DisplayInColumns(3, 150)
+
+<h5>CheckBoxesFromEnumFor</h5>
+
+@Html.Bootstrap().CheckBoxesFromEnumFor(m => m.Color2).Label()
+
+<h5>CheckBoxFor</h5>
+
+@Html.Bootstrap().CheckBoxFor(m => m.Checker1).Label()
+
+<h5>CheckBoxList (using Expression)</h5>
+
+@Html.Bootstrap().CheckBoxList("Text1", m => m.CarTypes, t => t.Code, t => t.Name)
+
+<h5>CheckBoxList (using source data)</h5>
+
+@Html.Bootstrap().CheckBoxList("Text2", HyperSlackers.Bootstrap.Demo.Common.Car.AllCars(), t => t.Code, t => t.Name)
+
+<h5>CheckBoxListFor (using Expression)</h5>
+
+@Html.Bootstrap().CheckBoxListFor(m => m.Car1, m => m.CarTypes, t => t.Code, t => t.Name)
+
+<h5>CheckBoxListFor (using source data)</h5>
+
+@Html.Bootstrap().CheckBoxListFor(m => m.Car2, HyperSlackers.Bootstrap.Demo.Common.Car.AllCars(), t => t.Code, t => t.Name)
+
+
+
+
+
+
+

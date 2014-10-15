@@ -1,0 +1,19 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.CkEditorModel
+
+@{
+    ViewBag.Title = "CkEditor";
+}
+
+<h1>CkEditor</h1>
+
+<p>CkEditor control</p>
+
+<h3>Examples</h3>
+
+<h5>CkEditor</h5>
+
+@Html.Bootstrap().CkEditor("fieldName")
+
+<h5>CkEditorFor</h5>
+
+@Html.Bootstrap().CkEditorFor(m => m.SomeTextStuff)

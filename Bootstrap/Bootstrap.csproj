@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{22FAA452-AE11-4432-AFE2-4A2AE06BFD95}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HyperSlackers.Bootstrap</RootNamespace>
+    <AssemblyName>HyperSlackers.Bootstrap</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\NewsletterFillers\Articles\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>True</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>True</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Checked|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Checked\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartFormat">
+      <HintPath>..\packages\SmartFormat.NET.1.1.0.0\lib\net35-Client\SmartFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accordion\Accordion.cs" />
+    <Compile Include="Accordion\AccordionBuilder.cs" />
+    <Compile Include="Accordion\AccordionPanelBuilder.cs" />
+    <Compile Include="Accordion\AccordionPanel.cs" />
+    <Compile Include="Accordion\Bootstrap.cs" />
+    <Compile Include="Alert\Alert.cs" />
+    <Compile Include="Alert\AlertBuilder.cs" />
+    <Compile Include="Alert\AlertControl.cs" />
+    <Compile Include="Alert\Bootstrap.cs" />
+    <Compile Include="Alert\MessageAlertControl.cs" />
+    <Compile Include="ButtonAndLink\ActionLinkButtonControl.cs" />
+    <Compile Include="ButtonAndLink\ActionLinkControl.cs" />
+    <Compile Include="ButtonAndLink\Bootstrap.cs" />
+    <Compile Include="ButtonAndLink\BootstrapAjax.cs" />
+    <Compile Include="ButtonAndLink\ButtonControl.cs" />
+    <Compile Include="ButtonAndLink\ButtonGroup.cs" />
+    <Compile Include="ButtonAndLink\ButtonGroupBuilder.cs" />
+    <Compile Include="ButtonAndLink\LinkButtonControl.cs" />
+    <Compile Include="ButtonAndLink\LinkControl.cs" />
+    <Compile Include="Carousel\Bootstrap.cs" />
+    <Compile Include="Carousel\Carousel.cs" />
+    <Compile Include="Carousel\CarouselBuilder.cs" />
+    <Compile Include="Carousel\CarouselCaptionPanelControl.cs" />
+    <Compile Include="Carousel\CarouselCustomItemControl.cs" />
+    <Compile Include="CheckBox\Bootstrap.cs" />
+    <Compile Include="CheckBox\CheckBoxControl.cs" />
+    <Compile Include="CheckBox\CheckBoxListControl.cs" />
+    <Compile Include="CheckBox\CheckBoxListFromEnumControl.cs" />
+    <Compile Include="CkEditor\Bootstrap.cs" />
+    <Compile Include="CkEditor\CkEditorControl.cs" />
+    <Compile Include="Code\CodeBlock.cs" />
+    <Compile Include="Code\CodeBlockBuilder.cs" />
+    <Compile Include="Code\CodeBlockControl.cs" />
+    <Compile Include="Code\Bootstrap.cs" />
+    <Compile Include="ControlGroup\Bootstrap.cs" />
+    <Compile Include="ControlGroup\ControlGroupControl.cs" />
+    <Compile Include="Core\BootstrapHelpers.cs" />
+    <Compile Include="Core\Bootstrap.cs" />
+    <Compile Include="Core\BootstrapAjax.cs" />
+    <Compile Include="Core\BuilderBase.cs" />
+    <Compile Include="Core\Column.cs" />
+    <Compile Include="Core\ColumnBuilder.cs" />
+    <Compile Include="Core\Row.cs" />
+    <Compile Include="Core\RowBuilder.cs" />
+    <Compile Include="DatePicker\Bootstrap.cs" />
+    <Compile Include="DatePicker\DatePickerControl.cs" />
+    <Compile Include="Enums\ButtonType.cs" />
+    <Compile Include="Core\ControlBase.cs" />
+    <Compile Include="Core\ControlListBase.cs" />
+    <Compile Include="Core\DisposableHtmlElement.cs" />
+    <Compile Include="Core\FormGroupControlBase.cs" />
+    <Compile Include="Core\HtmlElement.cs" />
+    <Compile Include="Core\HtmlStringBase.cs" />
+    <Compile Include="Core\InputControlBase.cs" />
+    <Compile Include="Core\InputControlListBase.cs" />
+    <Compile Include="Core\LabeledControlBase.cs" />
+    <Compile Include="Core\RouteInfo.cs" />
+    <Compile Include="Display\Bootstrap.cs" />
+    <Compile Include="Display\DisplayControl.cs" />
+    <Compile Include="Display\DisplayTextControl.cs" />
+    <Compile Include="DropDown\Bootstrap.cs" />
+    <Compile Include="DropDown\DropDown.cs" />
+    <Compile Include="DropDown\DropDownBuilder.cs" />
+    <Compile Include="DropDown\DropDownListControl.cs" />
+    <Compile Include="DropDown\DropDownListFromEnumControl.cs" />
+    <Compile Include="DropDown\DropDownMenuBuilder.cs" />
+    <Compile Include="DropDown\DropDownMenuControl.cs" />
+    <Compile Include="DropDown\DropDownMenuItemControl.cs" />
+    <Compile Include="Editor\Bootstrap.cs" />
+    <Compile Include="Editor\EditorControl.cs" />
+    <Compile Include="Enums\ActionTypePassed.cs" />
+    <Compile Include="Enums\AlertStyle.cs" />
+    <Compile Include="Enums\ButtonGroupType.cs" />
+    <Compile Include="Enums\ButtonSize.cs" />
+    <Compile Include="Enums\ButtonStyle.cs" />
+    <Compile Include="Enums\ColumnVisibilityType.cs" />
+    <Compile Include="Enums\ContextItemKey.cs" />
+    <Compile Include="Enums\CursorType.cs" />
+    <Compile Include="Enums\DatePickerOrientation.cs" />
+    <Compile Include="Enums\DatePickerStartMode.cs" />
+    <Compile Include="Enums\DatePickerTodayButtonMode.cs" />
+    <Compile Include="Enums\DatePickerViewMode.cs" />
+    <Compile Include="Enums\Direction.cs" />
+    <Compile Include="Enums\DropDownAlignment.cs" />
+    <Compile Include="Enums\FontAwesomeIconRotate.cs" />
+    <Compile Include="Enums\FontAwesomeIconSize.cs" />
+    <Compile Include="Enums\FontAwesomeIconType.cs" />
+    <Compile Include="Enums\FormEncType .cs" />
+    <Compile Include="Enums\FormType.cs" />
+    <Compile Include="Enums\GlyphIconType.cs" />
+    <Compile Include="Enums\InputSize.cs" />
+    <Compile Include="Enums\ModalSection.cs" />
+    <Compile Include="Enums\ModalSize.cs" />
+    <Compile Include="Enums\NavBarAlignment.cs" />
+    <Compile Include="Enums\NavType.cs" />
+    <Compile Include="Enums\PanelStyle.cs" />
+    <Compile Include="Enums\Placement.cs" />
+    <Compile Include="Enums\RowColor.cs" />
+    <Compile Include="Enums\TableCellWidth.cs" />
+    <Compile Include="Enums\TextAlign.cs" />
+    <Compile Include="Enums\TableColor.cs" />
+    <Compile Include="Enums\Trigger.cs" />
+    <Compile Include="Enums\WellSize.cs" />
+    <Compile Include="ExtensionMethods\AuthorizeAttributeExtensions.cs" />
+    <Compile Include="ExtensionMethods\DictionaryExtensions.cs" />
+    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
+    <Compile Include="ExtensionMethods\HtmlHelperExtensions.cs" />
+    <Compile Include="ExtensionMethods\ModelMetadataExtensions.cs" />
+    <Compile Include="ExtensionMethods\NameValueCollectionExtensions.cs" />
+    <Compile Include="ExtensionMethods\ObjectExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="ExtensionMethods\TagBuilderExtensions.cs" />
+    <Compile Include="ExtensionMethods\TypeExtensions.cs" />
+    <Compile Include="File\Bootstrap.cs" />
+    <Compile Include="File\FileControl.cs" />
+    <Compile Include="Form\Bootstrap.cs" />
+    <Compile Include="Form\BootstrapAjax.cs" />
+    <Compile Include="Form\BootstrapHelpers.cs" />
+    <Compile Include="Form\AjaxForm.cs" />
+    <Compile Include="Form\FieldSet.cs" />
+    <Compile Include="Form\FieldSetBuilder.cs" />
+    <Compile Include="Form\FormBase.cs" />
+    <Compile Include="Form\Form.cs" />
+    <Compile Include="Form\AjaxFormBuilder.cs" />
+    <Compile Include="Form\FormBuilder.cs" />
+    <Compile Include="Form\FormGroup.cs" />
+    <Compile Include="Form\SectionBuilder.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HelpText\Bootstrap.cs" />
+    <Compile Include="HelpText\HelpTextControl.cs" />
+    <Compile Include="Icon\Bootstrap.cs" />
+    <Compile Include="Icon\FontAwesomeIconStack.cs" />
+    <Compile Include="Icon\FontAwesomeIcon.cs" />
+    <Compile Include="Icon\Icon.cs" />
+    <Compile Include="Icon\GlyphIcon.cs" />
+    <Compile Include="Label\Bootstrap.cs" />
+    <Compile Include="Label\LabelControl.cs" />
+    <Compile Include="ListBox\Bootstrap.cs" />
+    <Compile Include="ListBox\ListBoxControl.cs" />
+    <Compile Include="Misc\Defaults.cs" />
+    <Compile Include="Misc\ColClassControl.cs" />
+    <Compile Include="Misc\DivControl.cs" />
+    <Compile Include="Misc\Helpers.cs" />
+    <Compile Include="Modal\BootstrapHelpers.cs" />
+    <Compile Include="Modal\Bootstrap.cs" />
+    <Compile Include="Modal\Modal.cs" />
+    <Compile Include="Modal\ModalBodyBuilder.cs" />
+    <Compile Include="Modal\ModalBuilder.cs" />
+    <Compile Include="Modal\ModalFooterBuilder.cs" />
+    <Compile Include="Modal\ModalHeaderBuilder.cs" />
+    <Compile Include="Nav\Bootstrap.cs" />
+    <Compile Include="Nav\Nav.cs" />
+    <Compile Include="Nav\NavBar.cs" />
+    <Compile Include="Nav\NavBarBuilder.cs" />
+    <Compile Include="Nav\NavBarPanel.cs" />
+    <Compile Include="Nav\NavBuilder.cs" />
+    <Compile Include="Nav\SubNav.cs" />
+    <Compile Include="Panel\Bootstrap.cs" />
+    <Compile Include="Panel\PanelBodyBuilder.cs" />
+    <Compile Include="Panel\PanelFooterBuilder.cs" />
+    <Compile Include="Panel\PanelHeaderBuilder.cs" />
+    <Compile Include="Panel\Panel.cs" />
+    <Compile Include="Panel\PanelBuilder.cs" />
+    <Compile Include="Popover\Popover.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadioButton\Bootstrap.cs" />
+    <Compile Include="RadioButton\RadioButtonControl.cs" />
+    <Compile Include="RadioButton\RadioButtonListControl.cs" />
+    <Compile Include="RadioButton\RadioButtonListFromEnumControl.cs" />
+    <Compile Include="RadioButton\RadioButtonTrueFalseControl.cs" />
+    <Compile Include="Table\Bootstrap.cs" />
+    <Compile Include="Table\Table.cs" />
+    <Compile Include="Table\TableBody.cs" />
+    <Compile Include="Table\TableBodyBuilder.cs" />
+    <Compile Include="Table\TableBuilder.cs" />
+    <Compile Include="Table\TableCell.cs" />
+    <Compile Include="Table\TableCellBuilder.cs" />
+    <Compile Include="Table\TableCellControl.cs" />
+    <Compile Include="Table\TableFooter.cs" />
+    <Compile Include="Table\TableFooterBuilder.cs" />
+    <Compile Include="Table\TableFooterCell.cs" />
+    <Compile Include="Table\TableFooterCellBuilder.cs" />
+    <Compile Include="Table\TableFooterCellControl.cs" />
+    <Compile Include="Table\TableFooterRow.cs" />
+    <Compile Include="Table\TableFooterRowBuilder.cs" />
+    <Compile Include="Table\TableHeader.cs" />
+    <Compile Include="Table\TableHeaderBuilder.cs" />
+    <Compile Include="Table\TableHeaderCell.cs" />
+    <Compile Include="Table\TableHeaderCellBuilder.cs" />
+    <Compile Include="Table\TableHeaderCellControl.cs" />
+    <Compile Include="Table\TableHeaderRow.cs" />
+    <Compile Include="Table\TableHeaderRowBuilder.cs" />
+    <Compile Include="Table\TableRow.cs" />
+    <Compile Include="Table\TableRowBuilder.cs" />
+    <Compile Include="Tabs\Bootstrap.cs" />
+    <Compile Include="Tabs\TabControl.cs" />
+    <Compile Include="Tabs\Tabs.cs" />
+    <Compile Include="Tabs\TabsBuilder.cs" />
+    <Compile Include="Tabs\TabsPanel.cs" />
+    <Compile Include="TextBox\Bootstrap.cs" />
+    <Compile Include="TextBox\PasswordControl.cs" />
+    <Compile Include="TextBox\TextAreaControl.cs" />
+    <Compile Include="TextBox\TextBoxControl.cs" />
+    <Compile Include="TextBox\TypeAhead.cs" />
+    <Compile Include="TODO.cs" />
+    <Compile Include="ToolBar\Bootstrap.cs" />
+    <Compile Include="ToolBar\ToolBar.cs" />
+    <Compile Include="ToolBar\ToolBarBuilder.cs" />
+    <Compile Include="Tooltip\Tooltip.cs" />
+    <Compile Include="Tree\Bootstrap.cs" />
+    <Compile Include="Tree\Tree.cs" />
+    <Compile Include="Tree\TreeBuilder.cs" />
+    <Compile Include="Tree\TreeControl.cs" />
+    <Compile Include="Tree\TreeHeader.cs" />
+    <Compile Include="Tree\TreeHeaderBuilder.cs" />
+    <Compile Include="Tree\TreeItem.cs" />
+    <Compile Include="Tree\TreeItemBuilder.cs" />
+    <Compile Include="Validation\Bootstrap.cs" />
+    <Compile Include="Validation\ValidationSummaryControl.cs" />
+    <Compile Include="Well\Bootstrap.cs" />
+    <Compile Include="Well\Well.cs" />
+    <Compile Include="Well\WellBuilder.cs" />
+    <Compile Include="Well\WellControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_javascript\bootstrap.typeahead.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_javascript\hyperslackers.bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Bootstrap.licenseheader" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>echo Post-build for $(ProjectName)
+
+echo Copying $(TargetFileName) to ThirdParty folder
+xcopy "$(TargetPath)" "C:\Dev\ThirdParty\HyperSlackers\$(ProjectName)\$(TargetFrameworkVersion)\$(ConfigurationName)\" /Y
+xcopy "$(TargetDir)_javascript\*.js" "C:\Dev\ThirdParty\HyperSlackers\$(ProjectName)\$(TargetFrameworkVersion)\$(ConfigurationName)\" /Y
+if errorlevel 1 goto BuildEventFailed
+
+if $(ConfigurationName) == Release (
+rem echo Generating documentation
+rem cd $(ProjectDir)Doxygen
+rem doxygen  $(TargetName).doxygen
+rem cd $(TargetDir)Docs\latex
+rem make doc
+rem copy /Y refman.pdf ..\$(TargetName).pdf
+)
+
+rem All tasks completed
+echo Post-build for $(ProjectName) completed successfully
+exit 0
+
+:BuildEventFailed
+echo Post-build for $(ProjectName) failed!
+exit 1
+
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -8,5 +8,5 @@ excellent work. I have since merged my code base with his to create this derivat
 TwitterBootstrapMVC (for Bootstrap 2) can be found here: https://github.com/DmitryEfimenko/TwitterBootstrapMvc. 
 If you are using Bootstrap 2, it is the way to go.
 
-
+Still a lot of work to be done...
 

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Favorites xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <folders />
+  <favorites>
+    <Favorite>
+      <name>HomeController.cs</name>
+      <path>BootstrapDemo\Controllers\HomeController.cs</path>
+      <absolutePath>C:\Dev\HyperSlackers\HyperSlackers.Bootstrap\BootstrapDemo\Controllers\HomeController.cs</absolutePath>
+    </Favorite>
+  </favorites>
+</Favorites>

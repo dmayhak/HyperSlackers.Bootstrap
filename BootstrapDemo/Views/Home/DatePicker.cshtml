@@ -1,0 +1,20 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.DatePickerModel
+
+@{
+    ViewBag.Title = "DatePicker";
+}
+
+<h1>DatePicker</h1>
+
+<p>DatePicker control</p>
+
+<h3>Examples</h3>
+
+<h5>DatePicker</h5>
+
+@Html.Bootstrap().DatePicker("fieldName")
+
+
+<h5>DatePickerFor</h5>
+
+@Html.Bootstrap().DatePickerFor(m => m.Date1)

@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Carousels";
+}
+
+<h1>Carousels</h1>
+
+<hr />
+
+<p>Creates a slideshow effect.</p>
+
+<h3>Examples</h3>
+
+<h5>Carousel using default settings</h5>
+
+@* setting carousel width to match images... *@
+@using (var carousel = Html.Bootstrap().BeginCarousel(new Carousel("carousel1").HtmlAttribute("style", "width:600px;height:300px;")))
+{
+    @carousel.Image(Links.Images.CarouselSlide1_png, "Image 1")
+    @carousel.Image(Links.Images.CarouselSlide2_png, "Image 2")
+    @carousel.Image(Links.Images.CarouselSlide3_png, "Image 3")
+}
+
+<h5>Carousel with indicators, custom prev/next icons, and shorter interval</h5>
+
+@* setting carousel width to match images... *@
+@using (var carousel = Html.Bootstrap().BeginCarousel(new Carousel("carousel2").Indicators(4).PrevIcon(FontAwesomeIconType.ChevronCircleLeft).NextIcon(FontAwesomeIconType.ChevronCircleRight).Interval(750).HtmlAttribute("style", "width:600px;height:300px;")))
+{
+    @carousel.Image(Links.Images.CarouselSlide1_png, "Image 1")
+    @carousel.Image(Links.Images.CarouselSlide2_png, "Image 2")
+    @carousel.Image(Links.Images.CarouselSlide3_png, "Image 3")
+    @carousel.Image(Links.Images.CarouselSlide4_png, "Image 4")
+}
+
+<h5>Carousel with captions, links, and no slide</h5>
+
+@* setting carousel width to match images... *@
+@using (var carousel = Html.Bootstrap().BeginCarousel(new Carousel("carousel3").Indicators(4).DontSlide().HtmlAttribute("style", "width:600px;height:300px;")))
+{
+    @carousel.Image(Links.Images.CarouselSlide1_png, "Image 1", "This is a caption title", "")
+    @carousel.Image(Links.Images.CarouselSlide2_png, "Image 2", "Another Caption", "This slide has a caption with extra body text as well")
+    @carousel.Image(Links.Images.CarouselSlide3_png, "Image 3", "Linkable title", "some extra body text", "#")
+    using (var panel = carousel.BeginImagePanelWithCaption(Links.Images.CarouselSlide4_png, "Image 4"))
+    {
+        <div style="text-align: left;">
+            <p>This is a custom caption:</p>
+            <ul>
+                <li>it can have whatever you want in here...</li>
+                <li>like a list and stuff</li>
+                <li>you can <strong>try</strong> other stuff too</li>
+            </ul>
+        </div>
+    }
+}
+
+<h5>Carousel with a custom panel (panel 2)</h5>
+
+@* setting carousel width to match images... *@
+@using (var carousel = Html.Bootstrap().BeginCarousel(new Carousel("carousel4").Indicators(3).HtmlAttribute("style", "width:600px;height:300px;")))
+{
+    @carousel.Image(Links.Images.CarouselSlide1_png, "Image 1", "This is a caption title", "")
+    using (var panel = carousel.BeginCustomPanel())
+    {
+        <h1>Custom Panel</h1>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.</p>
+    }
+    @carousel.Image(Links.Images.CarouselSlide3_png, "Image 3", "Linkable title", "some extra body text", "#")
+}
+
+

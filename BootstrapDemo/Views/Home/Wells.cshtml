@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Wells";
+}
+
+<h1>Wells</h1>
+
+<hr />
+
+<p>Wells provide an inset effect for text.</p>
+
+<h3>Examples</h3>
+
+@Html.Bootstrap().Well("This is a default well...")
+
+@Html.Bootstrap().Well("This is a small well...").Size(WellSize.Small)
+
+@using(var well = Html.Bootstrap().BeginWell(WellSize.Large))
+{
+    <p>This is a large well...</p>
+}
+

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Alerts";
+}
+
+<h1>Alerts</h1>
+
+<hr />
+
+<p>Alerts provide feedback messages to the user.</p>
+
+<h3>Examples</h3>
+
+<p>Standard Alerts</p>
+
+@Html.Bootstrap().Alert("Default Alert!")
+@Html.Bootstrap().Alert("Success Alert!").Style(AlertStyle.Success)
+@Html.Bootstrap().Alert("Info Alert!").Style(AlertStyle.Info)
+@Html.Bootstrap().Alert("Warning Alert!").Style(AlertStyle.Warning)
+@Html.Bootstrap().Alert("Danger Alert!").Style(AlertStyle.Danger)
+
+<p>Dismissible Alerts</p>
+
+@Html.Bootstrap().Alert("Success! You did it!!!").Style(AlertStyle.Success).Dismissible()
+@Html.Bootstrap().Alert("Danger!!! Something went wrong...").Style(AlertStyle.Danger).Dismissible()
+
+<p>Using Links in Alerts</p>
+
+@using(var alert = Html.Bootstrap().BeginAlert(new Alert().Style(AlertStyle.Info)))
+{
+    <strong>YO!</strong> @:this is an un-styled link: @Html.Bootstrap().ActionLink("back here", MVC.Home.Alerts())
+}
+
+@using (var alert = Html.Bootstrap().BeginAlert(new Alert().Style(AlertStyle.Info)))
+{
+    <strong>YO!</strong> @:this is an alert-styled link: @alert.ActionLink("back here", MVC.Home.Alerts())
+}

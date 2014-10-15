@@ -1,0 +1,25 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.DisplayModel
+
+@{
+    ViewBag.Title = "Display";
+}
+
+<h1>Display</h1>
+
+<p>Display control</p>
+
+<h3>Examples</h3>
+
+<h5>Display</h5>
+
+@Html.Bootstrap().Display("SomeText1")
+
+<h5>DisplayFor</h5>
+
+@Html.Bootstrap().DisplayFor(m => m.SomeText2)
+
+<h5>DisplayText</h5>
+
+@Html.Bootstrap().DisplayText("fieldName").Text("something to show")
+
+@* // TODO: display calls using template etc...*@

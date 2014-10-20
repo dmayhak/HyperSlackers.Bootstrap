@@ -1094,7 +1094,6 @@ namespace Links
             public static readonly string dataTables_autoFill_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.autoFill.min.js") ? Url("dataTables.autoFill.min.js") : Url("dataTables.autoFill.js");
             public static readonly string dataTables_autoFill_min_js = Url("dataTables.autoFill.min.js");
             public static readonly string dataTables_autoFill_min_js_map = Url("dataTables.autoFill.min.js.map");
-            public static readonly string dataTables_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap.min.js") ? Url("dataTables.bootstrap.min.js") : Url("dataTables.bootstrap.js");
             public static readonly string dataTables_colReorder_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.colReorder.min.js") ? Url("dataTables.colReorder.min.js") : Url("dataTables.colReorder.js");
             public static readonly string dataTables_colReorder_min_js = Url("dataTables.colReorder.min.js");
             public static readonly string dataTables_colReorder_min_js_map = Url("dataTables.colReorder.min.js.map");
@@ -1107,8 +1106,6 @@ namespace Links
             public static readonly string dataTables_fixedHeader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.fixedHeader.min.js") ? Url("dataTables.fixedHeader.min.js") : Url("dataTables.fixedHeader.js");
             public static readonly string dataTables_fixedHeader_min_js = Url("dataTables.fixedHeader.min.js");
             public static readonly string dataTables_fixedHeader_min_js_map = Url("dataTables.fixedHeader.min.js.map");
-            public static readonly string dataTables_foundation_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.foundation.min.js") ? Url("dataTables.foundation.min.js") : Url("dataTables.foundation.js");
-            public static readonly string dataTables_jqueryui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.jqueryui.min.js") ? Url("dataTables.jqueryui.min.js") : Url("dataTables.jqueryui.js");
             public static readonly string dataTables_keyTable_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.keyTable.min.js") ? Url("dataTables.keyTable.min.js") : Url("dataTables.keyTable.js");
             public static readonly string dataTables_keyTable_min_js = Url("dataTables.keyTable.min.js");
             public static readonly string dataTables_keyTable_min_js_map = Url("dataTables.keyTable.min.js.map");
@@ -1124,6 +1121,36 @@ namespace Links
             public static readonly string jquery_dataTables_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.dataTables.min.js") ? Url("jquery.dataTables.min.js") : Url("jquery.dataTables.js");
             public static readonly string jquery_dataTables_min_js = Url("jquery.dataTables.min.js");
             public static readonly string jquery_dataTables_min_js_map = Url("jquery.dataTables.min.js.map");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class DataTables_1_10_2 {
+            private const string URLPATH = "~/Scripts/DataTables-1.10.2";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string dataTables_autoFill_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.autoFill.min.js") ? Url("dataTables.autoFill.min.js") : Url("dataTables.autoFill.js");
+            public static readonly string dataTables_autoFill_min_js = Url("dataTables.autoFill.min.js");
+            public static readonly string dataTables_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap.min.js") ? Url("dataTables.bootstrap.min.js") : Url("dataTables.bootstrap.js");
+            public static readonly string dataTables_colReorder_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.colReorder.min.js") ? Url("dataTables.colReorder.min.js") : Url("dataTables.colReorder.js");
+            public static readonly string dataTables_colReorder_min_js = Url("dataTables.colReorder.min.js");
+            public static readonly string dataTables_colVis_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.colVis.min.js") ? Url("dataTables.colVis.min.js") : Url("dataTables.colVis.js");
+            public static readonly string dataTables_colVis_min_js = Url("dataTables.colVis.min.js");
+            public static readonly string dataTables_fixedColumns_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.fixedColumns.min.js") ? Url("dataTables.fixedColumns.min.js") : Url("dataTables.fixedColumns.js");
+            public static readonly string dataTables_fixedColumns_min_js = Url("dataTables.fixedColumns.min.js");
+            public static readonly string dataTables_fixedHeader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.fixedHeader.min.js") ? Url("dataTables.fixedHeader.min.js") : Url("dataTables.fixedHeader.js");
+            public static readonly string dataTables_fixedHeader_min_js = Url("dataTables.fixedHeader.min.js");
+            public static readonly string dataTables_foundation_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.foundation.min.js") ? Url("dataTables.foundation.min.js") : Url("dataTables.foundation.js");
+            public static readonly string dataTables_jqueryui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.jqueryui.min.js") ? Url("dataTables.jqueryui.min.js") : Url("dataTables.jqueryui.js");
+            public static readonly string dataTables_keyTable_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.keyTable.min.js") ? Url("dataTables.keyTable.min.js") : Url("dataTables.keyTable.js");
+            public static readonly string dataTables_keyTable_min_js = Url("dataTables.keyTable.min.js");
+            public static readonly string dataTables_responsive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.responsive.min.js") ? Url("dataTables.responsive.min.js") : Url("dataTables.responsive.js");
+            public static readonly string dataTables_responsive_min_js = Url("dataTables.responsive.min.js");
+            public static readonly string dataTables_scroller_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.scroller.min.js") ? Url("dataTables.scroller.min.js") : Url("dataTables.scroller.js");
+            public static readonly string dataTables_scroller_min_js = Url("dataTables.scroller.min.js");
+            public static readonly string dataTables_tableTools_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.tableTools.min.js") ? Url("dataTables.tableTools.min.js") : Url("dataTables.tableTools.js");
+            public static readonly string dataTables_tableTools_min_js = Url("dataTables.tableTools.min.js");
+            public static readonly string jquery_dataTables_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.dataTables.min.js") ? Url("jquery.dataTables.min.js") : Url("jquery.dataTables.js");
+            public static readonly string jquery_dataTables_min_js = Url("jquery.dataTables.min.js");
         }
     
         public static readonly string hyperslackers_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/hyperslackers.bootstrap.min.js") ? Url("hyperslackers.bootstrap.min.js") : Url("hyperslackers.bootstrap.js");
@@ -1198,6 +1225,7 @@ namespace Links
         }
     
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
+        public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Prettify {
             private const string URLPATH = "~/Scripts/Prettify";
@@ -1236,6 +1264,8 @@ namespace Links
         }
     
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
+        public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
+        public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
         public static readonly string respond_min_js_map = Url("respond.min.js.map");
     }
@@ -1590,6 +1620,23 @@ namespace Links
                 private const string URLPATH = "~/Content/DataTables-1.10.1/css";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string dataTables_tableTools_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.tableTools.min.css") ? Url("dataTables.tableTools.min.css") : Url("dataTables.tableTools.css");
+                     
+                public static readonly string dataTables_tableTools_min_css = Url("dataTables.tableTools.min.css");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class DataTables_1_10_2 {
+            private const string URLPATH = "~/Content/DataTables-1.10.2";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class css {
+                private const string URLPATH = "~/Content/DataTables-1.10.2/css";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string dataTables_autoFill_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.autoFill.min.css") ? Url("dataTables.autoFill.min.css") : Url("dataTables.autoFill.css");
                      
                 public static readonly string dataTables_autoFill_min_css = Url("dataTables.autoFill.min.css");
@@ -1635,7 +1682,7 @@ namespace Links
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class images {
-                private const string URLPATH = "~/Content/DataTables-1.10.1/images";
+                private const string URLPATH = "~/Content/DataTables-1.10.2/images";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string back_disabled_png = Url("back_disabled.png");
@@ -1669,7 +1716,7 @@ namespace Links
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class swf {
-                private const string URLPATH = "~/Content/DataTables-1.10.1/swf";
+                private const string URLPATH = "~/Content/DataTables-1.10.2/swf";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string copy_csv_xls_swf = Url("copy_csv_xls.swf");

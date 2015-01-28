@@ -21,7 +21,7 @@ namespace HyperSlackers.Bootstrap.Controls
 	{
         private bool disposed = false;
 
-		internal FormBuilder(HtmlHelper<TModel> html, Form form, bool doNotRender = false) 
+		internal FormBuilder(HtmlHelper<TModel> html, Form form, bool doNotRender = false)
             : base(html, form)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");

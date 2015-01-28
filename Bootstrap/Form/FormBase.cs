@@ -74,7 +74,7 @@ namespace HyperSlackers.Bootstrap
 		public FormBase(string id, ActionResult result)
             : base(string.Empty)
 		{
-            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace()); 
+            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(result != null, "result");
 
             this.Id(id);
@@ -86,7 +86,7 @@ namespace HyperSlackers.Bootstrap
         public FormBase(string id, Task<ActionResult> taskResult)
             : base(string.Empty)
 		{
-            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace()); 
+            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
 
             this.Id(id);
@@ -297,6 +297,16 @@ namespace HyperSlackers.Bootstrap
                     this.encType = string.Empty;
                     break;
             }
+
+            return (TControl)this;
+        }
+
+        public TControl Section()
+        {
+            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            this.section = this.id + "Section";
 
             return (TControl)this;
         }

@@ -303,7 +303,6 @@ namespace HyperSlackers.Bootstrap
 
         public TControl Section()
         {
-            Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
             this.section = this.id + "Section";

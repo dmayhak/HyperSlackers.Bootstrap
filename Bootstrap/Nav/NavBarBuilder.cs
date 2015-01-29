@@ -203,7 +203,7 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
         }
-	
+
         private void OpenLiTag()
         {
             if (this.liTagIsOpen)

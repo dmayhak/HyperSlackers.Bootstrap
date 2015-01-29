@@ -104,6 +104,17 @@ namespace HyperSlackers.Bootstrap
 			return (TControl)this;
 		}
 
+        public TControl RouteValue(string key, string value)
+        {
+            Contract.Requires<ArgumentNullException>(!key.IsNullOrWhiteSpace(), "key");
+            Contract.Requires<ArgumentNullException>(!value.IsNullOrWhiteSpace(), "value");
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            this.routeValues.AddOrReplace(key, value);
+
+            return (TControl)this;
+        }
+
 		public TControl RouteValues(object routeValues)
 		{
             Contract.Requires<ArgumentNullException>(routeValues != null, "routeValues");

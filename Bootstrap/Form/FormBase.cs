@@ -303,6 +303,24 @@ namespace HyperSlackers.Bootstrap
             return (TControl)this;
         }
 
+        public TControl Horizontal()
+        {
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            this.formType = FormType.Horizontal;
+
+            return (TControl)this;
+        }
+
+        public TControl Inline()
+        {
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            this.formType = FormType.Inline;
+
+            return (TControl)this;
+        }
+
         public TControl EncType(FormEncType encType)
         {
             Contract.Ensures(Contract.Result<TControl>() != null);

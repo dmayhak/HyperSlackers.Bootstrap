@@ -14,20 +14,12 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
-        public LabelControl<TModel> Label(string htmlFieldName)
+        public LabelControl<TModel> Label(string text)
         {
-            Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
 
-            return new LabelControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
-        }
-
-        public LabelControl<TModel> LabelFor<TValue>(Expression<Func<TModel, TValue>> expression)
-        {
-            Contract.Requires<ArgumentNullException>(expression != null, "expression");
-            Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
-
-            return new LabelControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
+            return new LabelControl<TModel>(html, text);
         }
     }
 }

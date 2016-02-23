@@ -92,6 +92,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public readonly string Dropdowns = "Dropdowns";
             public readonly string Forms = "Forms";
             public readonly string Icons = "Icons";
+            public readonly string Labels = "Labels";
             public readonly string Navs = "Navs";
             public readonly string Tables = "Tables";
             public readonly string Wells = "Wells";
@@ -117,6 +118,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public const string Dropdowns = "Dropdowns";
             public const string Forms = "Forms";
             public const string Icons = "Icons";
+            public const string Labels = "Labels";
             public const string Navs = "Navs";
             public const string Tables = "Tables";
             public const string Wells = "Wells";
@@ -148,6 +150,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
                 public readonly string Forms = "Forms";
                 public readonly string Icons = "Icons";
                 public readonly string Index = "Index";
+                public readonly string Labels = "Labels";
                 public readonly string Navs = "Navs";
                 public readonly string RowsAndColumns = "RowsAndColumns";
                 public readonly string Tables = "Tables";
@@ -168,6 +171,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public readonly string Forms = "~/Views/Home/Forms.cshtml";
             public readonly string Icons = "~/Views/Home/Icons.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Labels = "~/Views/Home/Labels.cshtml";
             public readonly string Navs = "~/Views/Home/Navs.cshtml";
             public readonly string RowsAndColumns = "~/Views/Home/RowsAndColumns.cshtml";
             public readonly string Tables = "~/Views/Home/Tables.cshtml";
@@ -364,6 +368,17 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Icons);
             IconsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LabelsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Labels()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Labels);
+            LabelsOverride(callInfo);
             return callInfo;
         }
 

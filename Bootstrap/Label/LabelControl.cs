@@ -13,50 +13,32 @@ namespace HyperSlackers.Bootstrap.Controls
 {
 	public class LabelControl<TModel> : ControlBase<LabelControl<TModel>, TModel>
 	{
-        internal string htmlFieldName;
-        internal string labelText;
-        internal bool? showRequiredStar;
-        internal ModelMetadata metadata;
+        internal string text;
+        internal LabelStyle style = LabelStyle.Default;
+        internal bool displayInlineBlock;
 
-		internal LabelControl(HtmlHelper<TModel> html, string htmlFieldName, ModelMetadata metadata)
+		internal LabelControl(HtmlHelper<TModel> html, string text)
             : base(html)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
-            Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
-            Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
-			this.htmlFieldName = htmlFieldName;
-			this.metadata = metadata;
-		}
+			this.text = text;
+        }
 
-        public LabelControl<TModel> LabelHtml(params IHtmlString[] label)
-		{
-            Contract.Requires<ArgumentNullException>(label != null, "label");
+        public LabelControl<TModel> Style(LabelStyle style)
+        {
             Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
 
-            foreach (var item in label)
-            {
-                labelText += item.ToHtmlString();
-            }
+            this.style = style;
 
             return this;
-		}
+        }
 
-        public LabelControl<TModel> LabelText(string labelText)
-		{
-            Contract.Requires<ArgumentException>(!labelText.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
-
-			this.labelText = labelText;
-
-            return this;
-		}
-
-        public LabelControl<TModel> ShowRequiredStar(bool showRequiredStar)
+        public LabelControl<TModel> DisplayInlineBlock(bool displayInlineBlock)
 		{
             Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
 
-			this.showRequiredStar = new bool?(showRequiredStar);
+			this.displayInlineBlock = displayInlineBlock;
 
             return this;
 		}
@@ -65,99 +47,16 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            TagBuilder labelTagBuilder = GetLabelTagBuilder();
+            TagBuilder labelTagBuilder = new TagBuilder("span");
 
-            SetLabelText();
-            if (labelText.IsNullOrWhiteSpace())
-            {
-                labelTagBuilder.InnerHtml = labelText;
-            }
-            else
-            {
-                labelTagBuilder.InnerHtml = labelText + GetRequiredStarTagBuilder().ToString();
-            }
-
-            return MvcHtmlString.Create("{0}".FormatWith(labelTagBuilder.ToString(TagRenderMode.Normal))).ToHtmlString();
-		}
-
-        protected string GetFullHtmlFieldName()
-        {
-            Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
-
-            return html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
-        }
-
-        protected void SetLabelText()
-        {
-            if (!labelText.IsNullOrWhiteSpace())
-            {
-                return;
-            }
-
-            string displayName = metadata.DisplayName;
-
-            if (displayName == null)
-            {
-                if (metadata.PropertyName != null)
-                {
-                    displayName = metadata.PropertyName.SpaceOnUpperCase();
-                }
-                else
-                {
-                    displayName = null;
-                }
-
-                if (displayName == null)
-                {
-                    char[] chrArray = new char[] { '.' };
-                    displayName = GetFullHtmlFieldName().Split(chrArray).Last().SpaceOnUpperCase();
-                }
-            }
-
-            labelText = displayName;
-        }
-
-        protected TagBuilder GetLabelTagBuilder()
-        {
-            Contract.Ensures(Contract.Result<TagBuilder>() != null);
-
-            TagBuilder labelTagBuilder = new TagBuilder("label");
-
-            labelTagBuilder.Attributes.Add("for", string.Concat(GetFullHtmlFieldName().FormatForMvcInputId(), (index.HasValue ? string.Concat("_", index.Value) : string.Empty)));
             labelTagBuilder.MergeHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
+            labelTagBuilder.AddCssClass("label");
+            labelTagBuilder.AddCssClass(Helpers.GetCssClass(style));
+            labelTagBuilder.AddCssStyle("display", "inline-block");
 
-            return labelTagBuilder;
-        }
+            labelTagBuilder.InnerHtml = text;
 
-        protected TagBuilder GetRequiredStarTagBuilder()
-        {
-            Contract.Ensures(Contract.Result<TagBuilder>() != null);
-
-            TagBuilder requiredStarTagBuilder = new TagBuilder("span");
-
-            requiredStarTagBuilder.AddCssClass("required");
-            requiredStarTagBuilder.SetInnerText("*");
-
-            bool showRequiredStar;
-            if (this.showRequiredStar.HasValue)
-            {
-                showRequiredStar = this.showRequiredStar.GetValueOrDefault();
-            }
-            else if (html.BootstrapDefaults().DefaultShowRequiredStar.HasValue)
-            {
-                showRequiredStar = (labelText.IsNullOrWhiteSpace() ? false : html.BootstrapDefaults().DefaultShowRequiredStar.Value);
-            }
-            else
-            {
-                showRequiredStar = (labelText.IsNullOrWhiteSpace() || metadata == null ? false : metadata.IsRequired);
-            }
-
-            if (!showRequiredStar)
-            {
-                requiredStarTagBuilder.AddCssStyle("visibility", "hidden");
-            }
-
-            return requiredStarTagBuilder;
-        }
+            return MvcHtmlString.Create(labelTagBuilder.ToString(TagRenderMode.Normal)).ToHtmlString();
+		}
 	}
 }

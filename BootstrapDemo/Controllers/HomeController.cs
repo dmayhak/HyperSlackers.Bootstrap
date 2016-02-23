@@ -139,6 +139,13 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             return View();
         }
 
+        [Route("~/labels", Order = 0)]
+        [Route("~/home/labels", Order = 1)] // when starting from IDE
+        public virtual ActionResult Labels()
+        {
+            return View();
+        }
+
         [Route("~/navs", Order = 0)]
         [Route("~/home/navs", Order = 1)] // when starting from IDE
         public virtual ActionResult Navs()

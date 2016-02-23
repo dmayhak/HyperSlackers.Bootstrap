@@ -303,6 +303,7 @@
     <Compile Include="Enums\ModalSize.cs" />
     <Compile Include="Enums\NavBarAlignment.cs" />
     <Compile Include="Enums\NavType.cs" />
+    <Compile Include="Enums\LabelStyle.cs" />
     <Compile Include="Enums\PanelStyle.cs" />
     <Compile Include="Enums\Placement.cs" />
     <Compile Include="Enums\RowColor.cs" />

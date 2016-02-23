@@ -28,6 +28,13 @@ namespace HyperSlackers.Bootstrap
             return "panel-" + style.ToString().ToLowerInvariant();
         }
 
+        public static string GetCssClass(LabelStyle style)
+        {
+            Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
+
+            return "label-" + style.ToString().ToLowerInvariant();
+        }
+
         public static string GetCssClass(CursorType cursor)
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());

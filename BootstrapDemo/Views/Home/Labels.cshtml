@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Labels";
+}
+
+<h2>Labels</h2>
+
+<h3>Labels in Headings</h3>
+
+<h1>Example heading @Html.Bootstrap().Label("New")</h1>
+<h2>Example heading @Html.Bootstrap().Label("New")</h2>
+<h3>Example heading @Html.Bootstrap().Label("New")</h3>
+<h4>Example heading @Html.Bootstrap().Label("New")</h4>
+<h5>Example heading @Html.Bootstrap().Label("New")</h5>
+<h6>Example heading @Html.Bootstrap().Label("New")</h6>
+
+<h3>Styles</h3>
+
+@Html.Bootstrap().Label("Default").Style(LabelStyle.Default)
+@Html.Bootstrap().Label("Danger").Style(LabelStyle.Danger)
+@Html.Bootstrap().Label("Info").Style(LabelStyle.Info)
+@Html.Bootstrap().Label("Primary").Style(LabelStyle.Primary)
+@Html.Bootstrap().Label("Success").Style(LabelStyle.Success)
+@Html.Bootstrap().Label("Warning").Style(LabelStyle.Warning)

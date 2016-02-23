@@ -18,7 +18,7 @@ namespace HyperSlackers.Bootstrap.Core
     {
         internal string id = string.Empty;
         internal IDictionary<string, object> attributes = new Dictionary<string, object>();
-        internal Form form; // this is set if element is created on a form (allows to set common widths for labels, etc....
+        internal Form form; // this is set if element is created on a form (allows to set common widths for labels, etc...)
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlStringBase{TControl}"/> class.
@@ -52,7 +52,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.attributes.AddOrReplace("id", id);
+            attributes.AddOrReplaceHtmlAttribute("id", id);
 
             return (TControl)this;
         }
@@ -69,7 +69,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             if (!cssClass.IsNullOrWhiteSpace())
             {
-                this.attributes.AddClass(cssClass);
+                attributes.AddIfNotExistsCssClass(cssClass);
             }
 
             return (TControl)this;
@@ -87,7 +87,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             if (htmlAttributes != null)
             {
-                this.attributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+                attributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
             }
 
             return (TControl)this;
@@ -103,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.attributes.MergeHtmlAttributes(htmlAttributes);
+            attributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (TControl)this;
         }
@@ -118,7 +118,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(dataAttributes != null, "dataAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.attributes.MergeHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
+            attributes.AddOrReplaceHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
 
             return (TControl)this;
         }
@@ -141,7 +141,7 @@ namespace HyperSlackers.Bootstrap.Core
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
-            return this.ToHtmlString();
+            return ToHtmlString();
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace HyperSlackers.Bootstrap.Core
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
-            return this.Equals(obj);
+            return Equals(obj);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace HyperSlackers.Bootstrap.Core
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
         {
-            return this.GetHashCode();
+            return GetHashCode();
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace HyperSlackers.Bootstrap.Core
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new Type GetType()
         {
-            return this.GetType();
+            return GetType();
         }
     }
 }

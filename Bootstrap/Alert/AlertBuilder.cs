@@ -11,17 +11,17 @@ namespace HyperSlackers.Bootstrap.Controls
 {
     public class AlertBuilder<TModel> : DisposableHtmlElement<TModel, Alert>
 	{
-		internal AlertBuilder(HtmlHelper<TModel> html, Alert alert) 
+		internal AlertBuilder(HtmlHelper<TModel> html, Alert alert)
             : base(html, alert)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(alert != null, "alert");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-			if (this.element.isDismissible)
+			if (element.isDismissible)
 			{
-				this.textWriter.Write("<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>");
+                textWriter.Write("<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>");
 			}
 		}
 
@@ -31,7 +31,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(result != null, "result");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.html, linkText, result).AlertLink();
+            return new ActionLinkControl<TModel>(html, linkText, result).AlertLink();
         }
 
         public ActionLinkControl<TModel> ActionLink(string linkText, Task<ActionResult> taskResult)
@@ -40,7 +40,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.html, linkText, taskResult).AlertLink();
+            return new ActionLinkControl<TModel>(html, linkText, taskResult).AlertLink();
         }
 
         public ActionLinkControl<TModel> ActionLink(string linkText, string actionName)
@@ -49,7 +49,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.html, linkText, actionName).AlertLink();
+            return new ActionLinkControl<TModel>(html, linkText, actionName).AlertLink();
         }
 
         public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, string controllerName)
@@ -59,7 +59,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!controllerName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.html, linkText, actionName, controllerName).AlertLink();
+            return new ActionLinkControl<TModel>(html, linkText, actionName, controllerName).AlertLink();
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, ActionResult result)
@@ -68,7 +68,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(result != null, "result");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.html, linkText, result).AlertLink();
+            return new ActionLinkButtonControl<TModel>(html, linkText, result).AlertLink();
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, Task<ActionResult> taskResult)
@@ -77,7 +77,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.html, linkText, taskResult).AlertLink();
+            return new ActionLinkButtonControl<TModel>(html, linkText, taskResult).AlertLink();
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, string actionName)
@@ -86,7 +86,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.html, linkText, actionName).AlertLink();
+            return new ActionLinkButtonControl<TModel>(html, linkText, actionName).AlertLink();
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, string actionName, string controllerName)
@@ -96,7 +96,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!controllerName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.html, linkText, actionName, controllerName).AlertLink();
+            return new ActionLinkButtonControl<TModel>(html, linkText, actionName, controllerName).AlertLink();
         }
 
         public LinkControl<TModel> Link(string linkText, string url)
@@ -105,7 +105,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!url.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            return new LinkControl<TModel>(this.html, linkText, url).AlertLink();
-        }      
+            return new LinkControl<TModel>(html, linkText, url).AlertLink();
+        }
 	}
 }

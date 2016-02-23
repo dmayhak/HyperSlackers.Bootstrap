@@ -22,7 +22,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(well != null, "well");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
         }
     }
 }

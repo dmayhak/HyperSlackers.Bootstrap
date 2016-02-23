@@ -15,13 +15,12 @@ namespace HyperSlackers.Bootstrap.Controls
     {
         internal string linkText;
         internal string url;
-        // internal bool disabled;
+        // TODO: internal bool disabled;
         internal Icon iconPrepend;
         internal Icon iconAppend;
-        internal string wrapTag;
         internal Tooltip tooltip;
         internal string modalId;
-        
+
         internal LinkControl(HtmlHelper<TModel> html, string linkText, string url)
             : base(html)
         {
@@ -38,7 +37,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconPrepend = icon;
+            iconPrepend = icon;
 
             return this;
         }
@@ -47,7 +46,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconPrepend = new GlyphIcon(icon, isWhite);
+            iconPrepend = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -57,7 +56,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconPrepend = icon;
+            iconPrepend = icon;
 
             return this;
         }
@@ -66,7 +65,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconPrepend = new FontAwesomeIcon(icon, isWhite);
+            iconPrepend = new FontAwesomeIcon(icon, isWhite);
 
             return this;
         }
@@ -76,8 +75,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconPrepend = new GlyphIcon(cssClass);
-            
+            iconPrepend = new GlyphIcon(cssClass);
+
             return this;
         }
 
@@ -85,7 +84,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconAppend = new GlyphIcon(icon, isWhite);
+            iconAppend = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -94,8 +93,8 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconAppend = new FontAwesomeIcon(icon, isWhite);
-            
+            iconAppend = new FontAwesomeIcon(icon, isWhite);
+
             return this;
         }
 
@@ -104,8 +103,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconAppend = new GlyphIcon(cssClass);
-            
+            iconAppend = new GlyphIcon(cssClass);
+
             return this;
         }
 
@@ -114,8 +113,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconAppend = icon;
-            
+            iconAppend = icon;
+
             return this;
         }
 
@@ -124,7 +123,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.iconAppend = icon;
+            iconAppend = icon;
 
             return this;
         }
@@ -134,7 +133,7 @@ namespace HyperSlackers.Bootstrap.Controls
         //    Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
         //    this.disabled = isDisabled;
-            
+
         //    return this;
         //}
 
@@ -154,7 +153,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
             this.tooltip = tooltip;
-            
+
             return this;
         }
 
@@ -163,8 +162,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(text);
-            
+            tooltip = new Tooltip(text);
+
             return this;
         }
 
@@ -173,18 +172,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
 
-            return this;
-        }
-
-        internal LinkControl<TModel> WrapInto(string tag)
-        {
-            Contract.Requires<ArgumentException>(!tag.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
-
-            this.wrapTag = tag;
-            
             return this;
         }
 
@@ -192,7 +181,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            this.ControlClass("alert-link");
+            ControlClass("alert-link");
 
             return this;
         }
@@ -201,34 +190,34 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                attributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                attributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                attributes.AddOrReplace("id", this.id);
+                attributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
             TagBuilder tagBuilder = new TagBuilder("a");
             tagBuilder.MergeHtmlAttributes(attributes);
 
-            if (!this.modalId.IsNullOrWhiteSpace())
+            if (!modalId.IsNullOrWhiteSpace())
             {
-                tagBuilder.AddOrMergeAttribute("data-target", "#" + this.modalId);
+                tagBuilder.AddOrMergeAttribute("data-target", "#" + modalId);
                 tagBuilder.AddOrMergeAttribute("data-toggle", "modal");
 
-                if (!this.url.IsNullOrWhiteSpace())
+                if (!url.IsNullOrWhiteSpace())
                 {
-                    tagBuilder.AddOrMergeAttribute("data-remote", this.url);
+                    tagBuilder.AddOrMergeAttribute("data-remote", url);
                 }
             }
             else
             {
-                tagBuilder.MergeAttribute("href", this.url);
+                tagBuilder.MergeAttribute("href", url);
             }
 
             //if (this.disabled)
@@ -239,23 +228,23 @@ namespace HyperSlackers.Bootstrap.Controls
 
             string prepend = string.Empty;
             string append = string.Empty;
-            if (this.iconPrepend != null)
+            if (iconPrepend != null)
             {
-                prepend = this.iconPrepend.ToHtmlString();
+                prepend = iconPrepend.ToHtmlString();
             }
-            if (this.iconAppend != null)
+            if (iconAppend != null)
             {
-                append = this.iconAppend.ToHtmlString();
+                append = iconAppend.ToHtmlString();
             }
 
             StringBuilder text = new StringBuilder();
             text.Append(prepend);
-            if (text.Length > 0 && !this.linkText.IsNullOrWhiteSpace())
+            if (text.Length > 0 && !linkText.IsNullOrWhiteSpace())
             {
                 text.Append(" ");
             }
-            text.Append(this.linkText);
-            if (text.Length > 0 && this.iconAppend != null)
+            text.Append(linkText);
+            if (text.Length > 0 && iconAppend != null)
             {
                 text.Append(" ");
             }
@@ -265,10 +254,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             string html = tagBuilder.ToString(TagRenderMode.Normal);
 
-            if (!this.wrapTag.IsNullOrWhiteSpace())
-            {
-                html = string.Format("<{0}>{1}</{0}>", this.wrapTag, html);
-            }
+            html = WrapperTagFromatString().FormatWith(html);
 
             return MvcHtmlString.Create(html).ToString();
         }

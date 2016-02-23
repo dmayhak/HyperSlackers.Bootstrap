@@ -40,11 +40,11 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
             string controlHtml = string.Empty;
             IDictionary<string, object> attributes = labelHtmlAttributes;
 
-            RadioButtonControl<TModel> radioButton = new RadioButtonControl<TModel>(this.html, this.htmlFieldName, inputValue, this.metadata);
+            RadioButtonControl<TModel> radioButton = new RadioButtonControl<TModel>(html, htmlFieldName, inputValue, metadata);
             radioButton.ControlHtmlAttributes(inputHtmlAttributes.FormatHtmlAttributes());
             radioButton.ControlId(fullHtmlFieldName.FormatForMvcInputId() + "_" + index.ToString());
             radioButton.IsChecked(inputIsChecked);

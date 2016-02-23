@@ -18,14 +18,14 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 
             form.ajaxOptions = ajaxOptions;
 
-            return new AjaxFormBuilder<TModel>(this.ajax, form);
+            return new AjaxFormBuilder<TModel>(ajax, form);
         }
 
         public AjaxFormBuilder<TModel> BeginForm(AjaxForm form)
         {
             Contract.Requires<ArgumentNullException>(form != null, "form");
 
-            return new AjaxFormBuilder<TModel>(this.ajax, form);
+            return new AjaxFormBuilder<TModel>(ajax, form);
         }
 
         public AjaxFormBuilder<TModel> BeginUpdateInPlaceForm(AjaxForm form)
@@ -41,7 +41,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 
             form.ajaxOptions.InsertionMode = InsertionMode.Replace;
 
-            return new AjaxFormBuilder<TModel>(this.ajax, form);
+            return new AjaxFormBuilder<TModel>(ajax, form);
         }
     }
 }

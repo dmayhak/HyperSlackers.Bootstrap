@@ -18,7 +18,7 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(tableBody != null, "tableBody");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
         }
 
         public TableRowBuilder<TModel> BeginRow(TableRow row)
@@ -26,14 +26,14 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(row != null, "row");
             Contract.Ensures(Contract.Result<TableRowBuilder<TModel>>() != null);
 
-            return new TableRowBuilder<TModel>(this.html, row);
+            return new TableRowBuilder<TModel>(html, row);
         }
 
         public TableRowBuilder<TModel> BeginRow()
         {
             Contract.Ensures(Contract.Result<TableRowBuilder<TModel>>() != null);
 
-            return new TableRowBuilder<TModel>(this.html, new TableRow());
+            return new TableRowBuilder<TModel>(html, new TableRow());
         }
 
         public TableRowBuilder<TModel> BeginRow(TableColor style)
@@ -42,7 +42,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow row = (new TableRow()).Style(style);
 
-            return new TableRowBuilder<TModel>(this.html, row);
+            return new TableRowBuilder<TModel>(html, row);
         }
 
         public TableRowBuilder<TModel> BeginRow(object htmlAttributes)
@@ -52,7 +52,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow tableRow = (new TableRow()).HtmlAttributes(htmlAttributes);
 
-            return new TableRowBuilder<TModel>(this.html, tableRow);
+            return new TableRowBuilder<TModel>(html, tableRow);
         }
 
         public TableRowBuilder<TModel> BeginRow(TableColor style, object htmlAttributes)
@@ -62,7 +62,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow row = (new TableRow()).Style(style).HtmlAttributes(htmlAttributes);
 
-            return new TableRowBuilder<TModel>(this.html, row);
+            return new TableRowBuilder<TModel>(html, row);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace HyperSlackers.Bootstrap
         internal ButtonStyle style = ButtonStyle.Default;
         internal ButtonSize size = ButtonSize.Default;
 
-		public ButtonGroup() 
+		public ButtonGroup()
             : base(string.Empty)
 		{
 		}
@@ -22,8 +22,8 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<ButtonGroup>() != null);
 
-            this.justified = true;
-            
+            justified = true;
+
             return this;
         }
 

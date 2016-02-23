@@ -12,7 +12,7 @@ namespace HyperSlackers.Bootstrap.Controls
 	{
         internal bool isChecked;
 
-		internal RadioButtonControl(HtmlHelper<TModel> html, string htmlFieldName, object value, ModelMetadata metadata) 
+		internal RadioButtonControl(HtmlHelper<TModel> html, string htmlFieldName, object value, ModelMetadata metadata)
             : base(html, htmlFieldName, metadata)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
-            this.value = value;
+            selectedValue = value;
 		}
 
         public RadioButtonControl<TModel> IsChecked(bool isChecked)
@@ -37,46 +37,46 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            string validationHtml = this.RenderValidationMessage();
+            string validationHtml = RenderValidationMessage();
 
-            return string.Concat(html.RadioButton(this.htmlFieldName, this.value, this.isChecked, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), validationHtml);
+            return string.Concat(html.RadioButton(htmlFieldName, selectedValue, isChecked, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), validationHtml);
         }
 
         protected override string RenderLabeledControl()
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
 
             TagBuilder labelTagBuilder = GetLabelTagBuilder();
 
-            if (this.controlHtmlAttributes.Keys.Contains("id"))
+            if (controlHtmlAttributes.Keys.Contains("id"))
             {
-                labelTagBuilder.Attributes["for"] = this.controlHtmlAttributes["id"].ToString();
+                labelTagBuilder.Attributes["for"] = controlHtmlAttributes["id"].ToString();
             }
 
-            string htmlString = MvcHtmlString.Create(this.ToHtmlString()).ToHtmlString();
+            string htmlString = MvcHtmlString.Create(ToHtmlString()).ToHtmlString();
 
             SetLabelText();
-            if (this.labelText.IsNullOrWhiteSpace())
+            if (labelText.IsNullOrWhiteSpace())
             {
                 labelTagBuilder.InnerHtml = htmlString;
             }
             else
             {
-                labelTagBuilder.InnerHtml = htmlString + this.labelText + GetRequiredStarTagBuilder().ToString();
+                labelTagBuilder.InnerHtml = htmlString + labelText + GetRequiredStarTagBuilder().ToString();
             }
 
             return MvcHtmlString.Create("<div class=\"radio\">{0}</div>".FormatWith(labelTagBuilder.ToString(TagRenderMode.Normal))).ToHtmlString();
@@ -87,8 +87,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
             TagBuilder controlTagBuilder = new TagBuilder("div");
-            controlTagBuilder.MergeHtmlAttributes(this.formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
+            controlTagBuilder.MergeHtmlAttributes(formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
             controlTagBuilder.AddOrMergeCssClass("form-group");
+
+            controlTagBuilder.AddOrMergeCssClass((string)Helpers.GetCssClass(html, formGroup.size).Replace("input", "form-group"));
 
             if (!fieldIsValid)
             {
@@ -99,12 +101,12 @@ namespace HyperSlackers.Bootstrap.Controls
 
             string formatString = "{0}";
 
-            if (this.formGroup.formType == FormType.Horizontal)
+            if (formGroup.formType == FormType.Horizontal)
             {
                 TagBuilder horizontalFormControlTagBuilder = new TagBuilder("div");
-                horizontalFormControlTagBuilder.MergeAttributes<string, object>(this.formGroup.controlHtmlAttributes);
+                horizontalFormControlTagBuilder.MergeAttributes<string, object>(formGroup.controlHtmlAttributes);
                 horizontalFormControlTagBuilder.AddCssClass(GetHorizontalFromGroupControlCssClass());
-                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(this.labelWidthXs, this.labelWidthSm, this.labelWidthMd, this.labelWidthLg));
+                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(labelWidthXs, labelWidthSm, labelWidthMd, labelWidthLg));
                 horizontalFormControlTagBuilder.SetInnerText(formatString);
                 formatString = horizontalFormControlTagBuilder.ToString();
             }

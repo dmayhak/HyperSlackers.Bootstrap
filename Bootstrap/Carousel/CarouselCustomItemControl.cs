@@ -32,11 +32,11 @@ namespace HyperSlackers.Bootstrap.Controls
 
             if (isFirstItem)
             {
-                this.textWriter.Write("<div class=\"item active\">");
+                textWriter.Write("<div class=\"item active\">");
             }
             else
             {
-                this.textWriter.Write("<div class=\"item\">");
+                textWriter.Write("<div class=\"item\">");
             }
 		}
 
@@ -46,13 +46,13 @@ namespace HyperSlackers.Bootstrap.Controls
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div>");
+                    textWriter.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

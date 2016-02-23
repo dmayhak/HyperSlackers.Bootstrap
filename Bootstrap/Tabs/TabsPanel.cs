@@ -31,18 +31,18 @@ namespace HyperSlackers.Bootstrap.Controls
                 tagBuilder.AddCssClass("active");
             }
 
-            this.textWriter.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+            textWriter.Write(tagBuilder.ToString(TagRenderMode.StartTag));
 		}
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</{0}>", this.tag);
+                    textWriter.Write("</{0}>", tag);
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

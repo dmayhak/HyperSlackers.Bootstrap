@@ -64,8 +64,8 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(inputs != null, "inputs");
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            bool showValidationMessageInline = this.html.BootstrapDefaults().DefaultShowValidationMessageInline ?? false;
-            bool showValidationMessageBeforeInput = this.html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
+            bool showValidationMessageInline = html.BootstrapDefaults().DefaultShowValidationMessageInline ?? false;
+            bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{1}{0}" : "{0}{1}";
 
             TagBuilder tagBuilder = new TagBuilder("div");
@@ -117,7 +117,7 @@ namespace HyperSlackers.Bootstrap.Core
             validationHtml = string.Empty;
             if (!showValidationMessageInline)
             {
-                validationHtml = this.RenderValidationMessage();
+                validationHtml = RenderValidationMessage();
             }
 
             return string.Format(formatString, tagBuilder.ToString(0), validationHtml);

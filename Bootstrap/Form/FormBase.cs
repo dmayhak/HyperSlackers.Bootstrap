@@ -40,9 +40,9 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
-            this.Id(id);
-			this.formMethod = System.Web.Mvc.FormMethod.Post;
-			this.actionTypePassed = ActionType.HtmlRegular;
+            Id(id);
+            formMethod = System.Web.Mvc.FormMethod.Post;
+            actionTypePassed = ActionType.HtmlRegular;
 		}
 
 		public FormBase(string id, string action)
@@ -51,10 +51,10 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!action.IsNullOrWhiteSpace());
 
-            this.Id(id);
+            Id(id);
 			this.action = action;
-            this.formMethod = System.Web.Mvc.FormMethod.Post;
-			this.actionTypePassed = ActionType.HtmlRegular;
+            formMethod = System.Web.Mvc.FormMethod.Post;
+            actionTypePassed = ActionType.HtmlRegular;
 		}
 
 		public FormBase(string id, string action, string controller)
@@ -64,11 +64,11 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!action.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!controller.IsNullOrWhiteSpace());
 
-            this.Id(id);
+            Id(id);
 			this.action = action;
 			this.controller = controller;
-            this.formMethod = System.Web.Mvc.FormMethod.Post;
-			this.actionTypePassed = ActionType.HtmlRegular;
+            formMethod = System.Web.Mvc.FormMethod.Post;
+            actionTypePassed = ActionType.HtmlRegular;
 		}
 
 		public FormBase(string id, ActionResult result)
@@ -77,10 +77,10 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(result != null, "result");
 
-            this.Id(id);
+            Id(id);
             this.result = result;
-			this.formMethod = System.Web.Mvc.FormMethod.Post;
-			this.actionTypePassed = ActionType.HtmlActionResult;
+            formMethod = System.Web.Mvc.FormMethod.Post;
+            actionTypePassed = ActionType.HtmlActionResult;
 		}
 
         public FormBase(string id, Task<ActionResult> taskResult)
@@ -89,10 +89,10 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
 
-            this.Id(id);
+            Id(id);
             this.taskResult = taskResult;
-            this.formMethod = System.Web.Mvc.FormMethod.Post;
-			this.actionTypePassed = ActionType.HtmlTaskResult;
+            formMethod = System.Web.Mvc.FormMethod.Post;
+            actionTypePassed = ActionType.HtmlTaskResult;
 		}
 
 		public TControl FormMethod(FormMethod formMethod)
@@ -110,7 +110,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(!value.IsNullOrWhiteSpace(), "value");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.routeValues.AddOrReplace(key, value);
+            routeValues.AddOrReplaceHtmlAttribute(key, value);
 
             return (TControl)this;
         }
@@ -121,7 +121,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(value != null, "value");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.routeValues.AddOrReplace(key, value.ToString());
+            routeValues.AddOrReplaceHtmlAttribute(key, value.ToString());
 
             return (TControl)this;
         }
@@ -131,7 +131,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(routeValues != null, "routeValues");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-			this.routeValues.MergeHtmlAttributes(routeValues.ToDictionary());
+			this.routeValues.AddOrReplaceHtmlAttributes(routeValues.ToDictionary());
 
 			return (TControl)this;
 		}
@@ -141,7 +141,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(routeValues != null, "routeValues");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-			this.routeValues.MergeHtmlAttributes(routeValues);
+			this.routeValues.AddOrReplaceHtmlAttributes(routeValues);
 
 			return (TControl)this;
 		}
@@ -151,7 +151,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return (TControl)this;
         }
@@ -161,7 +161,7 @@ namespace HyperSlackers.Bootstrap
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (TControl)this;
         }
@@ -171,7 +171,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return (TControl)this;
         }
@@ -181,7 +181,7 @@ namespace HyperSlackers.Bootstrap
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (TControl)this;
         }
@@ -191,7 +191,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthLg = width;
+            controlWidthLg = width;
 
             return (TControl)this;
         }
@@ -201,7 +201,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthMd = width;
+            controlWidthMd = width;
 
             return (TControl)this;
         }
@@ -211,7 +211,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthSm = width;
+            controlWidthSm = width;
 
             return (TControl)this;
         }
@@ -221,7 +221,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthXs = width;
+            controlWidthXs = width;
 
             return (TControl)this;
         }
@@ -230,10 +230,10 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthLg = widthLg;
-            this.controlWidthMd = widthMd;
-            this.controlWidthSm = widthSm;
-            this.controlWidthXs = widthXs;
+            controlWidthLg = widthLg;
+            controlWidthMd = widthMd;
+            controlWidthSm = widthSm;
+            controlWidthXs = widthXs;
 
             return (TControl)this;
         }
@@ -243,8 +243,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthLg = width;
-            this.formType = FormType.Horizontal;
+            labelWidthLg = width;
+            formType = FormType.Horizontal;
 
             return (TControl)this;
         }
@@ -254,8 +254,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthMd = width;
-            this.formType = FormType.Horizontal;
+            labelWidthMd = width;
+            formType = FormType.Horizontal;
 
             return (TControl)this;
         }
@@ -265,8 +265,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthSm = width;
-            this.formType = FormType.Horizontal;
+            labelWidthSm = width;
+            formType = FormType.Horizontal;
 
             return (TControl)this;
         }
@@ -276,8 +276,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthXs = width;
-            this.formType = FormType.Horizontal;
+            labelWidthXs = width;
+            formType = FormType.Horizontal;
 
             return (TControl)this;
         }
@@ -286,10 +286,10 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthLg = widthLg;
-            this.labelWidthMd = widthMd;
-            this.labelWidthSm = widthSm;
-            this.labelWidthXs = widthXs;
+            labelWidthLg = widthLg;
+            labelWidthMd = widthMd;
+            labelWidthSm = widthSm;
+            labelWidthXs = widthXs;
 
             return (TControl)this;
         }
@@ -298,7 +298,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.formType = type;
+            formType = type;
 
             return (TControl)this;
         }
@@ -307,7 +307,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.formType = FormType.Horizontal;
+            formType = FormType.Horizontal;
 
             return (TControl)this;
         }
@@ -316,7 +316,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.formType = FormType.Inline;
+            formType = FormType.Inline;
 
             return (TControl)this;
         }
@@ -345,7 +345,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.section = this.id + "Section";
+            section = id + "Section";
 
             return (TControl)this;
         }
@@ -355,7 +355,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.section = id;
+            section = id;
 
             return (TControl)this;
         }

@@ -28,8 +28,8 @@
 @Html.Bootstrap().Button("Small").Size(ButtonSize.Small).Style(ButtonStyle.Primary)
 @Html.Bootstrap().Button("Small").Size(ButtonSize.Small)
 <br />
-@Html.Bootstrap().Button("Mini (Extra-Small)").Size(ButtonSize.Mini).Style(ButtonStyle.Primary)
-@Html.Bootstrap().Button("Mini (Extra-Small)").Size(ButtonSize.Mini)
+@Html.Bootstrap().Button("Extra-Small").Size(ButtonSize.ExtraSmall).Style(ButtonStyle.Primary)
+@Html.Bootstrap().Button("Extra-Small").Size(ButtonSize.ExtraSmall)
 
 <h5>Active (Pressed)</h5>
 
@@ -40,6 +40,129 @@
 
 @Html.Bootstrap().Button("Primary").Style(ButtonStyle.Primary)
 @Html.Bootstrap().Button("Primary (Disabled)").Style(ButtonStyle.Primary).Disabled()
+
+<h5>Block</h5>
+
+@using (var well = Html.Bootstrap().BeginWell(new Well().Class("center-block").Style("max-width", "300px;")))
+{
+    @Html.Bootstrap().Button("Block level Button").Style(ButtonStyle.Primary).ButtonBlock()
+    @Html.Bootstrap().Button("Another Block Button").ButtonBlock()
+}
+
+<h5>Buttons with Icons</h5>
+
+@Html.Bootstrap().Button("Append CheckSquare Icon").AppendIcon(FontAwesomeIconType.CheckSquare)
+@Html.Bootstrap().Button("Prepend Dollar Icon").PrependIcon(FontAwesomeIconType.Dollar)
+@Html.Bootstrap().Button("Append and Prepend Icons").PrependIcon(FontAwesomeIconType.Envelope).AppendIcon(FontAwesomeIconType.Flag)
+
+<h5>Button Tooltips</h5>
+
+@Html.Bootstrap().Button("With Tooltip").Tooltip("Tooltip text goes here...")
+
+<h5>Split Button</h5>
+
+@using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup().Style(ButtonStyle.Primary).Size(ButtonSize.Small)))
+{
+    @group.Button("Button 1")
+    using (var dd = group.BeginSplitDropDown(""))
+    {
+        @dd.ActionLink("Link 1", MVC.Home.ButtonsAndLinks())
+        @dd.ActionLink("Link 2", MVC.Home.ButtonsAndLinks())
+    }
+}
+
+<h5>Button Groups</h5>
+
+@using (var group = Html.Bootstrap().BeginButtonGroup())
+{
+    @group.Button("Button 1")
+    @group.Button("Button 2")
+    @group.Button("Button 3")
+    @group.Button("Button 4")
+}
+<br/>
+<br/>
+@using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup().Vertical()))
+{
+    @group.Button("Vertical Button 1")
+    @group.Button("Vertical Button 2")
+    @group.Button("Vertical Button 3")
+    @group.Button("Vertical Button 4")
+}
+<br />
+<br />
+@using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup()))
+{
+    @group.Button().AppendIcon(FontAwesomeIconType.AlignLeft).Disabled()
+    @group.Button().AppendIcon(FontAwesomeIconType.AlignCenter)
+    @group.Button().AppendIcon(FontAwesomeIconType.AlignRight)
+    @group.Button().AppendIcon(FontAwesomeIconType.AlignJustify)
+}
+<br />
+<br />
+<div style="width:400px;">
+    @using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup().Justified()))
+    {
+        @group.ActionLinkButton("LinkButton 1", MVC.Home.ButtonsAndLinks())
+        @group.ActionLinkButton("LinkButton 2", MVC.Home.ButtonsAndLinks())
+        @group.ActionLinkButton("LinkButton 3", MVC.Home.ButtonsAndLinks())
+        @group.ActionLinkButton("LinkButton 4", MVC.Home.ButtonsAndLinks())
+    }
+</div>
+<br />
+<br />
+<div style="width:400px;">
+    @using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup().Justified()))
+    {
+        @group.Button("Button 1")
+        @group.Button("Button 2")
+        @group.Button("Button 3")
+        @group.Button("Button 4")
+    }
+</div>
+
+<h5>Nesting</h5>
+
+@using (var group = Html.Bootstrap().BeginButtonGroup(new ButtonGroup()))
+{
+    @group.Button("A")
+    @group.Button("B")
+    using (var dd = group.BeginDropDown("C"))
+    {
+        @dd.ActionLink("C1", MVC.Home.ButtonsAndLinks())
+        @dd.ActionLink("C2", MVC.Home.ButtonsAndLinks())
+        @dd.ActionLink("C3", MVC.Home.ButtonsAndLinks())
+        @dd.ActionLink("C4", MVC.Home.ButtonsAndLinks())
+    }
+    @group.Button("D")
+}
+
+<h5>Button Toolbar</h5>
+
+@using (var toolbar = Html.Bootstrap().BeginButtonToolbar(new ButtonToolbar().Size(ButtonSize.ExtraSmall)))
+{
+    using (var group = toolbar.BeginButtonGroup(new ButtonGroup()))
+    {
+        @group.Button("1")
+        @group.Button("2")
+        @group.Button("3")
+        @group.Button("4")
+    }
+    using (var group = toolbar.BeginButtonGroup(new ButtonGroup()))
+    {
+        @group.Button("A")
+        @group.Button("B")
+        using (var dd = group.BeginDropDown(new DropDown("C")))
+        {
+            @dd.ActionLink("C1", MVC.Home.ButtonsAndLinks())
+            @dd.ActionLink("C2", MVC.Home.ButtonsAndLinks())
+            @dd.ActionLink("C3", MVC.Home.ButtonsAndLinks())
+            @dd.ActionLink("C4", MVC.Home.ButtonsAndLinks())
+        }
+        @group.Button("D")
+    }
+}
+
 
 <h3>Links</h3>
 

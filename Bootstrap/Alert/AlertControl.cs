@@ -15,25 +15,26 @@ namespace HyperSlackers.Bootstrap.Controls
         internal string alertHtml;
         internal bool isDismissible;
         internal AlertStyle alertStyle = AlertStyle.Danger;
+        internal Icon icon;
 
-		internal AlertControl(HtmlHelper<TModel> html, string alertHtml)
+        internal AlertControl(HtmlHelper<TModel> html, string alertHtml)
             : base(html)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentException>(!alertHtml.IsNullOrWhiteSpace());
 
 			this.alertHtml = alertHtml;
-			this.isDismissible = false;
+			isDismissible = false;
 
-            this.controlHtmlAttributes.AddClass("alert");
-            this.controlHtmlAttributes.AddClass(Helpers.GetCssClass(alertStyle));
+            controlHtmlAttributes.AddIfNotExistsCssClass("alert");
+            controlHtmlAttributes.AddIfNotExistsCssClass(Helpers.GetCssClass(alertStyle));
 		}
 
         public AlertControl<TModel> Dismissible()
 		{
             Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
 
-			this.isDismissible = true;
+			isDismissible = true;
 
 			return this;
 		}
@@ -42,9 +43,9 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
 
-            this.controlHtmlAttributes.RemoveClass(Helpers.GetCssClass(alertStyle));
-            this.alertStyle = style;
-            this.controlHtmlAttributes.AddClass(Helpers.GetCssClass(alertStyle));
+            controlHtmlAttributes.RemoveCssClass(Helpers.GetCssClass(alertStyle));
+            alertStyle = style;
+            controlHtmlAttributes.AddIfNotExistsCssClass(Helpers.GetCssClass(alertStyle));
 
             return this;
         }
@@ -53,28 +54,82 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
 
-            this.controlHtmlAttributes.AddClass("alert-block");
+            controlHtmlAttributes.AddIfNotExistsCssClass("alert-block");
 
 			return this;
-		}
+        }
 
-		protected override string Render()
+        public AlertControl<TModel> Icon(GlyphIcon icon)
+        {
+            Contract.Requires<ArgumentNullException>(icon != null, "icon");
+            Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
+
+            this.icon = icon;
+
+            return this;
+        }
+
+        public AlertControl<TModel> Icon(GlyphIconType icon, bool isWhite = false)
+        {
+            Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
+
+            this.icon = new GlyphIcon(icon, isWhite);
+
+            return this;
+        }
+
+        public AlertControl<TModel> Icon(FontAwesomeIcon icon)
+        {
+            Contract.Requires<ArgumentNullException>(icon != null, "icon");
+            Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
+
+            this.icon = icon;
+
+            return this;
+        }
+
+        public AlertControl<TModel> Icon(FontAwesomeIconType icon, bool isWhite = false)
+        {
+            Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
+
+            this.icon = new FontAwesomeIcon(icon, isWhite);
+
+            return this;
+        }
+
+        public AlertControl<TModel> Icon(string cssClass)
+        {
+            Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
+
+            icon = new GlyphIcon(cssClass);
+
+            return this;
+        }
+
+        protected override string Render()
 		{
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
 			TagBuilder tagBuilder = new TagBuilder("div");
 
 			tagBuilder.MergeHtmlAttributes(attributes);
 
-            if (this.isDismissible)
+            string prepend = string.Empty;
+            if (icon != null)
             {
-                tagBuilder.InnerHtml = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" + this.alertHtml;
+                prepend = icon.ToHtmlString() + " ";
+            }
+
+            if (isDismissible)
+            {
+                tagBuilder.InnerHtml = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" + prepend + alertHtml;
             }
             else
             {
-                tagBuilder.InnerHtml = this.alertHtml;
+                tagBuilder.InnerHtml = prepend + alertHtml;
             }
 
 			return tagBuilder.ToString(TagRenderMode.Normal);

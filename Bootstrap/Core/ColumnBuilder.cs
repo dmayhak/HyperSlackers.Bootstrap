@@ -16,6 +16,8 @@ namespace HyperSlackers.Bootstrap.Controls
     /// <typeparam name="TModel">The type of the model.</typeparam>
     public class ColumnBuilder<TModel> : DisposableHtmlElement<TModel, Column>
     {
+        private bool disposed;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ColumnBuilder{TModel}"/> class.
         /// </summary>
@@ -27,14 +29,14 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(column != null, "column");
 
-            this.element.Class(Helpers.CssColClassWidth(this.element.widthXs, this.element.widthSm, this.element.widthMd, this.element.widthLg));
-            this.element.Class(Helpers.CssColClassOffset(this.element.offsetXs, this.element.offsetSm, this.element.offsetMd, this.element.offsetLg));
-            this.element.Class(Helpers.CssColClassPush(this.element.pushXs, this.element.pushSm, this.element.pushMd, this.element.pushLg));
-            this.element.Class(Helpers.CssColClassPull(this.element.pullXs, this.element.pullSm, this.element.pullMd, this.element.pullLg));
-            this.element.Class(Helpers.CssColClassHidden(this.element.hiddenXs, this.element.hiddenSm, this.element.hiddenMd, this.element.hiddenLg));
-            this.element.Class(Helpers.CssColClassVisible(this.element.visibleXs, this.element.visibilityTypeXs, this.element.visibleSm, this.element.visibilityTypeSm, this.element.visibleMd, this.element.visibilityTypeMd, this.element.visibleLg, this.element.visibilityTypeLg));
+            element.Class(Helpers.CssColClassWidth(element.widthXs, element.widthSm, element.widthMd, element.widthLg));
+            element.Class(Helpers.CssColClassOffset(element.offsetXs, element.offsetSm, element.offsetMd, element.offsetLg));
+            element.Class(Helpers.CssColClassPush(element.pushXs, element.pushSm, element.pushMd, element.pushLg));
+            element.Class(Helpers.CssColClassPull(element.pullXs, element.pullSm, element.pullMd, element.pullLg));
+            element.Class(Helpers.CssColClassHidden(element.hiddenXs, element.hiddenSm, element.hiddenMd, element.hiddenLg));
+            element.Class(Helpers.CssColClassVisible(element.visibleXs, element.visibilityTypeXs, element.visibleSm, element.visibilityTypeSm, element.visibleMd, element.visibilityTypeMd, element.visibleLg, element.visibilityTypeLg));
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 		}
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(row != null, "row");
             Contract.Ensures(Contract.Result<RowBuilder<TModel>>() != null);
 
-            return new RowBuilder<TModel>(this.html, row);
+            return new RowBuilder<TModel>(html, row);
         }
 
         /// <summary>
@@ -58,7 +60,58 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<RowBuilder<TModel>>() != null);
 
-            return new RowBuilder<TModel>(this.html, new Row());
+            return new RowBuilder<TModel>(html, new Row());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            // build clearfix div if needed
+            TagBuilder clearfixDiv = null;
+            if (element.clearfixXs || element.clearfixSm || element.clearfixMd || element.clearfixLg)
+            {
+                clearfixDiv = new TagBuilder("div");
+
+                clearfixDiv.AddCssClass("clearfix");
+
+                if (element.clearfixXs)
+                {
+                    clearfixDiv.AddCssClass("visible-xs-block");
+                }
+                if (element.clearfixSm)
+                {
+                    clearfixDiv.AddCssClass("visible-sm-block");
+                }
+                if (element.clearfixMd)
+                {
+                    clearfixDiv.AddCssClass("visible-md-block");
+                }
+                if (element.clearfixLg)
+                {
+                    clearfixDiv.AddCssClass("visible-lg-block");
+                }
+            }
+
+            // let base class close up first
+            base.Dispose(disposing);
+
+            // now we can add a clearfix div if required
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    if (!doNotRender)
+                    {
+                        // done in base classthis.textWriter.Write(this.element.EndTag);
+
+                        if (clearfixDiv != null)
+                        {
+                            textWriter.Write(clearfixDiv);
+                        }
+                    }
+
+                    disposed = true;
+                }
+            }
         }
     }
 }

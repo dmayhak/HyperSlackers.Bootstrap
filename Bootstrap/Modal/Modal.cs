@@ -15,8 +15,8 @@ namespace HyperSlackers.Bootstrap
 		public Modal() 
             : base("div")
 		{
-            this.AddOrMergeHtmlAttribute("tabindex", "-1", true);
-            this.AddClass("modal fade");
+            AddOrReplaceHtmlAttribute("tabindex", "-1");
+            AddClass("modal fade");
 		}
 
         public Modal(string id)
@@ -24,26 +24,39 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
-            this.AddOrMergeHtmlAttribute("tabindex", "-1", true);
-            this.AddClass("modal fade");
+            AddOrReplaceHtmlAttribute("tabindex", "-1");
+            AddClass("modal fade");
             this.id = id;
-            this.AddOrMergeHtmlAttribute("id", this.id);
+            AddOrReplaceHtmlAttribute("id", this.id);
         }
 
         public Modal BackdropOff()
 		{
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-            this.AddOrMergeHtmlAttribute("data-backdrop", "false", true);
+            AddOrReplaceHtmlAttribute("data-backdrop", "false");
 
 			return this;
-		}
+        }
 
-		public Modal Closeable(bool closable = true)
+        /// <summary>
+        /// Backdrop will not close the modal when clicked.
+        /// </summary>
+        /// <returns></returns>
+        public Modal BackdropStatic()
+        {
+            Contract.Ensures(Contract.Result<Modal>() != null);
+
+            AddOrReplaceHtmlAttribute("data-backdrop", "static");
+
+            return this;
+        }
+
+        public Modal Closeable(bool closable = true)
 		{
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-            this.closeable = closable;
+            closeable = closable;
 
 			return this;
 		}
@@ -52,35 +65,48 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-			base.RemoveClass("fade");
+            RemoveClass("fade");
 
 			return this;
 		}
 
-		public Modal KeyboardOff()
+        /// <summary>
+        /// Modal will not close when the escape key is pressed.
+        /// </summary>
+        /// <returns></returns>
+        public Modal KeyboardOff()
 		{
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-			base.AddOrMergeHtmlAttribute("data-keyboard", "false", true);
+            AddOrReplaceHtmlAttribute("data-keyboard", "false");
 
 			return this;
 		}
 
-		public Modal Remote(string path)
+        /// <summary>
+        /// Deprecated! loads remote content (one time) via jQuery's load method.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        public Modal Remote(string path)
 		{
             Contract.Requires<ArgumentException>(!path.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-			base.AddOrMergeHtmlAttribute("data-remote", path, true);
+            AddOrReplaceHtmlAttribute("data-remote", path);
 
 			return this;
 		}
 
-		public Modal ShowOff()
+        /// <summary>
+        /// Modal will not show when initialized.
+        /// </summary>
+        /// <returns></returns>
+        public Modal ShowOff()
 		{
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-			base.AddOrMergeHtmlAttribute("data-show", "false", true);
+            AddOrReplaceHtmlAttribute("data-show", "false");
 
 			return this;
 		}
@@ -98,7 +124,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-            this.AddOrMergeHtmlAttribute("reload-page", "true", true);
+            AddOrReplaceHtmlAttribute("reload-page", "true");
 
             return this;
         }
@@ -107,7 +133,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Modal>() != null);
 
-            this.AddOrMergeHtmlAttribute("data-refresh", "true", true);
+            AddOrReplaceHtmlAttribute("data-refresh", "true");
 
             return this;
         }

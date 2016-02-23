@@ -22,7 +22,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(accordion != null, "accordion");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 		}
 
         public AccordionPanelBuilder<TModel> BeginPanel(string title)
@@ -52,35 +52,35 @@ namespace HyperSlackers.Bootstrap.Controls
 
             panelCount++;
 
-            panel.parentAccordionId = this.element.id;
+            panel.parentAccordionId = element.id;
 
             if (panel.panelId.IsNullOrWhiteSpace())
             {
-                panel.panelId = this.element.id + "-" + this.panelCount.ToString();
+                panel.panelId = element.id + "-" + panelCount.ToString();
             }
 
             if (!panel.isActivePanel.HasValue)
             {
-                panel.isActivePanel = panelCount == this.element.activePanel;
+                panel.isActivePanel = panelCount == element.activePanel;
             }
 
             if (!panel.style.HasValue)
             {
-                panel.style = this.element.style;
+                panel.style = element.style;
             }
 
-            return new AccordionPanelBuilder<TModel>(this.textWriter, panel);
+            return new AccordionPanelBuilder<TModel>(textWriter, panel);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     //this.textWriter.Write(string.Empty);
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

@@ -56,16 +56,16 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
                         // done in base classthis.textWriter.Write(this.element.EndTag);
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 
@@ -96,7 +96,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             this.element = element;
 
-            if (!this.doNotRender)
+            if (!doNotRender)
             {
                 // this needs to be called in overridden classes to allow constructors to do stuff first...
                 //x this.textWriter.Write(this.element.StartTag);
@@ -109,16 +109,16 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
-                        this.textWriter.Write(this.element.EndTag);
+                        textWriter.Write(element.EndTag);
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 
@@ -162,13 +162,13 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     //
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
         }
@@ -190,7 +190,7 @@ namespace HyperSlackers.Bootstrap.Core
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()

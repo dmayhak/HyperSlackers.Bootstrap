@@ -16,10 +16,12 @@ namespace HyperSlackers.Bootstrap.Extensions
             {
                 return new Dictionary<string, object>();
             }
+
             if (data.GetType().IsIDictionary())
             {
                 return (IDictionary<string, object>)data;
             }
+
             return HtmlHelper.AnonymousObjectToHtmlAttributes(data);
         }
 
@@ -29,12 +31,17 @@ namespace HyperSlackers.Bootstrap.Extensions
             {
                 return new Dictionary<string, object>();
             }
+
             IDictionary<string, object> dictionary = data.ToDictionary();
             RouteValueDictionary routeValueDictionaries = new RouteValueDictionary();
+
+            string prefix = "data-";
             foreach (KeyValuePair<string, object> keyValuePair in dictionary)
             {
-                routeValueDictionaries.Add(string.Concat("data-", keyValuePair.Key), keyValuePair.Value);
+                string key = keyValuePair.Key.StartsWith(prefix) ? keyValuePair.Key : prefix + keyValuePair.Key;
+                routeValueDictionaries.Add(key, keyValuePair.Value);
             }
+
             return routeValueDictionaries;
         }
 

@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.ajax, linkText, result, ajaxOptions);
+            return new ActionLinkControl<TModel>(ajax, linkText, result, ajaxOptions);
         }
 
         public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, AjaxOptions ajaxOptions)
@@ -29,7 +29,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.ajax, linkText, actionName, ajaxOptions);
+            return new ActionLinkControl<TModel>(ajax, linkText, actionName, ajaxOptions);
         }
 
         public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, string controllerName, AjaxOptions ajaxOptions)
@@ -40,7 +40,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return new ActionLinkControl<TModel>(this.ajax, linkText, actionName, controllerName, ajaxOptions);
+            return new ActionLinkControl<TModel>(ajax, linkText, actionName, controllerName, ajaxOptions);
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, ActionResult result, AjaxOptions ajaxOptions)
@@ -50,7 +50,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.ajax, linkText, result, ajaxOptions);
+            return new ActionLinkButtonControl<TModel>(ajax, linkText, result, ajaxOptions);
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, string actionName, AjaxOptions ajaxOptions)
@@ -60,7 +60,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.ajax, linkText, actionName, ajaxOptions);
+            return new ActionLinkButtonControl<TModel>(ajax, linkText, actionName, ajaxOptions);
         }
 
         public ActionLinkButtonControl<TModel> ActionLinkButton(string linkText, string actionName, string controllerName, AjaxOptions ajaxOptions)
@@ -71,7 +71,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            return new ActionLinkButtonControl<TModel>(this.ajax, linkText, actionName, controllerName, ajaxOptions);
+            return new ActionLinkButtonControl<TModel>(ajax, linkText, actionName, controllerName, ajaxOptions);
         }
     }
 }

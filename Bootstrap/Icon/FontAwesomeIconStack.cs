@@ -41,7 +41,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.AddClass(cssClass);
+            htmlAttributes.AddIfNotExistsCssClass(cssClass);
 
             return this;
         }
@@ -51,7 +51,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlDataAttributes != null, "htmlDataAttributes");
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.MergeHtmlAttributes(htmlDataAttributes.ToHtmlDataAttributes());
+            htmlAttributes.AddOrReplaceHtmlAttributes(htmlDataAttributes.ToHtmlDataAttributes());
 
             return this;
         }
@@ -61,7 +61,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.Add(key, value);
+            htmlAttributes.Add(key, value);
 
             return this;
         }
@@ -71,7 +71,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            this.htmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return this;
         }
@@ -81,7 +81,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            this.htmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return this;
         }
@@ -91,7 +91,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.htmlAttributes.AddOrReplace("id", id);
+            htmlAttributes.AddOrReplaceHtmlAttribute("id", id);
 
             return this;
         }
@@ -112,7 +112,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!content.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.popover = new Popover(title, content);
+            popover = new Popover(title, content);
 
             return this;
         }
@@ -132,7 +132,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.tooltip = new Tooltip(text);
+            tooltip = new Tooltip(text);
 
             return this;
         }
@@ -142,7 +142,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
 
             return this;
         }
@@ -160,7 +160,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.topIcon.Inverse(inverse);
+            topIcon.Inverse(inverse);
 
             return this;
         }
@@ -169,7 +169,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<FontAwesomeIconStack>() != null);
 
-            this.bottomIcon.Inverse(inverse);
+            bottomIcon.Inverse(inverse);
 
             return this;
         }
@@ -207,7 +207,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            if (this.topIconIsLarger)
+            if (topIconIsLarger)
             {
                 topIcon.Class("fa-stack-2x");
                 bottomIcon.Class("fa-stack-1x");
@@ -219,16 +219,16 @@ namespace HyperSlackers.Bootstrap
             }
 
 			TagBuilder tagBuilder = new TagBuilder("span");
-            IDictionary<string, object> attributes = this.htmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = htmlAttributes.FormatHtmlAttributes();
 
-			if (this.tooltip != null)
+			if (tooltip != null)
 			{
-				attributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
 			}
 
-			if (this.popover != null)
+			if (popover != null)
 			{
-				attributes.MergeHtmlAttributes(this.popover.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(popover.ToDictionary());
 			}
 
 			tagBuilder.MergeHtmlAttributes(attributes);
@@ -280,25 +280,25 @@ namespace HyperSlackers.Bootstrap
         [EditorBrowsable(EditorBrowsableState.Never)]
 		public override string ToString()
 		{
-			return this.ToHtmlString();
+			return ToHtmlString();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override bool Equals(object obj)
 		{
-			return this.Equals(obj);
+			return Equals(obj);
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override int GetHashCode()
 		{
-			return this.GetHashCode();
+			return GetHashCode();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public new Type GetType()
 		{
-			return this.GetType();
+			return GetType();
 		}
 	}
 }

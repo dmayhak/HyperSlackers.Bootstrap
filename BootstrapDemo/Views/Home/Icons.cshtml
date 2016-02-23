@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Icons";
+}
+
+<h2>Icons</h2>
+
+<hr />
+
+<h3>Examples</h3>
+
+<h5>Glyphicons</h5>
+
+@Html.Bootstrap().Icon(GlyphIconType.Check) Check<br/>
+@Html.Bootstrap().Icon(GlyphIconType.Flag) Flag
+
+<h5>Font Awesome Icons</h5>
+
+@Html.Bootstrap().Icon(FontAwesomeIconType.CheckSquare) CheckSquare<br/>
+@Html.Bootstrap().Icon(FontAwesomeIconType.Leaf) Leaf<br/>
+@Html.Bootstrap().Icon(FontAwesomeIconType.Leaf).Border() Leaf (bordered)<br />
+@Html.Bootstrap().Icon(FontAwesomeIconType.Leaf).Size(FontAwesomeIconSize.X3) Leaf (size 3X)<br />
+@Html.Bootstrap().Icon(FontAwesomeIconType.Leaf).Rotate(FontAwesomeIconRotate.Rotate90) Leaf (rotate 90)<br/>
+@Html.Bootstrap().Icon(FontAwesomeIconType.Gear).Spin() Gear (spin)<br/>
+@Html.Bootstrap().Icon(FontAwesomeIconType.Spinner).Spin() Spinner (spin)<br />
+@Html.Bootstrap().Icon(FontAwesomeIconType.Spinner).Pulse() Spinner (pulse)<br />
+
+<h5>Font Awesome Icon Stack</h5>
+
+@Html.Bootstrap().IconStack(FontAwesomeIconType.Flag, FontAwesomeIconType.SquareO).Size(FontAwesomeIconSize.Large) Flag on (large) SquareO<br/>
+@Html.Bootstrap().IconStack(new FontAwesomeIcon(FontAwesomeIconType.Ban).Color(TextColor.Danger), new FontAwesomeIcon(FontAwesomeIconType.Camera), true).Size(FontAwesomeIconSize.Large) (large) Ban on Camera<br />

@@ -35,25 +35,25 @@ namespace HyperSlackers.Bootstrap
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
-            return this.ToHtmlString();
+            return ToHtmlString();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
-            return this.Equals(obj);
+            return Equals(obj);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
         {
-            return this.GetHashCode();
+            return GetHashCode();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new Type GetType()
         {
-            return this.GetType();
+            return GetType();
         }
     }
 
@@ -74,7 +74,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<T>() != null);
 
-            this.htmlAttributes.AddClass(cssClass);
+            htmlAttributes.AddIfNotExistsCssClass(cssClass);
 
 			return (T)this;
 		}
@@ -84,7 +84,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlDataAttributes != null, "htmlDataAttributes");
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.htmlAttributes.MergeHtmlAttributes(htmlDataAttributes.ToHtmlDataAttributes());
+            htmlAttributes.AddOrReplaceHtmlAttributes(htmlDataAttributes.ToHtmlDataAttributes());
 
 			return (T)this;
 		}
@@ -94,7 +94,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<T>() != null);
 
-            this.htmlAttributes.Add(key, value);
+            htmlAttributes.Add(key, value);
 
             return (T)this;
         }
@@ -104,7 +104,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.htmlAttributes.MergeHtmlAttributes(htmlAttributes);
+			this.htmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
 			return (T)this;
 		}
@@ -114,7 +114,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.htmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+			this.htmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
 			return (T)this;
 		}
@@ -124,7 +124,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.htmlAttributes.AddOrReplace("id", id);
+            htmlAttributes.AddOrReplaceHtmlAttribute("id", id);
 
 			return (T)this;
 		}
@@ -145,7 +145,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!content.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.popover = new Popover(title, content);
+            popover = new Popover(title, content);
 
 			return (T)this;
 		}
@@ -165,7 +165,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<T>() != null);
 
-			this.tooltip = new Tooltip(text);
+            tooltip = new Tooltip(text);
 
 			return (T)this;
 		}
@@ -175,7 +175,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<T>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
 
             return (T)this;
         }

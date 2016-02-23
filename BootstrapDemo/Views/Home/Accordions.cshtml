@@ -10,9 +10,9 @@
 
 <h3>Examples</h3>
 
-<p>Accordion using default settings</p>
+<h5>Accordion using default settings</h5>
 
-@using (var accordion = Html.Bootstrap().BeginAccordion(new Accordion("accordion1")))
+@using (var accordion = Html.Bootstrap().BeginAccordion("accordion1"))
 {
     using (var panel = accordion.BeginPanel("Panel 1"))
     {
@@ -36,7 +36,7 @@
     }
 }
 
-<p>Accordion with Style set to PanelStyle.Info and Panel 2 expanded initially</p>
+<h5>Accordion with Style set to PanelStyle.Info and Panel 2 expanded initially</h5>
 
 @using (var accordion = Html.Bootstrap().BeginAccordion(new Accordion("accordion2").Style(PanelStyle.Info).ActivePanel(2)))
 {
@@ -62,7 +62,7 @@
     }
 }
 
-<p>Accordion with Style set separately for each panel and Panel 1 expanded initially</p>
+<h5>Accordion with Style set separately for each panel and Panel 1 expanded initially</h5>
 
 @using (var accordion = Html.Bootstrap().BeginAccordion(new Accordion("accordion3").Style(PanelStyle.Info).ActivePanel(1)))
 {

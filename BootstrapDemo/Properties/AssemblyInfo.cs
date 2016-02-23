@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HyperSlackers.Bootstrap.Demo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("HyperSlackers")]
 [assembly: AssemblyProduct("HyperSlackers.Bootstrap.Demo")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("14.1015.1356.30")]
-[assembly: AssemblyFileVersion("14.1015.1356.30")]
+[assembly: AssemblyVersion("2016.2.22.0330")]
+[assembly: AssemblyFileVersion("2016.2.22.0330")]

@@ -12,7 +12,9 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap.Controls
 {
-    public class CheckBoxListFromEnumControl<TModel> : ControlListBase<CheckBoxListFromEnumControl<TModel>, TModel>
+    public class CheckBoxListFromEnumControl<TModel, TValue> : ControlListBase<CheckBoxListFromEnumControl<TModel, TValue>, TModel>
+        where TValue : struct, IConvertible
+
     {
         internal bool displayInlineBlock;
         internal readonly List<Tuple<dynamic, dynamic>> controlDataAttributesFromFunc = new List<Tuple<object, object>>();
@@ -27,87 +29,89 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
-		}
+            Contract.Requires<ArgumentException>(typeof(TValue).IsEnum);
 
-        public CheckBoxListFromEnumControl<TModel> DisplayInColumns(int numberOfColumns, int columnPixelWidth)
+        }
+
+        public CheckBoxListFromEnumControl<TModel, TValue> DisplayInColumns(int numberOfColumns, int columnPixelWidth)
         {
             Contract.Requires<ArgumentOutOfRangeException>(numberOfColumns > 0);
             Contract.Requires<ArgumentOutOfRangeException>(columnPixelWidth > 0);
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
             this.numberOfColumns = new int?(numberOfColumns);
             this.columnPixelWidth = columnPixelWidth;
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
-        public CheckBoxListFromEnumControl<TModel> DisplayInColumns(int numberOfColumns, int columnPixelWidth, bool condition)
+        public CheckBoxListFromEnumControl<TModel, TValue> DisplayInColumns(int numberOfColumns, int columnPixelWidth, bool condition)
         {
             Contract.Requires<ArgumentOutOfRangeException>(numberOfColumns > 0);
             Contract.Requires<ArgumentOutOfRangeException>(columnPixelWidth > 0);
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
             this.numberOfColumns = new int?(numberOfColumns);
             this.columnPixelWidth = columnPixelWidth;
-            this.displayInColumnsCondition = condition;
+            displayInColumnsCondition = condition;
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
-        public CheckBoxListFromEnumControl<TModel> DisplayInlineBlock(int marginRightPx = 0)
+        public CheckBoxListFromEnumControl<TModel, TValue> DisplayInlineBlock(int marginRightPx = 0)
         {
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
-            this.displayInlineBlock = true;
+            displayInlineBlock = true;
             this.marginRightPx = marginRightPx;
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
-        public CheckBoxListFromEnumControl<TModel> ControlHtmlDataAttributes<TEnum>(Func<TEnum, object> htmlDataAttributesFunc)
+        public CheckBoxListFromEnumControl<TModel, TValue> ControlHtmlDataAttributes<TEnum>(Func<TEnum, object> htmlDataAttributesFunc)
         {
             Contract.Requires<ArgumentNullException>(htmlDataAttributesFunc != null, "htmlDataAttributesFunc");
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
             foreach (TEnum tEnum in Enum.GetValues(typeof(TEnum)).OfType<TEnum>())
             {
-                this.controlDataAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlDataAttributesFunc(tEnum)));
+                controlDataAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlDataAttributesFunc(tEnum)));
             }
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
-        public CheckBoxListFromEnumControl<TModel> ControlHtmlAttributes<TEnum>(Func<TEnum, object> htmlAttributesFunc)
+        public CheckBoxListFromEnumControl<TModel, TValue> ControlHtmlAttributes<TEnum>(Func<TEnum, object> htmlAttributesFunc)
         {
             Contract.Requires<ArgumentNullException>(htmlAttributesFunc != null, "htmlAttributesFunc");
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
             foreach (TEnum tEnum in Enum.GetValues(typeof(TEnum)).OfType<TEnum>())
             {
-                this.controlHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
+                controlHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
             }
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
-        public CheckBoxListFromEnumControl<TModel> LabelHtmlAttributes<TEnum>(Func<TEnum, object> htmlAttributesFunc)
+        public CheckBoxListFromEnumControl<TModel, TValue> LabelHtmlAttributes<TEnum>(Func<TEnum, object> htmlAttributesFunc)
         {
             Contract.Requires<ArgumentNullException>(htmlAttributesFunc != null, "htmlAttributesFunc");
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
             foreach (TEnum tEnum in Enum.GetValues(typeof(TEnum)).OfType<TEnum>())
             {
-                this.labelHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
+                labelHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
             }
 
-            return (CheckBoxListFromEnumControl<TModel>)this;
+            return (CheckBoxListFromEnumControl<TModel, TValue>)this;
         }
 
         protected override string RenderControl()
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            Type t = this.metadata.ModelType;
+            Type t = typeof(TValue);
             List<SelectListItem> listItems = new List<SelectListItem>();
 
             foreach (var e in Enum.GetValues(t).OfType<Enum>())
@@ -116,7 +120,7 @@ namespace HyperSlackers.Bootstrap.Controls
                 {
                     Text = e.GetEnumDescription(),
                     Value = Enum.Parse(t, e.ToString()).ToString(),
-                    Selected = e.Equals(this.metadata.Model)
+                    Selected = e.Equals(metadata.Model)
                 });
             }
 
@@ -132,7 +136,7 @@ namespace HyperSlackers.Bootstrap.Controls
                     null,
                     null,
                     item.Selected,
-                    this.isDisabled));
+                    isDisabled));
                 index++;
             }
 
@@ -143,9 +147,9 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            string fullHtmlFieldName = this.html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
 
-            CheckBoxControl<TModel> checkBox = new CheckBoxControl<TModel>(this.html, this.htmlFieldName, this.metadata, inputValue, false);
+            CheckBoxControl<TModel> checkBox = new CheckBoxControl<TModel>(html, htmlFieldName, metadata, inputValue, false);
             checkBox.ControlHtmlAttributes(inputHtmlAttributes.FormatHtmlAttributes());
             checkBox.ControlId(fullHtmlFieldName.FormatForMvcInputId() + "_" + index.ToString());
             checkBox.IsChecked(inputIsChecked);
@@ -156,7 +160,7 @@ namespace HyperSlackers.Bootstrap.Controls
             checkBox.LabelHtmlAttributes(labelHtmlAttributes);
             checkBox.LabelShowRequiredStar(false);
 
-            if (this.displayInlineBlock)
+            if (displayInlineBlock)
             {
                 checkBox.ControlClass("checkbox-inline");
             }
@@ -164,6 +168,6 @@ namespace HyperSlackers.Bootstrap.Controls
             return checkBox.ToHtmlString();
         }
 
-        
+
     }
 }

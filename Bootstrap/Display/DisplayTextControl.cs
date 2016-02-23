@@ -40,22 +40,22 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
             TagBuilder tagBuilder = new TagBuilder("div");
-            
-            this.controlHtmlAttributes.AddClass("form-control-static");
 
-            tagBuilder.MergeHtmlAttributes(this.controlHtmlAttributes.FormatHtmlAttributes());
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control-static");
 
-            if (this.text != null)
+            tagBuilder.MergeHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
+
+            if (text != null)
             {
                 tagBuilder.InnerHtml = text; // use text if it was provided
             }
-            else if (this.metadata.Model != null && this.metadata.Model.GetType().IsEnum)
+            else if (metadata.Model != null && metadata.Model.GetType().IsEnum)
 	        {
-                tagBuilder.InnerHtml = ((Enum)this.metadata.Model).GetEnumDescription(); // TODO: refactor to use localization
+                tagBuilder.InnerHtml = ((Enum)metadata.Model).GetEnumDescription(); // TODO: refactor to use localization
 	        }
             else
             {
-		        tagBuilder.InnerHtml = html.DisplayText(this.htmlFieldName).ToHtmlString();
+		        tagBuilder.InnerHtml = html.DisplayText(htmlFieldName).ToHtmlString();
             }
 
             return tagBuilder.ToString(TagRenderMode.Normal);

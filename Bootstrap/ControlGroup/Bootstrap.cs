@@ -21,7 +21,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 
             IHtmlString[] htmlStrings = new IHtmlString[] { MvcHtmlString.Create(controls) };
 
-            return this.CustomControls(htmlStrings);
+            return CustomControls(htmlStrings);
         }
 
         public ControlGroupControl<TModel> CustomControls(params IHtmlString[] controls)
@@ -35,7 +35,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
                 controlList.Add(item);
             }
 
-            return new ControlGroupControl<TModel>(this.html, controlList);
+            return new ControlGroupControl<TModel>(html, controlList);
         }
     }
 }

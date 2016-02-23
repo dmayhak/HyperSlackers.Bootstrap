@@ -18,7 +18,7 @@ namespace HyperSlackers.Bootstrap
         public Row()
             : base("div")
         {
-            this.AddClass("row");
+            AddClass("row");
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace HyperSlackers.Bootstrap
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()

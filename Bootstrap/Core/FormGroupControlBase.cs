@@ -49,17 +49,17 @@ namespace HyperSlackers.Bootstrap.Core
 
             this.formGroup = formGroup;
 
-            this.labelWidthLg = formGroup.labelWidthLg;
-            this.labelWidthMd = formGroup.labelWidthMd;
-            this.labelWidthSm = formGroup.labelWidthSm;
-            this.labelWidthXs = formGroup.labelWidthXs;
-            this.controlWidthLg = formGroup.controlWidthLg;
-            this.controlWidthMd = formGroup.controlWidthMd;
-            this.controlWidthSm = formGroup.controlWidthSm;
-            this.controlWidthXs = formGroup.controlWidthXs;
+            labelWidthLg = formGroup.labelWidthLg;
+            labelWidthMd = formGroup.labelWidthMd;
+            labelWidthSm = formGroup.labelWidthSm;
+            labelWidthXs = formGroup.labelWidthXs;
+            controlWidthLg = formGroup.controlWidthLg;
+            controlWidthMd = formGroup.controlWidthMd;
+            controlWidthSm = formGroup.controlWidthSm;
+            controlWidthXs = formGroup.controlWidthXs;
 
-            this.LabelHtmlAttributes(formGroup.labelHtmlAttributes);
-            this.ControlHtmlAttributes(formGroup.controlHtmlAttributes);
+            LabelHtmlAttributes(formGroup.labelHtmlAttributes);
+            ControlHtmlAttributes(formGroup.controlHtmlAttributes);
 
             return (TControl)this;
         }
@@ -76,11 +76,11 @@ namespace HyperSlackers.Bootstrap.Core
             // TODO: for lists, should we only set first control to autofocus, or ignore it, or what???  or move this to input control base/
             if (isFocused)
             {
-                this.controlHtmlAttributes.AddOrReplace("autofocus", null);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("autofocus", null);
             }
             else
             {
-                this.controlHtmlAttributes.Remove("autofocus");
+                controlHtmlAttributes.Remove("autofocus");
             }
 
             return (TControl)this;
@@ -99,11 +99,11 @@ namespace HyperSlackers.Bootstrap.Core
 
             if (isDisabled)
             {
-                this.controlHtmlAttributes.AddOrReplace("disabled", "disabled");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("disabled", "disabled");
             }
             else
             {
-                this.controlHtmlAttributes.Remove("disabled");
+                controlHtmlAttributes.Remove("disabled");
             }
 
             return (TControl)this;
@@ -118,7 +118,7 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.isReadOnly = isReadonly;
+            isReadOnly = isReadonly;
 
             return (TControl)this;
         }
@@ -142,25 +142,25 @@ namespace HyperSlackers.Bootstrap.Core
         /// </summary>
         protected void SetReadOnlyAttribute()
         {
-            if (!this.isReadOnly.HasValue)
+            if (!isReadOnly.HasValue)
             {
-                if (this.metadata != null)
+                if (metadata != null)
                 {
-                    this.isReadOnly = this.metadata.IsReadOnly;
+                    isReadOnly = metadata.IsReadOnly;
                 }
                 else
                 {
-                    this.isReadOnly = false;
+                    isReadOnly = false;
                 }
             }
 
-            if (this.isReadOnly.Value)
+            if (isReadOnly.Value)
             {
-                this.controlHtmlAttributes.AddOrReplace("readonly", "readonly");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("readonly", "readonly");
             }
             else
             {
-                this.controlHtmlAttributes.Remove("readonly");
+                controlHtmlAttributes.Remove("readonly");
             }
         }
 
@@ -174,7 +174,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             SetReadOnlyAttribute(); // TODO: is this the place for this?
 
-            if (this.formGroup == null)
+            if (formGroup == null)
             {
                 return base.Render();
             }
@@ -194,7 +194,7 @@ namespace HyperSlackers.Bootstrap.Core
             string labelHtml = RenderLabel();
             string validationHtml = RenderValidationMessage();
 
-            bool isValid = this.htmlFieldName.IsNullOrWhiteSpace() ? true : html.ViewData.ModelState.IsValidField(this.htmlFieldName);
+            bool isValid = htmlFieldName.IsNullOrWhiteSpace() ? true : html.ViewData.ModelState.IsValidField(htmlFieldName);
 
             return RenderFormGroupControl(controlHtml, labelHtml, validationHtml, isValid);
         }
@@ -207,23 +207,23 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            if (this.formGroup != null)
+            if (formGroup != null)
             {
                 string cssClass = "control-label";
 
-                if (!this.labelWidthXs.HasValue && !this.labelWidthSm.HasValue && !this.labelWidthMd.HasValue && !this.labelWidthLg.HasValue)
+                if (formGroup.formType == FormType.Horizontal)
                 {
-                    this.labelWidthLg = 2;
+                    if (!labelWidthXs.HasValue && !labelWidthSm.HasValue && !labelWidthMd.HasValue && !labelWidthLg.HasValue)
+                    {
+                        labelWidthSm = 2;
+                    }
+
+                    cssClass = cssClass.AddClass(Helpers.CssColClassWidth(labelWidthXs, labelWidthSm, labelWidthMd, labelWidthLg));
                 }
 
-                if (this.formGroup.formType == FormType.Horizontal)
-                {
-                    cssClass = cssClass.AddClass(Helpers.CssColClassWidth(this.labelWidthXs, this.labelWidthSm, this.labelWidthMd, this.labelWidthLg));
-                }
-
-                this.LabelClass(cssClass);
+                LabelClass(cssClass);
             }
-                
+
             return base.RenderLabel();
         }
 
@@ -243,28 +243,48 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
             TagBuilder controlTagBuilder = new TagBuilder("div");
-            controlTagBuilder.MergeHtmlAttributes(this.formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
+            controlTagBuilder.MergeHtmlAttributes(formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
             controlTagBuilder.AddOrMergeCssClass("form-group");
+
+            controlTagBuilder.AddOrMergeCssClass((string)Helpers.GetCssClass(html, formGroup.size).Replace("input", "form-group"));
 
             if (!fieldIsValid)
             {
+                formGroup.validationState = FormGroupValidationState.Error;
+            }
+
+            if (formGroup.validationState == FormGroupValidationState.Error)
+            {
                 controlTagBuilder.AddCssClass("has-error");
+            }
+            else if (formGroup.validationState == FormGroupValidationState.Warning)
+            {
+                controlTagBuilder.AddCssClass("has-warning");
+            }
+            else if (formGroup.validationState == FormGroupValidationState.Success)
+            {
+                controlTagBuilder.AddCssClass("has-success");
+            }
+
+            if (formGroup.feedbackIcon != null)
+            {
+                controlTagBuilder.AddCssClass("has-feedback");
             }
 
             controlTagBuilder.AddCssClass(GetFormGroupControlCssClass());
 
             string formatString = "{0}";
 
-            if (this.formGroup.formType == FormType.Horizontal)
+            if (formGroup.formType == FormType.Horizontal)
             {
                 TagBuilder horizontalFormControlTagBuilder = new TagBuilder("div");
-                horizontalFormControlTagBuilder.MergeAttributes<string, object>(this.formGroup.controlHtmlAttributes);
+                horizontalFormControlTagBuilder.MergeAttributes<string, object>(formGroup.controlHtmlAttributes);
                 horizontalFormControlTagBuilder.AddCssClass(GetHorizontalFromGroupControlCssClass());
                 horizontalFormControlTagBuilder.SetInnerText(formatString);
                 formatString = horizontalFormControlTagBuilder.ToString();
             }
 
-            if (!this.html.BootstrapDefaults().DefaultShowValidationMessageInline.HasValue || this.html.BootstrapDefaults().DefaultShowValidationMessageInline.Value == false) 
+            if (!html.BootstrapDefaults().DefaultShowValidationMessageInline.HasValue || html.BootstrapDefaults().DefaultShowValidationMessageInline.Value == false)
             {
                 this.validationMessage = string.Empty;
             }
@@ -273,12 +293,12 @@ namespace HyperSlackers.Bootstrap.Core
             {
                 TagBuilder validationTagBuilder = new TagBuilder("span");
                 validationTagBuilder.AddCssClass("help-block");
-                validationTagBuilder.AddCssClass(ValidationMessageInline(this.formGroup.formType, this.labelWidthXs, this.labelWidthSm, this.labelWidthMd, this.labelWidthLg, this.controlWidthXs, this.controlWidthSm, this.controlWidthMd, this.controlWidthLg));
+                validationTagBuilder.AddCssClass(ValidationMessageInline(formGroup.formType, labelWidthXs, labelWidthSm, labelWidthMd, labelWidthLg, controlWidthXs, controlWidthSm, controlWidthMd, controlWidthLg));
                 validationTagBuilder.InnerHtml = this.validationMessage;
                 this.validationMessage = validationTagBuilder.ToString();
             }
 
-            controlTagBuilder.InnerHtml = string.Concat(labelHtml, string.Format(formatString, controlHtml), this.validationMessage);
+            controlTagBuilder.InnerHtml = string.Concat(labelHtml, formatString.FormatWith(controlHtml), this.validationMessage);
 
             return controlTagBuilder.ToString();
         }
@@ -293,11 +313,11 @@ namespace HyperSlackers.Bootstrap.Core
 
             string validationHtml = string.Empty;
 
-            if (!this.htmlFieldName.IsNullOrWhiteSpace())
+            if (!htmlFieldName.IsNullOrWhiteSpace())
             {
-                if (displayValidationMessage && html.ValidationMessage(this.htmlFieldName) != null)
+                if (displayValidationMessage && html.ValidationMessage(htmlFieldName) != null)
                 {
-                    validationHtml = html.ValidationMessage(this.htmlFieldName).ToHtmlString();
+                    validationHtml = html.ValidationMessage(htmlFieldName).ToHtmlString();
                 }
             }
 
@@ -349,47 +369,47 @@ namespace HyperSlackers.Bootstrap.Core
         {
             string cssClass = string.Empty;
 
-            if (this.formGroup != null && this.formGroup.formType == FormType.Horizontal)
+            if (formGroup != null && formGroup.formType == FormType.Horizontal)
             {
-                if (!this.labelWidthXs.HasValue && !this.labelWidthSm.HasValue && !this.labelWidthMd.HasValue && !this.labelWidthLg.HasValue)
+                if (!labelWidthXs.HasValue && !labelWidthSm.HasValue && !labelWidthMd.HasValue && !labelWidthLg.HasValue)
                 {
-                    this.labelWidthLg = new int?(2);
+                    labelWidthLg = new int?(2);
                 }
 
-                if (this.controlWidthXs.HasValue)
+                if (controlWidthXs.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-xs-", this.controlWidthXs.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-xs-", controlWidthXs.Value));
                 }
-                else if (this.labelWidthXs.HasValue)
+                else if (labelWidthXs.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-xs-", 12 - this.labelWidthXs.Value));
-                }
-
-                if (this.controlWidthSm.HasValue)
-                {
-                    cssClass = cssClass.AddClass(string.Concat("col-sm-", this.controlWidthSm.Value));
-                }
-                else if (this.labelWidthSm.HasValue)
-                {
-                    cssClass = cssClass.AddClass(string.Concat("col-sm-", 12 - this.labelWidthSm.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-xs-", 12 - labelWidthXs.Value));
                 }
 
-                if (this.controlWidthMd.HasValue)
+                if (controlWidthSm.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-md-", this.controlWidthMd.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-sm-", controlWidthSm.Value));
                 }
-                else if (this.labelWidthMd.HasValue)
+                else if (labelWidthSm.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-md-", 12 - this.labelWidthMd.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-sm-", 12 - labelWidthSm.Value));
                 }
 
-                if (this.controlWidthLg.HasValue)
+                if (controlWidthMd.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-lg-", this.controlWidthLg.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-md-", controlWidthMd.Value));
                 }
-                else if (this.labelWidthLg.HasValue)
+                else if (labelWidthMd.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-lg-", 12 - this.labelWidthLg.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-md-", 12 - labelWidthMd.Value));
+                }
+
+                if (controlWidthLg.HasValue)
+                {
+                    cssClass = cssClass.AddClass(string.Concat("col-lg-", controlWidthLg.Value));
+                }
+                else if (labelWidthLg.HasValue)
+                {
+                    cssClass = cssClass.AddClass(string.Concat("col-lg-", 12 - labelWidthLg.Value));
                 }
             }
 
@@ -404,26 +424,26 @@ namespace HyperSlackers.Bootstrap.Core
         {
             string cssClass = "";
 
-            if (this.formGroup.formType == FormType.Inline)
+            if (formGroup.formType == FormType.Inline)
             {
-                if (this.controlWidthXs.HasValue)
+                if (controlWidthXs.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-xs-", this.controlWidthXs.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-xs-", controlWidthXs.Value));
                 }
 
-                if (this.controlWidthSm.HasValue)
+                if (controlWidthSm.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-sm-", this.controlWidthSm.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-sm-", controlWidthSm.Value));
                 }
 
-                if (this.controlWidthMd.HasValue)
+                if (controlWidthMd.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-md-", this.controlWidthMd.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-md-", controlWidthMd.Value));
                 }
 
-                if (this.controlWidthLg.HasValue)
+                if (controlWidthLg.HasValue)
                 {
-                    cssClass = cssClass.AddClass(string.Concat("col-lg-", this.controlWidthLg.Value));
+                    cssClass = cssClass.AddClass(string.Concat("col-lg-", controlWidthLg.Value));
                 }
             }
 

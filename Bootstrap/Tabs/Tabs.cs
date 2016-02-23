@@ -18,8 +18,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
 			this.id = id;
-			this.AddClass("tabbable");
-			this.AddOrMergeHtmlAttribute("id", id, true);
+            AddClass("tabbable");
+            AddOrReplaceHtmlAttribute("id", id);
 		}
 
 		public Tabs ActiveTab(int activeTabIndex)
@@ -34,7 +34,7 @@ namespace HyperSlackers.Bootstrap
 
         public Tabs Justified()
         {
-            this.justified = true;
+            justified = true;
 
             return this;
         }
@@ -43,7 +43,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Tabs>() != null);
 
-            this.navType = type;
+            navType = type;
 
             return this;
         }

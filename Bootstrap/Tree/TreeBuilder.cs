@@ -20,7 +20,15 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(tree != null, "tree");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
+        }
+
+        public TreeHeaderBuilder<TModel> BeginHeader(string text)
+        {
+            Contract.Requires<ArgumentNullException>(!text.IsNullOrWhiteSpace(), "text");
+            Contract.Ensures(Contract.Result<TreeHeaderBuilder<TModel>>() != null);
+
+            return BeginHeader(new TreeHeader(text));
         }
 
         public TreeHeaderBuilder<TModel> BeginHeader(TreeHeader header)
@@ -28,12 +36,12 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(header != null, "header");
             Contract.Ensures(Contract.Result<TreeHeaderBuilder<TModel>>() != null);
 
-            if (this.element.collapsed.HasValue && !header.collapsed.HasValue)
+            if (element.collapsed.HasValue && !header.collapsed.HasValue)
             {
-                header.collapsed = this.element.collapsed;
+                header.collapsed = element.collapsed;
             }
 
-            return new TreeHeaderBuilder<TModel>(this.html, header);
+            return new TreeHeaderBuilder<TModel>(html, header);
         }
 
         public TreeItemBuilder<TModel> BeginItem(TreeItem item)
@@ -41,18 +49,18 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(item != null, "item");
             Contract.Ensures(Contract.Result<TreeItemBuilder<TModel>>() != null);
 
-            return new TreeItemBuilder<TModel>(this.html, item);
+            return new TreeItemBuilder<TModel>(html, item);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     //this.textWriter.Write("");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

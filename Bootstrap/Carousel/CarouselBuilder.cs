@@ -32,13 +32,13 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(carousel != null, "carousel");
 
-			this.urlHelper = new UrlHelper(html.ViewContext.RequestContext);
+            urlHelper = new UrlHelper(html.ViewContext.RequestContext);
 
-			this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-            this.RenderIndicators(carousel.indicators); 
+            RenderIndicators(carousel.indicators);
 
-			this.textWriter.Write("<div class=\"carousel-inner\">");
+            textWriter.Write("<div class=\"carousel-inner\">");
 		}
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(altText != null, "altText");
             Contract.Ensures(Contract.Result<IHtmlString>() != null);
 
-            return MvcHtmlString.Create(this.GetPanelHtml(imageUrl, altText, string.Empty, string.Empty, string.Empty, htmlAttributes));
+            return MvcHtmlString.Create(GetPanelHtml(imageUrl, altText, string.Empty, string.Empty, string.Empty, htmlAttributes));
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(altText != null, "altText");
             Contract.Ensures(Contract.Result<IHtmlString>() != null);
 
-            return MvcHtmlString.Create(this.GetPanelHtml(imageUrl, altText, captionHeader, captionBody, string.Empty, htmlAttributes));
+            return MvcHtmlString.Create(GetPanelHtml(imageUrl, altText, captionHeader, captionBody, string.Empty, htmlAttributes));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(altText != null, "altText");
             Contract.Ensures(Contract.Result<IHtmlString>() != null);
 
-            return MvcHtmlString.Create(this.GetPanelHtml(imageUrl, altText, captionHeader, captionBody, captionUrl, htmlAttributes));
+            return MvcHtmlString.Create(GetPanelHtml(imageUrl, altText, captionHeader, captionBody, captionUrl, htmlAttributes));
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Controls
             bool isFirstItem = this.isFirstItem;
             this.isFirstItem = false;
 
-            return new CarouselCustomItem(this.textWriter, this.urlHelper, isFirstItem);
+            return new CarouselCustomItem(textWriter, urlHelper, isFirstItem);
         }
 
         /// <summary>
@@ -119,9 +119,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(altText != null, "imageAltText");
 
 
-            this.textWriter.Write(this.GetPanelHtml(imageUrl, altText, string.Empty, string.Empty, string.Empty, htmlAttributes, true));
+            textWriter.Write(GetPanelHtml(imageUrl, altText, string.Empty, string.Empty, string.Empty, htmlAttributes, true));
 
-            return new CarouselCaptionPanel(this.textWriter);
+            return new CarouselCaptionPanel(textWriter);
         }
 
         /// <summary>
@@ -135,19 +135,19 @@ namespace HyperSlackers.Bootstrap.Controls
                 return;
             }
 
-            this.textWriter.Write("<ol class=\"carousel-indicators\">");
+            textWriter.Write("<ol class=\"carousel-indicators\">");
 
             for (int i = 0; i < indicators; i++)
             {
-                this.textWriter.Write("<li data-target=\"#{0}\" data-slide-to=\"{1}\"".FormatWith(this.element.id, i));
+                textWriter.Write("<li data-target=\"#{0}\" data-slide-to=\"{1}\"".FormatWith(element.id, i));
                 if (i == 0)
                 {
-                    this.textWriter.Write(" class=\"active\"");
+                    textWriter.Write(" class=\"active\"");
                 }
-                this.textWriter.Write("></li> ");
+                textWriter.Write("></li> ");
             }
 
-            this.textWriter.Write("</ol>");
+            textWriter.Write("</ol>");
         }
 
         /// <summary>
@@ -173,10 +173,10 @@ namespace HyperSlackers.Bootstrap.Controls
 
             TagBuilder divTagBuilder = new TagBuilder("div");
             divTagBuilder.AddCssClass("item");
-            if (this.isFirstItem)
+            if (isFirstItem)
             {
                 divTagBuilder.AddCssClass("active");
-                this.isFirstItem = false;
+                isFirstItem = false;
             }
 
             string imageHtml = GetImageHtml(imageUrl, altText, htmlAttributes);
@@ -210,7 +210,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             TagBuilder tagBuilder = new TagBuilder("img");
             tagBuilder.MergeHtmlAttributes(htmlAttributes.ToDictionary().FormatHtmlAttributes());
-            tagBuilder.MergeAttribute("src", this.urlHelper.Content(imageUrl));
+            tagBuilder.MergeAttribute("src", urlHelper.Content(imageUrl));
             tagBuilder.MergeAttribute("alt", altText);
 
             return tagBuilder.ToString(TagRenderMode.SelfClosing);
@@ -249,21 +249,21 @@ namespace HyperSlackers.Bootstrap.Controls
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
 		{
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div>");
-                    this.textWriter.Write("<a class=\"left carousel-control\" data-slide=\"prev\" href=\"#{0}\">{1}</a>".FormatWith(this.element.id, this.element.prevIcon.ToString()));
-                    this.textWriter.Write("<a class=\"right carousel-control\" data-slide=\"next\" href=\"#{0}\">{1}</a>".FormatWith(this.element.id, this.element.nextIcon.ToString()));
-                    this.textWriter.Write(this.element.EndTag);
+                    textWriter.Write("</div>");
+                    textWriter.Write("<a class=\"left carousel-control\" data-slide=\"prev\" href=\"#{0}\">{1}</a>".FormatWith(element.id, element.prevIcon.ToString()));
+                    textWriter.Write("<a class=\"right carousel-control\" data-slide=\"next\" href=\"#{0}\">{1}</a>".FormatWith(element.id, element.nextIcon.ToString()));
+                    textWriter.Write(element.EndTag);
 
-                    if (this.element.withJs)
+                    if (element.withJs)
                     {
-                        this.textWriter.Write("<script type=\"text/javascript\">\r\n    $(document).ready(function(){{\r\n        $('#{0}').carousel({{\r\n            interval: {1}\r\n        }})\r\n    }});\r\n</script>".FormatWith(this.element.id, this.element.interval));
+                        textWriter.Write("<script type=\"text/javascript\">\r\n    $(document).ready(function(){{\r\n        $('#{0}').carousel({{\r\n            interval: {1}\r\n        }})\r\n    }});\r\n</script>".FormatWith(element.id, element.interval));
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

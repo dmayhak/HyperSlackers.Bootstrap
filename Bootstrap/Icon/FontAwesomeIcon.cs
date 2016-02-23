@@ -13,8 +13,10 @@ namespace HyperSlackers.Bootstrap
         readonly internal FontAwesomeIconType fontAwesomeIcon = FontAwesomeIconType.Undefined;
         internal FontAwesomeIconSize size = FontAwesomeIconSize.Default;
         internal FontAwesomeIconRotate rotation = FontAwesomeIconRotate.Default;
+        internal TextColor color = TextColor.Default;
         internal bool fixedWidth = false;
         internal bool spin = false;
+        internal bool pulse = false;
         internal bool border = false;
         internal bool listIcon = false;
         internal bool pullRight = false;
@@ -23,12 +25,12 @@ namespace HyperSlackers.Bootstrap
 
         public FontAwesomeIcon(FontAwesomeIconType icon)
         {
-            this.fontAwesomeIcon = icon;
+            fontAwesomeIcon = icon;
         }
 
         public FontAwesomeIcon(FontAwesomeIconType icon, bool inverse)
         {
-            this.fontAwesomeIcon = icon;
+            fontAwesomeIcon = icon;
             this.inverse = inverse;
         }
 
@@ -50,6 +52,15 @@ namespace HyperSlackers.Bootstrap
             return this;
         }
 
+        public FontAwesomeIcon Color(TextColor color)
+        {
+            Contract.Ensures(Contract.Result<FontAwesomeIcon>() != null);
+
+            this.color = color;
+
+            return this;
+        }
+
         public FontAwesomeIcon FixedWidth(bool fixedWidth = true)
         {
             Contract.Ensures(Contract.Result<FontAwesomeIcon>() != null);
@@ -64,6 +75,15 @@ namespace HyperSlackers.Bootstrap
             Contract.Ensures(Contract.Result<FontAwesomeIcon>() != null);
 
             this.spin = spin;
+
+            return this;
+        }
+
+        public FontAwesomeIcon Pulse(bool pulse = true)
+        {
+            Contract.Ensures(Contract.Result<FontAwesomeIcon>() != null);
+
+            this.pulse = pulse;
 
             return this;
         }
@@ -130,16 +150,16 @@ namespace HyperSlackers.Bootstrap
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
 			TagBuilder tagBuilder = new TagBuilder("i");
-			IDictionary<string, object> attributes = this.htmlAttributes.FormatHtmlAttributes();
+			IDictionary<string, object> attributes = htmlAttributes.FormatHtmlAttributes();
 
-			if (this.tooltip != null)
+			if (tooltip != null)
 			{
-				attributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
 			}
 
-			if (this.popover != null)
+			if (popover != null)
 			{
-				attributes.MergeHtmlAttributes(this.popover.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(popover.ToDictionary());
 			}
 
 			tagBuilder.MergeHtmlAttributes(attributes);
@@ -200,6 +220,11 @@ namespace HyperSlackers.Bootstrap
                 }
             }
 
+            if (color != TextColor.Default)
+            {
+                tagBuilder.AddCssClass(Helpers.GetCssClass(color));
+            }
+
             if (fixedWidth)
             {
                 tagBuilder.AddCssClass("fa-fw");
@@ -218,6 +243,11 @@ namespace HyperSlackers.Bootstrap
             if (spin)
             {
                 tagBuilder.AddCssClass("fa-spin");
+            }
+
+            if (pulse)
+            {
+                tagBuilder.AddCssClass("fa-pulse");
             }
 
             if (inverse)
@@ -240,25 +270,25 @@ namespace HyperSlackers.Bootstrap
         [EditorBrowsable(EditorBrowsableState.Never)]
 		public override string ToString()
 		{
-			return this.ToHtmlString();
+			return ToHtmlString();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override bool Equals(object obj)
 		{
-			return this.Equals(obj);
+			return Equals(obj);
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override int GetHashCode()
 		{
-			return this.GetHashCode();
+			return GetHashCode();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public new Type GetType()
 		{
-			return this.GetType();
+			return GetType();
 		}
 	}
 }

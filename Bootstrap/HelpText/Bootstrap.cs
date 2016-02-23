@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(text));
             Contract.Ensures(Contract.Result<HelpTextControl<TModel>>() != null);
 
-            return new HelpTextControl<TModel>(this.html, text);
+            return new HelpTextControl<TModel>(html, text);
         }
 
         public HelpTextControl<TModel> HelpText(IHtmlString html)

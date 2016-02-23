@@ -12,43 +12,41 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap.Builders
 {
-    public class TableRowBuilder<TModel> : DisposableHtmlElement<TModel, TableRow>
+    public class TableRowBuilder<TModel> : TableRowBuilderBase<TModel, TableRow, TableCellBuilder<TModel>, TableCellControl, TableCell>
     {
         internal TableRowBuilder(HtmlHelper<TModel> html, TableRow row)
             : base(html, row)
         {
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(row != null, "row");
-
-            this.textWriter.Write(this.element.StartTag);
         }
 
-        public TableCellBuilder<TModel> BeginCell()
+        public override TableCellBuilder<TModel> BeginCell()
         {
             Contract.Ensures(Contract.Result<TableCellBuilder<TModel>>() != null);
 
-            return new TableCellBuilder<TModel>(this.html, new TableCell());
+            return new TableCellBuilder<TModel>(html, new TableCell());
         }
 
-        public TableCellBuilder<TModel> BeginCell(object htmlAttributes)
+        public override TableCellBuilder<TModel> BeginCell(object htmlAttributes)
         {
-            Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
+            //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TableCellBuilder<TModel>>() != null);
 
             TableCell tableCell = (new TableCell()).HtmlAttributes(htmlAttributes);
 
-            return new TableCellBuilder<TModel>(this.html, tableCell);
+            return new TableCellBuilder<TModel>(html, tableCell);
         }
 
-        public TableCellBuilder<TModel> BeginCell(TableCell tableCell)
+        public override TableCellBuilder<TModel> BeginCell(TableCell tableCell)
         {
-            Contract.Requires<ArgumentNullException>(tableCell != null, "tableCell");
+            //x Contract.Requires<ArgumentNullException>(tableCell != null, "tableCell");
             Contract.Ensures(Contract.Result<TableCellBuilder<TModel>>() != null);
 
-            return new TableCellBuilder<TModel>(this.html, tableCell);
+            return new TableCellBuilder<TModel>(html, tableCell);
         }
 
-        public TableCellControl Cell(IHtmlString html)
+        public override TableCellControl Cell(string html)
         {
             //x Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<TableCellControl>() != null);
@@ -56,12 +54,132 @@ namespace HyperSlackers.Bootstrap.Builders
             return new TableCellControl(html);
         }
 
-        public TableCellControl Cell(string html)
+        public override TableCellControl Cell(string html, TextAlign align)
         {
             //x Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<TableCellControl>() != null);
 
-            return new TableCellControl(MvcHtmlString.Create(html));
+            return new TableCellControl(html).Align(align);
+        }
+
+        public override TableCellControl Cell(string html, TableColor style)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Style(style);
+        }
+
+        public override TableCellControl Cell(string html, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(string html, TextAlign align, TableColor style)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).Style(style);
+        }
+
+        public override TableCellControl Cell(string html, TextAlign align, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(string html, TableColor style, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Style(style).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(string html, TextAlign align, TableColor style, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).Style(style).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(IHtmlString html)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TextAlign align)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TableColor style)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Style(style);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TextAlign align, TableColor style)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).Style(style);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TextAlign align, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TableColor style, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Style(style).ColSpan(colspan);
+        }
+
+        public override TableCellControl Cell(IHtmlString html, TextAlign align, TableColor style, int colspan)
+        {
+            //x Contract.Requires<ArgumentNullException>(html != null, "html");
+            //x Contract.Requires<ArgumentException>(colspan > 0);
+            Contract.Ensures(Contract.Result<TableCellControl>() != null);
+
+            return new TableCellControl(html).Align(align).Style(style).ColSpan(colspan);
         }
     }
 }

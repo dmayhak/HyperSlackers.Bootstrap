@@ -33,9 +33,9 @@ namespace HyperSlackers.Bootstrap.Controls
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div>");
+                    textWriter.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

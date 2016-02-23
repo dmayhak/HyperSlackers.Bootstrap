@@ -21,7 +21,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            return new ListBoxControl<TModel>(this.html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new ListBoxControl<TModel>(html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public ListBoxControl<TModel> ListBoxFor<TValue>(Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> selectList)
@@ -30,7 +30,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            return new ListBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new ListBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
     }
 }

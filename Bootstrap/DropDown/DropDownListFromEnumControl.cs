@@ -11,177 +11,250 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap.Controls
 {
-    public class DropDownListFromEnumControl<TModel> : InputControlBase<DropDownListFromEnumControl<TModel>, TModel>
-	{
+    public class DropDownListFromEnumControl<TModel, TValue> : InputControlBase<DropDownListFromEnumControl<TModel, TValue>, TModel>
+        where TValue : struct, IConvertible
+    {
         internal readonly IEnumerable<SelectListItem> selectList;
         internal string optionLabel;
         internal readonly List<Tuple<IHtmlString, object>> prependHtml = new List<Tuple<IHtmlString, object>>();
         internal readonly List<Tuple<IHtmlString, object>> appendHtml = new List<Tuple<IHtmlString, object>>();
+        internal InputSize size = InputSize.Default;
 
-		internal DropDownListFromEnumControl(HtmlHelper<TModel> html, string htmlFieldName, ModelMetadata metadata) 
+        internal DropDownListFromEnumControl(HtmlHelper<TModel> html, string htmlFieldName, ModelMetadata metadata)
             : base(html, htmlFieldName, metadata)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
+            Contract.Requires<ArgumentException>(typeof(TValue).IsEnum);
 
-            this.selectList = metadata.SelectListItemsFromEnumMetadata();
-            this.value = metadata.Model;
+            selectList = GetSelectListItemsFromEnum();
+            selectedValue = metadata.Model;
 		}
 
-		public DropDownListFromEnumControl<TModel> Append(string htmlString, object containerHtmlAttributes = null)
+		public DropDownListFromEnumControl<TModel, TValue> Append(string htmlString, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> Append(IHtmlString htmlString, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> Append(IHtmlString htmlString, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> AppendIcon(GlyphIcon icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> AppendIcon(GlyphIcon icon, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> AppendIcon(FontAwesomeIcon icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> AppendIcon(FontAwesomeIcon icon, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> AppendIcon(GlyphIconType icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> AppendIcon(GlyphIconType icon, object containerHtmlAttributes = null)
         {
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> AppendIcon(FontAwesomeIconType icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> AppendIcon(FontAwesomeIconType icon, object containerHtmlAttributes = null)
         {
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> AppendIcon(string cssClass, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> AppendIcon(string cssClass, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> OptionLabel(string optionLabel)
+        public DropDownListFromEnumControl<TModel, TValue> OptionLabel(string optionLabel)
         {
             Contract.Requires<ArgumentException>(!optionLabel.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
             this.optionLabel = optionLabel;
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> Prepend(string htmlString, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> Prepend(string htmlString, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> Prepend(IHtmlString htmlString, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> Prepend(IHtmlString htmlString, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> PrependIcon(GlyphIcon icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> PrependIcon(GlyphIcon icon, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> PrependIcon(FontAwesomeIcon icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> PrependIcon(FontAwesomeIcon icon, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> PrependIcon(GlyphIconType icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> PrependIcon(GlyphIconType icon, object containerHtmlAttributes = null)
         {
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> PrependIcon(FontAwesomeIconType icon, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> PrependIcon(FontAwesomeIconType icon, object containerHtmlAttributes = null)
         {
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> PrependIcon(string cssClass, object containerHtmlAttributes = null)
+        public DropDownListFromEnumControl<TModel, TValue> PrependIcon(string cssClass, object containerHtmlAttributes = null)
         {
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return this;
         }
 
-        public DropDownListFromEnumControl<TModel> SelectedValue(object value)
+        public DropDownListFromEnumControl<TModel, TValue> Size(InputSize inputSize)
         {
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            this.value = value;
+            size = inputSize;
 
             return this;
+        }
+
+        public DropDownListFromEnumControl<TModel, TValue> SelectedValue(object value)
+        {
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
+
+            selectedValue = value;
+
+            return this;
+        }
+
+        // TODO: remove this
+        //protected IEnumerable<SelectListItem> GetSelectListItemsFromEnumMetadata(ModelMetadata metadata)
+        //{
+        //    Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
+        //    Contract.Ensures(Contract.Result<IEnumerable<SelectListItem>>() != null);
+
+        //    Type modelType = metadata.ModelType;
+
+        //    if (modelType.IsNullableEnum() || modelType.IsGenericEnumerable())
+        //    {
+        //        modelType = modelType.GetGenericArguments().First<Type>();
+        //    }
+
+        //    if (modelType.IsArray)
+        //    {
+        //        modelType = modelType.GetElementType();
+        //    }
+
+        //    List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+        //    foreach (Enum @enum in Enum.GetValues(modelType).OfType<Enum>())
+        //    {
+        //        SelectListItem selectListItem = new SelectListItem();
+        //        selectListItem.Value = Enum.Parse(modelType, @enum.ToString()).ToString();
+        //        selectListItem.Text = @enum.GetEnumDescription();
+        //        selectListItem.Selected = @enum.Equals(metadata.Model);
+        //        selectListItems.Add(selectListItem);
+        //    }
+
+        //    return selectListItems;
+        //}
+
+        protected IEnumerable<SelectListItem> GetSelectListItemsFromEnum()
+        {
+            Contract.Ensures(Contract.Result<IEnumerable<SelectListItem>>() != null);
+
+            Type t = typeof(TValue);
+
+            if (t.IsNullableEnum() || t.IsGenericEnumerable())
+            {
+                t = t.GetGenericArguments().First<Type>();
+            }
+
+            if (t.IsArray)
+            {
+                t = t.GetElementType();
+            }
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+            foreach (Enum @enum in Enum.GetValues(t).OfType<Enum>())
+            {
+                SelectListItem selectListItem = new SelectListItem();
+                selectListItem.Value = Enum.Parse(t, @enum.ToString()).ToString();
+                selectListItem.Text = @enum.GetEnumDescription();
+                selectListItem.Selected = @enum.Equals(metadata.Model);
+                selectListItems.Add(selectListItem);
+            }
+
+            return selectListItems;
         }
 
         protected override string RenderControl()
@@ -192,11 +265,11 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{1}{0}" : "{0}{1}";
 
-            if (this.value != null)
+            if (selectedValue != null)
             {
-                foreach (SelectListItem selectListItem in this.selectList)
+                foreach (SelectListItem selectListItem in selectList)
                 {
-                    if (selectListItem.Value == this.value.ToString())
+                    if (selectListItem.Value == selectedValue.ToString())
                     {
                         selectListItem.Selected = true;
                         break;
@@ -204,37 +277,39 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
+
+            controlHtmlAttributes.AddIfNotExistsCssClass((string)Helpers.GetCssClass(html, size));
 
             string controlHtml = string.Empty;
-            if (this.selectList != null)
+            if (selectList != null)
             {
-                controlHtml = html.DropDownList(this.htmlFieldName, this.selectList, this.optionLabel, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+                controlHtml = html.DropDownList(htmlFieldName, selectList, optionLabel, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
             }
             else
             {
-                controlHtml = html.DropDownList(this.htmlFieldName, this.optionLabel).ToHtmlString();
+                controlHtml = html.DropDownList(htmlFieldName, optionLabel).ToHtmlString();
             }
 
-            formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
+            formatString = AddPrependAppend(formatString, prependHtml, appendHtml);
 
             string validationHtml = string.Empty;
             if (!showValidationMessageInline)
             {
-                validationHtml = this.RenderValidationMessage();
+                validationHtml = RenderValidationMessage();
             }
 
             return MvcHtmlString.Create(formatString.FormatWith(controlHtml, validationHtml)).ToString();

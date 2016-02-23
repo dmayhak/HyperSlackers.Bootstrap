@@ -1,0 +1,7 @@
+﻿.carousel-control i.fa {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+    margin-top: -10px;
+}

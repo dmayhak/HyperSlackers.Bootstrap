@@ -14,13 +14,18 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
-        //public WellBuilder<TModel> BeginWell(Well well)
-        //{
-        //    Contract.Requires<ArgumentNullException>(well != null, "well");
-        //    Contract.Ensures(Contract.Result<WellBuilder<TModel>>() != null);
+        /// <summary>
+        /// Creates a Bootstrap <see cref="Well"/>.
+        /// </summary>
+        /// <param name="well">The well.</param>
+        /// <returns></returns>
+        public WellBuilder<TModel> BeginWell(Well well)
+        {
+            Contract.Requires<ArgumentNullException>(well != null, "well");
+            Contract.Ensures(Contract.Result<WellBuilder<TModel>>() != null);
 
-        //    return new WellBuilder<TModel>(this.html, well);
-        //}
+            return new WellBuilder<TModel>(html, well);
+        }
 
         /// <summary>
         /// Creates a Bootstrap <see cref="Well"/>.
@@ -31,7 +36,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<WellBuilder<TModel>>() != null);
 
-            return new WellBuilder<TModel>(this.html, new Well().Size(size));
+            return new WellBuilder<TModel>(html, new Well().Size(size));
         }
 
         /// <summary>

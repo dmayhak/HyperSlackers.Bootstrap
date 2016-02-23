@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CheckBoxControl<TModel>>() != null);
 
-            return new CheckBoxControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new CheckBoxControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public CheckBoxControl<TModel> CheckBox(string htmlFieldName, object value)
@@ -30,23 +30,25 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(value != null, "value");
             Contract.Ensures(Contract.Result<CheckBoxControl<TModel>>() != null);
 
-            return new CheckBoxControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), value, true);
+            return new CheckBoxControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), value, true);
         }
 
-        public CheckBoxListFromEnumControl<TModel> CheckBoxesFromEnum(string htmlFieldName)
+        public CheckBoxListFromEnumControl<TModel, TValue> CheckBoxesFromEnum<TValue>(string htmlFieldName)
+            where TValue : struct, IConvertible
         {
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
-            return new CheckBoxListFromEnumControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new CheckBoxListFromEnumControl<TModel, TValue>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
-        public CheckBoxListFromEnumControl<TModel> CheckBoxesFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+        public CheckBoxListFromEnumControl<TModel, TValue> CheckBoxesFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+            where TValue : struct, IConvertible
         {
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
-            return new CheckBoxListFromEnumControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new CheckBoxListFromEnumControl<TModel, TValue>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public CheckBoxControl<TModel> CheckBoxFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -54,7 +56,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<CheckBoxControl<TModel>>() != null);
 
-            return new CheckBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new CheckBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxList<TSource, SValue, SText>(string htmlFieldName, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -65,7 +67,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceDataExpression, valueExpression, textExpression);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceDataExpression, valueExpression, textExpression);
         }
 
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxList<TSource, SValue, SText>(string htmlFieldName, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -76,7 +78,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceData, valueExpression, textExpression);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceData, valueExpression, textExpression);
         }
 
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -87,7 +89,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceDataExpression, valueExpression, textExpression);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceDataExpression, valueExpression, textExpression);
         }
 
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -98,7 +100,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceData, valueExpression, textExpression);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceData, valueExpression, textExpression);
         }
     }
 }

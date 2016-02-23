@@ -14,12 +14,27 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
+        public TreeBuilder<TModel> BeginTree()
+        {
+            Contract.Ensures(Contract.Result<TreeBuilder<TModel>>() != null);
+
+            return new TreeBuilder<TModel>(html, new Tree());
+        }
+
+        public TreeBuilder<TModel> BeginTree(string id)
+        {
+            Contract.Requires<ArgumentNullException>(!id.IsNullOrWhiteSpace(), "id");
+            Contract.Ensures(Contract.Result<TreeBuilder<TModel>>() != null);
+
+            return new TreeBuilder<TModel>(html, new Tree(id));
+        }
+
         public TreeBuilder<TModel> BeginTree(Tree tree)
         {
             Contract.Requires<ArgumentNullException>(tree != null, "tree");
             Contract.Ensures(Contract.Result<TreeBuilder<TModel>>() != null);
 
-            return new TreeBuilder<TModel>(this.html, tree);
+            return new TreeBuilder<TModel>(html, tree);
         }
     }
 }

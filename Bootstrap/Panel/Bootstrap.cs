@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(panel != null, "panel");
             Contract.Ensures(Contract.Result<PanelBuilder<TModel>>() != null);
 
-            return new PanelBuilder<TModel>(this.html, panel);
+            return new PanelBuilder<TModel>(html, panel);
         }
     }
 }

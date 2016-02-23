@@ -13,12 +13,19 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 
     public partial class Bootstrap<TModel>
     {
+        public AccordionBuilder<TModel> BeginAccordion(string id)
+        {
+            Contract.Ensures(Contract.Result<AccordionBuilder<TModel>>() != null);
+
+            return BeginAccordion(new Accordion(id));
+        }
+
         public AccordionBuilder<TModel> BeginAccordion(Accordion accordion)
         {
             Contract.Requires<ArgumentNullException>(accordion != null, "accordion");
             Contract.Ensures(Contract.Result<AccordionBuilder<TModel>>() != null);
 
-            return new AccordionBuilder<TModel>(this.html, accordion);
+            return new AccordionBuilder<TModel>(html, accordion);
         }
     }
 }

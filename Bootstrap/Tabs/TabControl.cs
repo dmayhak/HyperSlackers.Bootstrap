@@ -35,7 +35,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.prependIcon = icon;
+            prependIcon = icon;
 
             return this;
         }
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.prependIcon = icon;
+            prependIcon = icon;
 
             return this;
         }
@@ -54,7 +54,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.prependIcon = new GlyphIcon(icon, isWhite);
+            prependIcon = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -63,7 +63,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.prependIcon = new FontAwesomeIcon(icon, isWhite);
+            prependIcon = new FontAwesomeIcon(icon, isWhite);
 
             return this;
         }
@@ -73,7 +73,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!iconCssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.prependIcon = new GlyphIcon(iconCssClass);
+            prependIcon = new GlyphIcon(iconCssClass);
 
             return this;
         }
@@ -83,7 +83,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.appendIcon = icon;
+            appendIcon = icon;
 
             return this;
         }
@@ -93,7 +93,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.appendIcon = icon;
+            appendIcon = icon;
 
             return this;
         }
@@ -102,7 +102,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.appendIcon = new GlyphIcon(icon, isWhite);
+            appendIcon = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -111,7 +111,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.appendIcon = new FontAwesomeIcon(icon, isWhite);
+            appendIcon = new FontAwesomeIcon(icon, isWhite);
 
             return this;
         }
@@ -121,18 +121,18 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!iconCssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TabControl<TModel>>() != null);
 
-            this.appendIcon = new GlyphIcon(iconCssClass);
+            appendIcon = new GlyphIcon(iconCssClass);
 
             return this;
         }
 
         protected override string RenderControl()
         {
-            string liClass = (this.isActive ? " class=\"active\"" : string.Empty);
-            string prepend = (this.prependIcon != null ? (this.prependIcon + " ") : string.Empty);
-            string append = (this.appendIcon != null ? (" " + this.appendIcon) : string.Empty);
+            string liClass = (isActive ? " class=\"active\"" : string.Empty);
+            string prepend = (prependIcon != null ? (prependIcon + " ") : string.Empty);
+            string append = (appendIcon != null ? (" " + appendIcon) : string.Empty);
 
-            return "<li{0}><a data-toggle=\"tab\" href=\"#{1}\">{3}{2}{4}</a></li>".FormatWith(liClass, this.href, this.labelText, prepend, append);
+            return "<li{0}><a data-toggle=\"tab\" href=\"#{1}\">{3}{2}{4}</a></li>".FormatWith(liClass, href, labelText, prepend, append);
         }
     }
 }

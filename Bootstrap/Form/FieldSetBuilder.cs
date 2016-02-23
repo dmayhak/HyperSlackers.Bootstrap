@@ -18,11 +18,11 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(fieldSet != null, "fieldSet");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-            if (!this.element.legend.IsNullOrWhiteSpace())
+            if (!element.legend.IsNullOrWhiteSpace())
             {
-                this.textWriter.Write("<legend>{0}</legend>".FormatWith(this.element.legend));
+                textWriter.Write("<legend{0}>{1}</legend>".FormatWith((element.disabled ? " disabled" : ""), element.legend));
             }
         }
 
@@ -32,11 +32,11 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(ajax != null, "ajax");
             Contract.Requires<ArgumentNullException>(fieldSet != null, "fieldSet");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-            if (!this.element.legend.IsNullOrWhiteSpace())
+            if (!element.legend.IsNullOrWhiteSpace())
             {
-                this.textWriter.Write("<legend>{0}</legend>".FormatWith(this.element.legend));
+                textWriter.Write("<legend{0}>{1}</legend>".FormatWith((element.disabled ? " disabled" : ""), element.legend));
             }
         }
     }

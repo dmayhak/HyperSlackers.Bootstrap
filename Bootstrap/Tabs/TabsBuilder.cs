@@ -27,13 +27,13 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(tabs != null, "tabs");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-			this.activeTabIndex = this.element.activeTabIndex;
+            activeTabIndex = element.activeTabIndex;
 
             StringBuilder startTag = new StringBuilder();
             startTag.Append("<ul class=\"nav");
-            switch (this.element.navType)
+            switch (element.navType)
             {
                 case NavType.Pills:
                     startTag.Append(" nav-pills");
@@ -43,13 +43,13 @@ namespace HyperSlackers.Bootstrap.Controls
                     startTag.Append(" nav-tabs");
                     break;
             }
-            if (this.element.justified)
+            if (element.justified)
             {
                 startTag.Append(" nav-justified");
             }
             startTag.Append("\">");
 
-            this.textWriter.Write(startTag.ToString());
+            textWriter.Write(startTag.ToString());
 		}
 
         public DropDownBuilder<TModel> BeginDropDown(DropDown dropDown)  // TODO: do we need this???
@@ -57,30 +57,30 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(dropDown != null, "dropDown");
             Contract.Ensures(Contract.Result<DropDownBuilder<TModel>>() != null);
 
-            return new DropDownBuilder<TModel>(this.html, dropDown, "li", new { @class = "dropdown" }, true);
+            return new DropDownBuilder<TModel>(html, dropDown, "li", new { @class = "dropdown" }, true);
         }
 
         public TabsPanel BeginPanel()
 		{
             Contract.Ensures(Contract.Result<TabsPanel>() != null);
 
-            this.panelIndex++;
+            panelIndex++;
 
-            if (!this.isHeaderClosed)
+            if (!isHeaderClosed)
             {
-                this.textWriter.Write("</ul>");
-                this.isHeaderClosed = true;
+                textWriter.Write("</ul>");
+                isHeaderClosed = true;
             }
 
-            string tabId = this.tabIds.Dequeue();
-            if (this.panelIndex != 1)
+            string tabId = tabIds.Dequeue();
+            if (panelIndex != 1)
             {
-                return new TabsPanel(this.textWriter, "div", tabId, this.panelIndex == this.activeTabIndex);
+                return new TabsPanel(textWriter, "div", tabId, panelIndex == activeTabIndex);
             }
-            this.textWriter.Write("<div class=\"tab-content\">");
-            this.isFirstTab = false;
+            textWriter.Write("<div class=\"tab-content\">");
+            isFirstTab = false;
 
-            return new TabsPanel(this.textWriter, "div", tabId, this.panelIndex == this.activeTabIndex);
+            return new TabsPanel(textWriter, "div", tabId, panelIndex == activeTabIndex);
 		}
 
         public TabControl<TModel> Tab(string label)
@@ -88,36 +88,36 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!label.IsNullOrWhiteSpace());
 
             TabControl<TModel> tabsTab;
-            string tabId = this.element.id + "-" + this.tabIndex;
-            this.tabIds.Enqueue(tabId);
-            if (!this.isFirstTab)
+            string tabId = element.id + "-" + tabIndex;
+            tabIds.Enqueue(tabId);
+            if (!isFirstTab)
             {
-                tabsTab = new TabControl<TModel>(this.html, label, tabId, this.tabIndex == this.activeTabIndex);
+                tabsTab = new TabControl<TModel>(html, label, tabId, tabIndex == activeTabIndex);
             }
             else
             {
-                if (this.activeTabIndex == 0)
+                if (activeTabIndex == 0)
                 {
-                    this.activeTabIndex = 1;
+                    activeTabIndex = 1;
                 }
-                tabsTab = new TabControl<TModel>(this.html, label, tabId, this.tabIndex == this.activeTabIndex);
-                this.isFirstTab = false;
+                tabsTab = new TabControl<TModel>(html, label, tabId, tabIndex == activeTabIndex);
+                isFirstTab = false;
             }
 
-            this.tabIndex++;
+            tabIndex++;
 
             return tabsTab;
 		}
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div>");
+                    textWriter.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

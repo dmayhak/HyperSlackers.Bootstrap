@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DisplayControl<TModel>>() != null);
 
-            return new DisplayControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new DisplayControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public DisplayControl<TModel> DisplayFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -28,7 +28,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<DisplayControl<TModel>>() != null);
 
-            return new DisplayControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new DisplayControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public DisplayTextControl<TModel> DisplayText(string htmlFieldName)
@@ -37,7 +37,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DisplayTextControl<TModel>>() != null);
 
-            return new DisplayTextControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new DisplayTextControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public DisplayTextControl<TModel> DisplayTextFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<DisplayTextControl<TModel>>() != null);
 
-            return new DisplayTextControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new DisplayTextControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
     }
 }

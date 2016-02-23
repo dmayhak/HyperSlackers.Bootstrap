@@ -45,9 +45,26 @@ namespace HyperSlackers.Bootstrap
                     return "btn-lg";
                 case ButtonSize.Small:
                     return "btn-sm";
-                case ButtonSize.Mini:
+                case ButtonSize.ExtraSmall:
                     return "btn-xs";
                 case ButtonSize.Default:
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetCssClass(TextColor color)
+        {
+            Contract.Ensures(Contract.Result<string>() != null);
+
+            switch (color)
+            {
+                case TextColor.Danger:
+                case TextColor.Info:
+                case TextColor.Primary:
+                case TextColor.Success:
+                case TextColor.Warning:
+                    return "text-" + color.ToString().ToLowerInvariant();
                 default:
                     return string.Empty;
             }
@@ -60,7 +77,7 @@ namespace HyperSlackers.Bootstrap
 
             // use specified value or any set default
             ButtonStyle buttonStyle = style != ButtonStyle.None ? style : html.BootstrapDefaults().DefaultButtonStyle;
-            
+
             if (buttonStyle == ButtonStyle.None)
             {
                 return string.Empty;
@@ -85,7 +102,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            return "pull-" + alignment.ToString().ToLowerInvariant();
+            return "dropdown-menu-" + alignment.ToString().ToLowerInvariant();
         }
 
         public static string GetCssClass(HtmlHelper html, InputSize size)
@@ -118,7 +135,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(!String.IsNullOrEmpty(Contract.Result<string>()));
 
-            return type.ToString().ToLowerInvariant();
+            return "nav-" + type.ToString().ToLowerInvariant();
         }
 
         public static string GetCssClass(TableColor style)

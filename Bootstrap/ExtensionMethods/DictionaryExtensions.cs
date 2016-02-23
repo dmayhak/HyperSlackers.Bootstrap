@@ -10,88 +10,148 @@ namespace HyperSlackers.Bootstrap.Extensions
 {
     internal static class DictionaryExtensions
     {
-        public static IDictionary<string, object> AddIfNotExist(this IDictionary<string, object> data, string key, string value)
+        public static IDictionary<string, object> AddIfNotExist(this IDictionary<string, object> source, string key, string value)
         {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
+            Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
 
-            if (!data.ContainsKey(key))
+            if (!source.ContainsKey(key))
             {
-                data.Add(key, value);
+                source.Add(key, value);
             }
 
-            return data;
+            return source;
         }
 
-        public static IDictionary<string, object> AddClass(this IDictionary<string, object> data, string value)
+        public static IDictionary<string, object> AddIfNotExistsCssClass(this IDictionary<string, object> source, string value)
         {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
-            //x Contract.Requires<ArgumentException>(!value.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
-
-            return data.AddOrMergeCssClass("class", value);
-        }
-
-        private static IDictionary<string, object> AddOrMergeCssClass(this IDictionary<string, object> data, string key, string value)
-        {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
-            Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
 
             if (value.IsNullOrWhiteSpace())
             {
-                return data;
+                return source;
             }
 
-            if (data.ContainsKey(key))
+            string key = "class";
+
+            if (source.ContainsKey(key))
             {
                 // split incoming class name on ' ' just in case multiple items are being passed at one time
-                string existing = data[key].ToString();
-                string[] newItems = value.Split(' ');
-                foreach (var item in newItems)
-                {
-                    if (!item.IsNullOrWhiteSpace() && !Regex.IsMatch(existing, "(^|\\s){0}($|\\s)".FormatWith(item)))
-                    {
-                        data[key] += " " + item;
-                    }
-                }
+                List<string> existingValues = source[key].ToString().Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Distinct(StringComparer.InvariantCultureIgnoreCase).ToList();
+                List<string> newValues = value.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Distinct(StringComparer.InvariantCultureIgnoreCase).ToList();
+
+                source[key] = String.Join(" ", existingValues.Union(newValues).Distinct(StringComparer.InvariantCultureIgnoreCase).ToList());
             }
             else if (!value.IsNullOrWhiteSpace())
             {
-                data.Add(key, value);
+                source.Add(key, value);
             }
 
-            return data;
+            return source;
         }
 
-        public static IDictionary<string, object> AddOrReplace(this IDictionary<string, object> data, string key, string value)
+        /// <summary>
+        /// Adds the CSS style if it does not already exist. If the CSS property is already defined, nothing is added.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> AddIfNotExistsCssStyle(this IDictionary<string, object> source, string property , string value)
         {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
+            Contract.Requires<ArgumentNullException>(source != null, "source");
+            Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
+
+            if (property.IsNullOrWhiteSpace() || value.IsNullOrWhiteSpace())
+            {
+                return source;
+            }
+
+            string key = "style";
+
+            if (source.ContainsKey(key))
+            {
+                // create dictionary by splitting on  ';', then on ':'
+                var dict = source[key].ToString().Trim().Split(';').Select(s => s.Split(':')).Where(s => s.Length > 1 && !String.IsNullOrEmpty(s[0].Trim()) && !String.IsNullOrEmpty(s[1].Trim())).ToDictionary(s => s[0].Trim(), s => s[1].Trim());
+
+                if (!dict.ContainsKey(property))
+                {
+                    dict[property] = value;
+                }
+
+                source[key] = String.Join(" ", dict.Select(s => "{Key}: {Value};".FormatWith(s)));
+            }
+            else if (!value.IsNullOrWhiteSpace())
+            {
+                source.Add(key, "{0}: {1};".FormatWith(property.Trim(), value.Trim()));
+            }
+
+            return source;
+        }
+
+        public static IDictionary<string, object> AddOrReplaceCssStyle(this IDictionary<string, object> source, string property, string value)
+        {
+            Contract.Requires<ArgumentNullException>(source != null, "source");
+            Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
+
+            if (property.IsNullOrWhiteSpace() || value.IsNullOrWhiteSpace())
+            {
+                return source;
+            }
+
+            string key = "style";
+
+            if (source.ContainsKey(key))
+            {
+                // create dictionary by splitting on  ';', then on ':'
+                var dict = source[key].ToString().Trim().Split(';').Select(s => s.Split(':')).Where(s => s.Length > 1 && !String.IsNullOrEmpty(s[0].Trim()) && !String.IsNullOrEmpty(s[1].Trim())).ToDictionary(s => s[0].Trim(), s => s[1].Trim());
+
+                dict[property] = value;
+
+                source[key] = String.Join(" ", dict.Select(s => "{Key}: {Value};".FormatWith(s)));
+            }
+            else if (!value.IsNullOrWhiteSpace())
+            {
+                source.Add(key, "{0}: {1};".FormatWith(property.Trim(), value.Trim()));
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Replaces the HTML attribute.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> AddOrReplaceHtmlAttribute(this IDictionary<string, object> source, string key, string value)
+        {
+            Contract.Requires<ArgumentNullException>(source != null, "source");
             //x Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
 
             if (key.IsNullOrWhiteSpace())
             {
-                return data;
+                return source;
             }
 
-            if (!data.ContainsKey(key))
-            {
-                data.Add(key, value);
-            }
-            else
-            {
-                data[key] = value;
-            }
+            source[key] = value;
 
-            return data;
+            return source;
         }
 
+        /// <summary>
+        /// Formats the HTML attributes.
+        /// </summary>
+        /// <param name="htmlAttributes">The HTML attributes.</param>
+        /// <returns></returns>
         public static IDictionary<string, object> FormatHtmlAttributes(this IDictionary<string, object> htmlAttributes)
         {
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
-            
+
             if (htmlAttributes == null)
             {
                 return new Dictionary<string, object>();
@@ -107,79 +167,142 @@ namespace HyperSlackers.Bootstrap.Extensions
             return attributes;
         }
 
-        public static void MergeHtmlAttribute(this IDictionary<string, object> source, string key, object value)
+        /// <summary>
+        /// Adds or replaces the specific attribute.
+        /// For class and style, you may want to use the appropriate xxxCssClass and xxxCssStyle methods instead.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> AddOrReplaceHtmlAttribute(this IDictionary<string, object> source, string key, object value)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
 
             if (key.IsNullOrWhiteSpace())
             {
-                return;
+                return source;
             }
 
-            if (!source.ContainsKey(key))
-            {
-                source.Add(key, value);
-            }
-            else if ((key.ToLower() == "class") || (key.ToLower() == "style"))
-            {
-                source[key] = string.Concat(source[key], " ", value);
-            }
-            else
-            {
-                source[key] = value;
-            }
+            source[key] = value;
+
+            return source;
         }
 
-        public static void MergeHtmlAttributes(this IDictionary<string, object> source, IDictionary<string, object> htmlAttributes)
+        /// <summary>
+        /// Adds or replaces the specific attributes.
+        /// For class and style, you may want to use the appropriate xxxCssClass and xxxCssStyle methods instead.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="htmlAttributes">The HTML attributes.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> AddOrReplaceHtmlAttributes(this IDictionary<string, object> source, IDictionary<string, object> htmlAttributes)
         {
             Contract.Requires<ArgumentNullException>(source != null, "source");
-            
+
             if (htmlAttributes == null)
             {
-                return;
+                return source;
             }
 
             foreach (KeyValuePair<string, object> htmlAttribute in htmlAttributes)
             {
-                source.MergeHtmlAttribute(htmlAttribute.Key, htmlAttribute.Value);
+                source.AddOrReplaceHtmlAttribute(htmlAttribute.Key, htmlAttribute.Value);
             }
+
+            return source;
         }
 
-        public static IDictionary<string, object> RemoveClass(this IDictionary<string, object> data, string value)
+        /// <summary>
+        /// Removes the HTML attribute.
+        /// For class and style, you may want to use the appropriate xxxCssClass and xxxCssStyle methods instead.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> RemoveHtmlAttribute(this IDictionary<string, object> source, string key)
         {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
-            //x Contract.Requires<ArgumentException>(!value.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentNullException>(source != null, "source");
+
+            if (key.IsNullOrWhiteSpace())
+            {
+                return source;
+            }
+
+            if (source.ContainsKey(key))
+            {
+                source.Remove(key);
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Removes the CSS style.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> RemoveCssStyle(this IDictionary<string, object> source, string property)
+        {
+            Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
 
-            return data.RemoveCssClass("class", value);
+            if (property.IsNullOrWhiteSpace())
+            {
+                return source;
+            }
+
+            string key = "style";
+
+            if (source.ContainsKey(key))
+            {
+                // create dictionary by splitting on  ';', then on ':'
+                var dict = source[key].ToString().Trim().Split(';').Select(s => s.Split(':')).Where(s => s.Length > 1 && !String.IsNullOrEmpty(s[0].Trim()) && !String.IsNullOrEmpty(s[1].Trim())).ToDictionary(s => s[0].Trim(), s => s[1].Trim());
+
+                if (dict.ContainsKey(property))
+                {
+                    dict.Remove(property);
+                }
+
+                source[key] = String.Join(" ", dict.Select(s => "{Key}: {Value};".FormatWith(s)));
+            }
+
+            return source;
         }
 
-        private static IDictionary<string, object> RemoveCssClass(this IDictionary<string, object> data, string key, string value)
+        /// <summary>
+        /// Removes the CSS class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static IDictionary<string, object> RemoveCssClass(this IDictionary<string, object> source, string value)
         {
-            Contract.Requires<ArgumentNullException>(data != null, "data");
-            Contract.Requires<ArgumentException>(!key.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentNullException>(source != null, "source");
             Contract.Ensures(Contract.Result<IDictionary<string, object>>() != null);
 
             if (value.IsNullOrWhiteSpace())
             {
-                return data;
+                return source;
             }
 
-            if (data.ContainsKey(key))
+            string key = "class";
+
+            if (source.ContainsKey(key))
             {
-                // split incoming class name on ' ' just in case multiple items are being passed at one time
-                string existing = data[key].ToString();
-                string[] newItems = value.Split(' ');
-                foreach (var item in newItems)
+                // split incoming on ' ' just in case multiple items are being passed at one time
+                List<string> existingValues = source[key].ToString().Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Distinct(StringComparer.InvariantCultureIgnoreCase).ToList();
+
+                if (existingValues.Contains(value))
                 {
-                    if (!item.IsNullOrWhiteSpace() && Regex.IsMatch(existing, "(^|\\s){0}($|\\s)".FormatWith(item)))
-                    {
-                        data[key] = Regex.Replace(existing, "(^|\\s){0}($|\\s)".FormatWith(item), string.Empty).Replace("  ", " ");
-                    }
+                    existingValues.Remove(value);
                 }
+
+                source[key] = String.Join(" ", existingValues.Distinct(StringComparer.InvariantCultureIgnoreCase).ToList());
             }
 
-            return data;
+            return source;
         }
 
     }

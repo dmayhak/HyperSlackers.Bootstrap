@@ -32,7 +32,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
             
             return this;
         }
@@ -43,7 +43,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
+            helpText = new HelpTextControl<TModel>(html, text);
             
             return this;
         }
@@ -53,7 +53,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
             
             return this;
         }
@@ -64,13 +64,13 @@ namespace HyperSlackers.Bootstrap.Controls
 
             if (isDisabled)
             {
-                this.htmlAttributesInputTrue.AddOrReplace("disabled", "disabled");
-                this.htmlAttributesInputFalse.AddOrReplace("disabled", "disabled");
+                htmlAttributesInputTrue.AddOrReplaceHtmlAttribute("disabled", "disabled");
+                htmlAttributesInputFalse.AddOrReplaceHtmlAttribute("disabled", "disabled");
             }
             else
             {
-                this.htmlAttributesInputTrue.Remove("disabled");
-                this.htmlAttributesInputFalse.Remove("disabled");
+                htmlAttributesInputTrue.Remove("disabled");
+                htmlAttributesInputFalse.Remove("disabled");
             }
 
             return this;
@@ -81,7 +81,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.htmlAttributesInputFalse = htmlAttributes.ToDictionary();
+            htmlAttributesInputFalse = htmlAttributes.ToDictionary();
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -91,7 +91,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.htmlAttributesInputTrue = htmlAttributes.ToDictionary();
+            htmlAttributesInputTrue = htmlAttributes.ToDictionary();
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -101,7 +101,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.htmlAttributesLabelFalse = htmlAttributes.ToDictionary();
+            htmlAttributesLabelFalse = htmlAttributes.ToDictionary();
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -111,7 +111,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.htmlAttributesLabelTrue = htmlAttributes.ToDictionary();
+            htmlAttributesLabelTrue = htmlAttributes.ToDictionary();
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -122,8 +122,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!falseText.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.labelTrueText = trueText;
-            this.labelFalseText = falseText;
+            labelTrueText = trueText;
+            labelFalseText = falseText;
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -134,8 +134,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(falseValue != null, "falseValue");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.inputTrueValue = trueValue;
-            this.inputFalseValue = falseValue;
+            inputTrueValue = trueValue;
+            inputFalseValue = falseValue;
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -146,13 +146,13 @@ namespace HyperSlackers.Bootstrap.Controls
 
             if (isReadonly)
             {
-                this.htmlAttributesInputTrue.AddOrReplace("readonly", "readonly");
-                this.htmlAttributesInputFalse.AddOrReplace("readonly", "readonly");
+                htmlAttributesInputTrue.AddOrReplaceHtmlAttribute("readonly", "readonly");
+                htmlAttributesInputFalse.AddOrReplaceHtmlAttribute("readonly", "readonly");
             }
             else
             {
-                this.htmlAttributesInputTrue.Remove("readonly");
-                this.htmlAttributesInputFalse.Remove("readonly");
+                htmlAttributesInputTrue.Remove("readonly");
+                htmlAttributesInputFalse.Remove("readonly");
             }
 
             return (RadioButtonTrueFalseControl<TModel>)this;
@@ -182,7 +182,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(text);
+            tooltip = new Tooltip(text);
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -192,7 +192,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -201,7 +201,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            this.selectedValue = value;
+            selectedValue = value;
 
             return (RadioButtonTrueFalseControl<TModel>)this;
         }
@@ -219,38 +219,38 @@ namespace HyperSlackers.Bootstrap.Controls
             tagBuilder.AddCssStyle("display", "inline-block");
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                tagBuilder.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                tagBuilder.MergeHtmlAttributes(tooltip.ToDictionary());
             }
 
-            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
             bool isTrue = false;
             bool isFalse = false;
-            if (this.metadata.Model != null)
+            if (metadata.Model != null)
             {
-                isTrue = this.inputTrueValue.ToString() == this.metadata.Model.ToString();
-                isFalse = this.inputTrueValue.ToString() != this.metadata.Model.ToString();
+                isTrue = inputTrueValue.ToString() == metadata.Model.ToString();
+                isFalse = inputTrueValue.ToString() != metadata.Model.ToString();
             }
 
-            RadioButtonControl<TModel> trueRadioButton = new RadioButtonControl<TModel>(this.html, this.htmlFieldName, inputTrueValue, this.metadata);
+            RadioButtonControl<TModel> trueRadioButton = new RadioButtonControl<TModel>(html, htmlFieldName, inputTrueValue, metadata);
             trueRadioButton.IsChecked(isTrue);
-            trueRadioButton.ControlHtmlAttributes(this.htmlAttributesInputTrue.AddOrReplace("id", string.Concat(fullHtmlFieldName.FormatForMvcInputId(), "_t")));
-            trueRadioButton.Label(this.labelTrueText);
+            trueRadioButton.ControlHtmlAttributes(htmlAttributesInputTrue.AddOrReplaceHtmlAttribute("id", string.Concat(fullHtmlFieldName.FormatForMvcInputId(), "_t")));
+            trueRadioButton.Label(labelTrueText);
             trueRadioButton.ShowRequiredStar(false);
-            trueRadioButton.LabelHtmlAttributes(this.htmlAttributesLabelTrue);
+            trueRadioButton.LabelHtmlAttributes(htmlAttributesLabelTrue);
 
-            RadioButtonControl<TModel> falseRadioButton = new RadioButtonControl<TModel>(this.html, this.htmlFieldName, inputFalseValue, this.metadata);
+            RadioButtonControl<TModel> falseRadioButton = new RadioButtonControl<TModel>(html, htmlFieldName, inputFalseValue, metadata);
             falseRadioButton.IsChecked(isFalse);
-            falseRadioButton.ControlHtmlAttributes(this.htmlAttributesInputFalse.AddOrReplace("id", string.Concat(fullHtmlFieldName.FormatForMvcInputId(), "_f")));
-            falseRadioButton.Label(this.labelFalseText);
+            falseRadioButton.ControlHtmlAttributes(htmlAttributesInputFalse.AddOrReplaceHtmlAttribute("id", string.Concat(fullHtmlFieldName.FormatForMvcInputId(), "_f")));
+            falseRadioButton.Label(labelFalseText);
             falseRadioButton.ShowRequiredStar(false);
-            falseRadioButton.LabelHtmlAttributes(this.htmlAttributesLabelFalse);
+            falseRadioButton.LabelHtmlAttributes(htmlAttributesLabelFalse);
 
             string labelHtmlTrue = trueRadioButton.ToHtmlString(); 
             string labelHtmlFalse = falseRadioButton.ToHtmlString(); 
-            string helpHtml = (this.helpText != null ? this.helpText.ToHtmlString() : string.Empty);
-            string validationHtml = (showValidationMessageInline ? string.Empty : this.RenderValidationMessage());
+            string helpHtml = (helpText != null ? helpText.ToHtmlString() : string.Empty);
+            string validationHtml = (showValidationMessageInline ? string.Empty : RenderValidationMessage());
 
             tagBuilder.InnerHtml = labelHtmlTrue + labelHtmlFalse;
 

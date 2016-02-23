@@ -11,7 +11,6 @@ namespace HyperSlackers.Bootstrap.Controls
 {
     public class DropDownListControl<TModel> : InputControlBase<DropDownListControl<TModel>, TModel>
 	{
-        internal object selectedValue;
         internal readonly IEnumerable<SelectListItem> selectList;
         internal string optionLabel;
         internal readonly List<Tuple<IHtmlString, object>> prependHtml = new List<Tuple<IHtmlString, object>>();
@@ -19,13 +18,13 @@ namespace HyperSlackers.Bootstrap.Controls
         internal InputSize size = InputSize.Default;
 
         [ContractInvariantMethod]
-        private void ObjectInvariant() 
+        private void ObjectInvariant()
         {
-            Contract.Invariant(this.prependHtml != null);
-            Contract.Invariant(this.appendHtml != null);
+            Contract.Invariant(prependHtml != null);
+            Contract.Invariant(appendHtml != null);
         }
-        
-		public DropDownListControl(HtmlHelper<TModel> html, string htmlFieldName, IEnumerable<SelectListItem> selectList, ModelMetadata metadata) 
+
+		public DropDownListControl(HtmlHelper<TModel> html, string htmlFieldName, IEnumerable<SelectListItem> selectList, ModelMetadata metadata)
             : base(html, htmlFieldName, metadata)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
@@ -35,10 +34,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
             this.selectList = selectList;
-            this.selectedValue = metadata.Model;
+            selectedValue = metadata.Model;
 		}
 
-		public DropDownListControl(HtmlHelper<TModel> html, string htmlFieldName, string optionLabel, ModelMetadata metadata) 
+		public DropDownListControl(HtmlHelper<TModel> html, string htmlFieldName, string optionLabel, ModelMetadata metadata)
             : base(html, htmlFieldName, metadata)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
@@ -48,7 +47,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
             this.optionLabel = optionLabel;
-            this.selectedValue = metadata.Model;
+            selectedValue = metadata.Model;
 		}
 
         public DropDownListControl<TModel> Append(string htmlString, object containerHtmlAttributes = null)
@@ -56,7 +55,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -66,7 +65,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -76,7 +75,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -86,7 +85,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -95,7 +94,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -104,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -114,7 +113,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -134,7 +133,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -144,7 +143,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
             return (DropDownListControl<TModel>)this;
         }
 
@@ -153,7 +152,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -163,7 +162,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -172,7 +171,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -181,7 +180,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -191,7 +190,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return (DropDownListControl<TModel>)this;
         }
@@ -200,7 +199,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.selectedValue = value;
+            selectedValue = value;
 
             return (DropDownListControl<TModel>)this;
         }
@@ -209,7 +208,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
 
             return this;
         }
@@ -220,8 +219,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
-            
+            helpText = new HelpTextControl<TModel>(html, text);
+
             return this;
         }
 
@@ -230,7 +229,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
 
             return this;
         }
@@ -239,7 +238,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            this.size = inputSize;
+            size = inputSize;
 
             return this;
         }
@@ -252,11 +251,11 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            if (this.selectedValue != null)
+            if (selectedValue != null)
             {
-                foreach (SelectListItem selectListItem in this.selectList)
+                foreach (SelectListItem selectListItem in selectList)
                 {
-                    if (selectListItem.Value == this.selectedValue.ToString())
+                    if (selectListItem.Value == selectedValue.ToString())
                     {
                         selectListItem.Selected = true;
                         break;
@@ -264,43 +263,43 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
 
-            this.controlHtmlAttributes.AddClass(Helpers.GetCssClass(html, this.size));
+            controlHtmlAttributes.AddIfNotExistsCssClass((string)Helpers.GetCssClass(html, size));
 
             string controlHtml = string.Empty;
-            if (this.selectList != null)
+            if (selectList != null)
             {
-                controlHtml = html.DropDownList(this.htmlFieldName, this.selectList, this.optionLabel, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+                controlHtml = html.DropDownList(htmlFieldName, selectList, optionLabel, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
             }
             else
             {
-                controlHtml = html.DropDownList(this.htmlFieldName, this.optionLabel).ToHtmlString();
+                controlHtml = html.DropDownList(htmlFieldName, optionLabel).ToHtmlString();
             }
 
-            formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
+            formatString = AddPrependAppend(formatString, prependHtml, appendHtml);
 
-            string helpHtml = (this.helpText != null ? this.helpText.ToHtmlString() : GetHelpTextText());
+            string helpHtml = (helpText != null ? helpText.ToHtmlString() : GetHelpTextText());
             string validationHtml = string.Empty;
             if (!showValidationMessageInline)
             {
-                validationHtml = this.RenderValidationMessage();
+                validationHtml = RenderValidationMessage();
             }
 
-            return MvcHtmlString.Create(string.Format(formatString, controlHtml, helpHtml, validationHtml)).ToString();
+            return MvcHtmlString.Create(formatString.FormatWith(controlHtml, helpHtml, validationHtml)).ToString();
         }
 	}
 }

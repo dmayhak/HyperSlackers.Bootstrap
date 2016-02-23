@@ -23,7 +23,7 @@ namespace HyperSlackers.Bootstrap
 
             this.text = text;
 
-            this.AddClass("tree-toggle");
+            AddClass("tree-toggle");
         }
 
         public TreeHeader Collapsed(bool collapsed = true)
@@ -51,16 +51,16 @@ namespace HyperSlackers.Bootstrap
                 StringBuilder startTag = new StringBuilder();
 
                 startTag.Append(base.StartTag);
-                if (this.collapsed.HasValue && this.collapsed.Value == true)
+                if (collapsed.HasValue && collapsed.Value == true)
                 {
-                    startTag.Append(new FontAwesomeIcon(FontAwesomeIconType.PlusSquare).Class("tree-toggle").HtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(this.cursor))));
-                    startTag.Append("&nbsp;<label class=\"tree-toggle nav-header\" style=\"cursor: {1};\">{0}</label>".FormatWith(this.text, Helpers.GetCssClass(this.cursor)));
+                    startTag.Append(new FontAwesomeIcon(FontAwesomeIconType.PlusSquare).Class("tree-toggle").HtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(cursor))));
+                    startTag.Append("&nbsp;<label class=\"tree-toggle nav-header\" style=\"cursor: {1};\">{0}</label>".FormatWith(text, Helpers.GetCssClass(cursor)));
                     startTag.Append("<ul class=\"nav nav-list tree\" style=\"display: none;\">");
                 }
                 else 
                 {
-                    startTag.Append(new FontAwesomeIcon(FontAwesomeIconType.MinusSquare).Class("tree-toggle").HtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(this.cursor))));
-                    startTag.Append("&nbsp;<label class=\"tree-toggle nav-header\" style=\"cursor: {1};\">{0}</label>".FormatWith(this.text, Helpers.GetCssClass(this.cursor)));
+                    startTag.Append(new FontAwesomeIcon(FontAwesomeIconType.MinusSquare).Class("tree-toggle").HtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(cursor))));
+                    startTag.Append("&nbsp;<label class=\"tree-toggle nav-header\" style=\"cursor: {1};\">{0}</label>".FormatWith(text, Helpers.GetCssClass(cursor)));
                     startTag.Append("<ul class=\"nav nav-list tree\">");
                 }
 

@@ -11,13 +11,13 @@
 
 <h3>Examples</h3>
 
-<h5>Table wrapped in a panel</h5>
+<h5>Table in a panel</h5>
 
 @using(var panel = Html.Bootstrap().BeginPanel(new Panel("testPanel").Collapsible()))
-{ 
-    @panel.Header("panel header")
+{
+    @panel.Header("Header from Panel")
     using(var body = panel.BeginBody())
-    { 
+    {
         using(var table = Html.Bootstrap().BeginTable(new Table()))
         {
             @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
@@ -30,14 +30,81 @@
     }
 }
 
-<h5>Table wrapped in a panel</h5>
+<h5>Table (striped) with header and footer; wrapped in a panel (initially collapsed)</h5>
 
-@using (var table = Html.Bootstrap().BeginTable(new Table().Striped().WrapInPanel("table panel title", PanelStyle.Default, true)))
+@using (var table = Html.Bootstrap().BeginTable(new Table().Striped().Hover().WrapInPanel("Header from Table and 'Success' panel style", PanelStyle.Success, true, true)))
 {
+    @table.Header("Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6")
+
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
     @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+
+    @table.Footer("Footer Col 1", "Footer Col 2", "Footer Col 3", "Footer Col 4", "Footer Col 5", "Footer Col 6")
+}
+
+<h5>Table with row styles</h5>
+
+@using (var table = Html.Bootstrap().BeginTable(new Table().Hover().WrapInPanel("Table with row styles", true)))
+{
+    @table.Row("Default", "blah", "blah", "blah", "blah", "blah")
+    @table.Row(TableColor.None, "TableColor.None", "blah", "blah", "blah", "blah", "blah")
+    @table.Row(TableColor.Active, "TableColor.Active", "blah", "blah", "blah", "blah", "blah")
+    @table.Row(TableColor.Danger, "TableColor.Danger", "blah", "blah", "blah", "blah", "blah")
+    @table.Row(TableColor.Success, "TableColor.Success", "blah", "blah", "blah", "blah", "blah")
+    @table.Row(TableColor.Warning, "TableColor.Warning", "blah", "blah", "blah", "blah", "blah")
+}
+
+<h5>Table with cell styles, alignment, colspan</h5>
+
+@using (var table = Html.Bootstrap().BeginTable(new Table().Hover().WrapInPanel("Table with cell styles", true)))
+{
+    using (var hdr = table.BeginHeader())
+    {
+        using (var row = hdr.BeginRow())
+        {
+            @row.Cell("Columns 1-3", TextAlign.Center, 3)
+            @row.Cell("Columns 4-6", TextAlign.Center, TableColor.Active, 3)
+        }
+        using (var row = hdr.BeginRow())
+        {
+            @row.Cell("Column 1", TableColor.Danger)
+            @row.Cell("Column 2")
+            @row.Cell("Column 3")
+            @row.Cell("Column 4")
+            @row.Cell("Column 5")
+            @row.Cell("Column 6", TextAlign.Right, TableColor.Success)
+        }
+    }
+
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    using (var row = table.BeginRow())
+    {
+        @row.Cell("blah", TableColor.Default, 2)
+        @row.Cell("blah", TableColor.Success)
+        @row.Cell("blah")
+        @row.Cell("blah")
+        @row.Cell("blah", TextAlign.Right, TableColor.Warning)
+    }
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+    @table.Row("blah", "blah", "blah", "blah", "blah", "blah")
+
+    using (var ftr = table.BeginFooter())
+    {
+        using (var row = ftr.BeginRow())
+        {
+            @row.Cell("Footer 1")
+            @row.Cell("Footer 2")
+            @row.Cell("Footer 3")
+            @row.Cell("Footer 4")
+            @row.Cell("Footer 5")
+            @row.Cell("Footer 6", TextAlign.Right, TableColor.Success)
+        }
+    }
 }

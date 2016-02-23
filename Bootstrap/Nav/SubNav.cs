@@ -22,7 +22,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<SubNav>() != null);
 
-			this.activeLinksByController = true;
+            activeLinksByController = true;
 
 			return this;
 		}
@@ -31,7 +31,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<SubNav>() != null);
 
-			this.activeLinksByControllerAndAction = true;
+            activeLinksByControllerAndAction = true;
 
 			return this;
 		}

@@ -9,44 +9,10 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap
 {
-    public class TableFooterRow : HtmlElement<TableFooterRow>
+    public class TableFooterRow : TableRowBase<TableFooterRow>
     {
         public TableFooterRow()
-            : base("tr")
         {
-        }
-
-        public TableFooterRow Active()
-        {
-            Contract.Ensures(Contract.Result<TableFooterRow>() != null);
-
-            base.AddClass("active");
-
-            return this;
-        }
-
-        public TableFooterRow Active(bool isActive)
-        {
-            Contract.Ensures(Contract.Result<TableFooterRow>() != null);
-
-            if (isActive)
-            {
-                base.AddClass("active");
-            }
-            else
-            {
-                base.RemoveClass("active");
-            }
-            return this;
-        }
-
-        public TableFooterRow Style(TableColor style)
-        {
-            Contract.Ensures(Contract.Result<TableFooterRow>() != null);
-
-            base.AddClass(Helpers.GetCssClass(style));
-
-            return this;
         }
     }
 }

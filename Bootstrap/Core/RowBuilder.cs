@@ -27,7 +27,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(row != null, "row");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 		}
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(column != null, "column");
             Contract.Ensures(Contract.Result<ColumnBuilder<TModel>>() != null);
 
-            return new ColumnBuilder<TModel>(this.html, column);
+            return new ColumnBuilder<TModel>(html, column);
         }
     }
 }

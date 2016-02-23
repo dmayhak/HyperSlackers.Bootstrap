@@ -24,7 +24,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(carousel != null, "carousel");
             Contract.Ensures(Contract.Result<CarouselBuilder<TModel>>() != null);
 
-            return new CarouselBuilder<TModel>(this.html, carousel);
+            return new CarouselBuilder<TModel>(html, carousel);
         }
     }
 }

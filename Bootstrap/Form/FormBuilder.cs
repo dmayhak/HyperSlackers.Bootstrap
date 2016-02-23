@@ -30,49 +30,49 @@ namespace HyperSlackers.Bootstrap.Controls
             this.doNotRender = doNotRender;
             if (!this.doNotRender)
             {
-                html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = this.element;
+                html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = element;
 
-                if (this.element.id.IsNullOrWhiteSpace())
+                if (element.id.IsNullOrWhiteSpace())
                 {
-                    this.element.id = "mainForm"; // TODO: should we require id or no?
+                    element.id = "mainForm"; // TODO: should we require id or no?
                 }
 
-                if (!this.element.section.IsNullOrWhiteSpace())
+                if (!element.section.IsNullOrWhiteSpace())
                 {
-                    this.textWriter.Write("<section id=\"{0}Section\">".FormatWith(this.element.id));
+                    textWriter.Write("<section id=\"{0}Section\">".FormatWith(element.id));
                 }
 
-                if (this.element.formType != FormType.Default)
+                if (element.formType != FormType.Default)
                 {
-                    this.element.htmlAttributes.AddClass(Helpers.GetCssClass(this.element.formType));
+                    element.htmlAttributes.AddIfNotExistsCssClass(Helpers.GetCssClass(element.formType));
                 }
 
-                this.element.htmlAttributes.AddIfNotExist("role", "form"); // TODO: add role to other stuff: http://getbootstrap.com/javascript/   search for role... (aria text reader stuff...)
+                element.htmlAttributes.AddIfNotExist("role", "form"); // TODO: add role to other stuff: http://getbootstrap.com/javascript/   search for role... (aria text reader stuff...)
 
-                if (!this.element.encType.IsNullOrWhiteSpace())
+                if (!element.encType.IsNullOrWhiteSpace())
                 {
-                    this.element.htmlAttributes.AddIfNotExist("enctype", this.element.encType);
+                    element.htmlAttributes.AddIfNotExist("enctype", element.encType);
                 }
 
-                switch (this.element.actionTypePassed)
+                switch (element.actionTypePassed)
                 {
                     case ActionType.HtmlRegular:
                         {
-                            if (this.element.routeValues.Count == 0)
+                            if (element.routeValues.Count == 0)
                             {
-                                this.element.routeValues = HttpContext.Current.Request.QueryString.ToRouteValues();
+                                element.routeValues = HttpContext.Current.Request.QueryString.ToRouteValues();
                             }
-                            html.BeginForm(this.element.action, this.element.controller, this.element.routeValues, this.element.formMethod, this.element.htmlAttributes);
+                            html.BeginForm(element.action, element.controller, element.routeValues, element.formMethod, element.htmlAttributes);
                             return;
                         }
                     case ActionType.HtmlActionResult:
                         {
-                            html.BeginForm(this.element.result, this.element.formMethod, this.element.htmlAttributes);
+                            html.BeginForm(element.result, element.formMethod, element.htmlAttributes);
                             return;
                         }
                     case ActionType.HtmlTaskResult:
                         {
-                            html.BeginForm(this.element.taskResult, this.element.formMethod, this.element.htmlAttributes);
+                            html.BeginForm(element.taskResult, element.formMethod, element.htmlAttributes);
                             break;
                         }
                     default:
@@ -87,14 +87,14 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            return new FormGroup<TModel>(this.html, this.element);
+            return new FormGroup<TModel>(html, element);
         }
 
         public FieldSetBuilder<TModel> BeginFieldSet()
         {
             Contract.Ensures(Contract.Result<FieldSetBuilder<TModel>>() != null);
 
-            return new FieldSetBuilder<TModel>(this.html, new FieldSet());
+            return new FieldSetBuilder<TModel>(html, new FieldSet());
         }
 
         public FieldSetBuilder<TModel> BeginFieldSet(string legend)
@@ -102,31 +102,31 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(legend));
             Contract.Ensures(Contract.Result<FieldSetBuilder<TModel>>() != null);
 
-            return new FieldSetBuilder<TModel>(this.html, new FieldSet().Legend(legend));
+            return new FieldSetBuilder<TModel>(html, new FieldSet().Legend(legend));
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
-                        this.textWriter.Write("</form>");
+                        textWriter.Write("</form>");
 
-                        if (!this.element.section.IsNullOrWhiteSpace())
+                        if (!element.section.IsNullOrWhiteSpace())
                         {
-                            this.textWriter.Write("</section>");
+                            textWriter.Write("</section>");
                         }
 
-                        if (this.html != null)
+                        if (html != null)
                         {
-                            this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = null;
+                            html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = null;
                         }
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

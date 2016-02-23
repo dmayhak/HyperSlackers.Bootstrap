@@ -7,5 +7,15 @@
       <path>BootstrapDemo\Controllers\HomeController.cs</path>
       <absolutePath>C:\Dev\HyperSlackers\HyperSlackers.Bootstrap\BootstrapDemo\Controllers\HomeController.cs</absolutePath>
     </Favorite>
+    <Favorite>
+      <name>Views_Home.se</name>
+      <path>BootstrapDemo\Views\Home</path>
+      <viewKind>Solution Explorer</viewKind>
+    </Favorite>
+    <Favorite>
+      <name>TODO.cs</name>
+      <path>Bootstrap\TODO.cs</path>
+      <absolutePath>C:\Dev\HyperSlackers\HyperSlackers.Bootstrap\Bootstrap\TODO.cs</absolutePath>
+    </Favorite>
   </favorites>
 </Favorites>

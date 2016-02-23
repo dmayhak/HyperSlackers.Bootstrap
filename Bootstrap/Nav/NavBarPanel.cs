@@ -9,41 +9,24 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using HyperSlackers.Bootstrap.Extensions;
 
-namespace HyperSlackers.Bootstrap.Controls
+namespace HyperSlackers.Bootstrap
 {
-    public class NavBarPanelBuilder : DisposableHtmlElement // TODO:  WIP
+    public class NavBarPanel : HtmlElement<NavBarPanel> // TODO:  WIP
     {
-        readonly internal bool pullRight;
-        private bool disposed;
+        internal bool alignRight;
 
-        internal NavBarPanelBuilder(TextWriter textWriter, bool pullRight = false)
-            : base(textWriter)
+        public NavBarPanel()
+            : base("ul")
 		{
-            Contract.Requires<ArgumentNullException>(textWriter != null, "textWriter");
+        }
 
-            this.pullRight = pullRight;
-
-            StringBuilder startTag = new StringBuilder();
-            startTag.Append("<ul class=\"nav navbar-nav>".FormatWith(this.pullRight ? " navbar-right" : string.Empty));
-
-            this.textWriter.Write(startTag.ToString());
-		}
-
-
-
-        protected override void Dispose(bool disposing)
+        public NavBarPanel AlignRight()
         {
-            base.Dispose(disposing);
+            Contract.Ensures(Contract.Result<NavBarPanel>() != null);
 
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    this.textWriter.Write("</ul>");
+            alignRight = true;
 
-                    this.disposed = true;
-                }
-            }
+            return this;
         }
     }
 }

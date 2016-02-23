@@ -9,49 +9,28 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap
 {
-    public class TableHeaderCell : HtmlElement<TableHeaderCell>
+    public class TableHeaderCell : TableCellBase<TableHeaderCell>
     {
         public TableHeaderCell()
             : base("th")
         {
         }
 
-        public TableHeaderCell ColSpan(int span)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(span > 0);
-            Contract.Ensures(Contract.Result<TableHeaderCell>() != null);
-
-            this.AddOrMergeHtmlAttribute("colspan", span.ToString());
-
-            return this;
-        }
-
-        public TableHeaderCell Style(TableColor style)
+        public override TableHeaderCell Align(TextAlign align)
         {
             Contract.Ensures(Contract.Result<TableHeaderCell>() != null);
 
-            base.AddClass(Helpers.GetCssClass(style));
+            if (align == TextAlign.None)
+            {
+                base.RemoveHtmlAttribute("align");
+                base.RemoveStyle("text-align");
+            }
+            else
+            {
+                AddOrReplaceHtmlAttribute("align", align.ToString().ToLowerInvariant());
+                AddOrReplaceHtmlAttribute("style", "text-align:{0};".FormatWith(align.ToString().ToLowerInvariant()));
+            }
 
-            return this;
-        }
-
-        public TableHeaderCell Width(TableCellWidth width)
-        {
-            Contract.Ensures(Contract.Result<TableHeaderCell>() != null);
-
-            base.AddClass(Helpers.GetCssClass(width));
-
-            return this;
-        }
-
-        public TableHeaderCell Width(string width)
-        {
-            Contract.Requires<ArgumentNullException>(width != null, "width");
-            Contract.Requires<ArgumentException>(!width.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<TableHeaderCell>() != null);
-
-            this.HtmlAttribute("width", width);
-            
             return this;
         }
     }

@@ -38,7 +38,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<AccordionPanel>() != null);
 
-            this.panelId = id;
+            panelId = id;
 
             return this;
         }

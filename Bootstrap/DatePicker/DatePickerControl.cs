@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
 
             return this;
         }
@@ -56,7 +56,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
+            helpText = new HelpTextControl<TModel>(html, text);
 
             return this;
         }
@@ -66,7 +66,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
 
             return this;
         }
@@ -75,7 +75,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.size = inputSize;
+            size = inputSize;
 
             return this;
         }
@@ -152,7 +152,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.placeholder = GetPlaceholderText();
+            placeholder = GetPlaceholderText();
 
             return this;
         }
@@ -162,7 +162,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!placeHolder.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.placeholder = placeHolder;
+            placeholder = placeHolder;
 
             return this;
         }
@@ -229,7 +229,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.weekStart = day;
+            weekStart = day;
 
             return this;
         }
@@ -266,7 +266,7 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
 
-            this.daysOfWeekDisabled = disabledDays.ToArray();
+            daysOfWeekDisabled = disabledDays.ToArray();
 
             return this;
         }
@@ -302,7 +302,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.minViewMode = viewMode;
+            minViewMode = viewMode;
 
             return this;
         }
@@ -329,7 +329,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.todayButton = mode;
+            todayButton = mode;
 
             return this;
         }
@@ -338,7 +338,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            this.todayHighlight = highlight;
+            todayHighlight = highlight;
 
             return this;
         }
@@ -351,53 +351,53 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            if (this.component)
+            if (component)
             {
                 // icon was class=icon-th
                 formatString = "<div class=\"input-group date\">" + formatString + "<span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span></div>";
             }
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
             bool alwaysShowPlaceholder = html.BootstrapDefaults().DefaultShowPlaceholder ?? false;
 
-            if (!this.placeholder.IsNullOrWhiteSpace())
+            if (!placeholder.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("placeholder", this.placeholder);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("placeholder", placeholder);
             }
             else if (alwaysShowPlaceholder)
             {
-                this.controlHtmlAttributes.AddOrReplace("placeholder", GetPlaceholderText());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("placeholder", GetPlaceholderText());
             }
 
-            this.controlHtmlAttributes.AddClass((string)Helpers.GetCssClass(html, this.size));
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
 
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass((string)Helpers.GetCssClass(html, size));
 
-            this.controlHtmlAttributes.AddClass("datepicker");
+            controlHtmlAttributes.AddIfNotExistsCssClass("datepicker");
 
             if (weekStart != DayOfWeek.Sunday)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-week-start", ((int)this.weekStart).ToString());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-week-start", ((int)weekStart).ToString());
             }
 
-            if (this.clearButton)
+            if (clearButton)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-clear-btn", "true");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-clear-btn", "true");
             }
 
-            if (this.daysOfWeekDisabled.Length > 0)
+            if (daysOfWeekDisabled.Length > 0)
             {
                 StringBuilder disabledDays = new StringBuilder();
                 foreach (var item in daysOfWeekDisabled)
@@ -410,56 +410,56 @@ namespace HyperSlackers.Bootstrap.Controls
                     disabledDays.Append(((int)item).ToString());
                 }
 
-                this.controlHtmlAttributes.AddOrReplace("data-date-days-of-week-disabled", "[" + disabledDays.ToString() + "]");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-days-of-week-disabled", "[" + disabledDays.ToString() + "]");
             }
 
-            if (this.startDate.HasValue)
+            if (startDate.HasValue)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-start-date", this.startDate.Value.ToShortDateString());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-start-date", startDate.Value.ToShortDateString());
             }
 
-            if (this.endDate.HasValue)
+            if (endDate.HasValue)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-end-date", this.endDate.Value.ToShortDateString());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-end-date", endDate.Value.ToShortDateString());
             }
 
-            if (this.autoClose)
+            if (autoClose)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-autoclose", "true");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-autoclose", "true");
             }
 
-            if (this.minViewMode != DatePickerViewMode.Days)
+            if (minViewMode != DatePickerViewMode.Days)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-min-view-mode", this.minViewMode.ToString().ToLowerInvariant());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-min-view-mode", minViewMode.ToString().ToLowerInvariant());
             }
 
-            if (this.orientation != DatePickerOrientation.Auto)
+            if (orientation != DatePickerOrientation.Auto)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-orientation", this.orientation.ToString().SpaceOnUpperCase().ToLowerInvariant());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-orientation", orientation.ToString().SpaceOnUpperCase().ToLowerInvariant());
             }
 
-            if (this.startView != DatePickerStartMode.Months)
+            if (startView != DatePickerStartMode.Months)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-start-view", this.startView.ToString().ToLowerInvariant());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-start-view", startView.ToString().ToLowerInvariant());
             }
 
-            if (this.todayButton != DatePickerTodayButtonMode.False)
+            if (todayButton != DatePickerTodayButtonMode.False)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-today-btn", this.todayButton.ToString().ToLowerInvariant());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-today-btn", todayButton.ToString().ToLowerInvariant());
             }
 
-            if (this.todayHighlight)
+            if (todayHighlight)
             {
-                this.controlHtmlAttributes.AddOrReplace("data-date-today-highlight", "true");
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-today-highlight", "true");
             }
 
             SetFormatText();
 
-            string controlHtml = html.TextBox(this.htmlFieldName, this.value, this.format, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+            string controlHtml = html.TextBox(htmlFieldName, selectedValue, format, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
 
             //formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
-            string helpHtml = this.helpText != null ? this.helpText.ToHtmlString() : string.Empty;
-            string validationHtml = showValidationMessageInline ? string.Empty : this.RenderValidationMessage();
+            string helpHtml = helpText != null ? helpText.ToHtmlString() : string.Empty;
+            string validationHtml = showValidationMessageInline ? string.Empty : RenderValidationMessage();
 
             return MvcHtmlString.Create(formatString.FormatWith(controlHtml, helpHtml, validationHtml)).ToString();
         }

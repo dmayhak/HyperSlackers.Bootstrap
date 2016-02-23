@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TextAreaControl<TModel>>() != null);
 
-            return new TextAreaControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new TextAreaControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public TextAreaControl<TModel> TextAreaFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -28,7 +28,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<TextAreaControl<TModel>>() != null);
 
-            return new TextAreaControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new TextAreaControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public TextBoxControl<TModel> TextBox(string htmlFieldName)
@@ -37,7 +37,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TextBoxControl<TModel>>() != null);
 
-            return new TextBoxControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new TextBoxControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public TextBoxControl<TModel> TextBoxFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<TextBoxControl<TModel>>() != null);
 
-            return new TextBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new TextBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public PasswordControl<TModel> Password(string htmlFieldName)
@@ -54,7 +54,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            return new PasswordControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new PasswordControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public PasswordControl<TModel> PasswordFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -62,7 +62,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            return new PasswordControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new PasswordControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
     }
 }

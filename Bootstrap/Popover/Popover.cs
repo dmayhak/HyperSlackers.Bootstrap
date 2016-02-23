@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Popover>() != null);
 
-            this.animation = false;
+            animation = false;
 
             return this;
         }
@@ -81,7 +81,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Popover>() != null);
 
-            this.placement = "auto " + Helpers.GetCssClass(preferredPlacement);
+            placement = "auto " + Helpers.GetCssClass(preferredPlacement);
 
             return this;
         }
@@ -139,7 +139,7 @@ namespace HyperSlackers.Bootstrap
             //x Contract.Requires<ArgumentException>(!element.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Popover>() != null);
 
-            this.container = element;
+            container = element;
 
             return this;
         }
@@ -160,53 +160,53 @@ namespace HyperSlackers.Bootstrap
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
 
             dictionary.AddIfNotExist("data-toggle", "popover");
-            dictionary.AddIfNotExist("data-title", this.title + (this.closable ? "<span class='pull-right close'>&times;</span>" : string.Empty));
-            dictionary.AddIfNotExist("data-content", this.content);
+            dictionary.AddIfNotExist("data-title", title + (closable ? "<span class='pull-right close'>&times;</span>" : string.Empty));
+            dictionary.AddIfNotExist("data-content", content);
 
-            if (this.animation.HasValue)
+            if (animation.HasValue)
             {
-                dictionary.AddIfNotExist("data-animation", this.animation.Value ? "true" : "false");
+                dictionary.AddIfNotExist("data-animation", animation.Value ? "true" : "false");
             }
 
-            if (this.closable)
+            if (closable)
             {
                 dictionary.AddIfNotExist("data-html", "true");
             }
-            else if (this.html.HasValue)
+            else if (html.HasValue)
             {
-                dictionary.AddIfNotExist("data-html", this.html.Value ? "true" : "false");
+                dictionary.AddIfNotExist("data-html", html.Value ? "true" : "false");
             }
 
-            if (!this.placement.IsNullOrWhiteSpace())
+            if (!placement.IsNullOrWhiteSpace())
             {
-                dictionary.AddIfNotExist("data-placement", this.placement);
+                dictionary.AddIfNotExist("data-placement", placement);
             }
 
-            if (!this.selector.IsNullOrWhiteSpace())
+            if (!selector.IsNullOrWhiteSpace())
             {
-                dictionary.AddIfNotExist("data-selector", this.selector);
+                dictionary.AddIfNotExist("data-selector", selector);
             }
 
-            if (!this.trigger.IsNullOrWhiteSpace())
+            if (!trigger.IsNullOrWhiteSpace())
             {
-                dictionary.AddIfNotExist("data-trigger", this.trigger);
+                dictionary.AddIfNotExist("data-trigger", trigger);
             }
 
-            if (this.delayShow.HasValue && this.delayHide.HasValue)
+            if (delayShow.HasValue && delayHide.HasValue)
             {
-                dictionary.AddIfNotExist("data-delay", "{" + " \"show\": {0}, \"hide\": {1} ".FormatWith(this.delayShow.Value, delayHide.Value) + "}");
+                dictionary.AddIfNotExist("data-delay", "{" + " \"show\": {0}, \"hide\": {1} ".FormatWith(delayShow.Value, delayHide.Value) + "}");
             }
-            else if (this.delay.HasValue)
+            else if (delay.HasValue)
             {
-                dictionary.AddIfNotExist("data-delay", this.delay.Value.ToString());
+                dictionary.AddIfNotExist("data-delay", delay.Value.ToString());
             }
 
-            if (!this.container.IsNullOrWhiteSpace())
+            if (!container.IsNullOrWhiteSpace())
             {
-                dictionary.AddIfNotExist("data-container", this.container);
+                dictionary.AddIfNotExist("data-container", container);
             }
             
-            dictionary.AddIfNotExist("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(this.cursor)));
+            dictionary.AddIfNotExist("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(cursor)));
 
             return dictionary;
         }

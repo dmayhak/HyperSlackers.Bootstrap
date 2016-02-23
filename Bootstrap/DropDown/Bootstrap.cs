@@ -14,12 +14,19 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
+        public DropDownBuilder<TModel> BeginDropDown(string actionText)
+        {
+            Contract.Ensures(Contract.Result<DropDownBuilder<TModel>>() != null);
+
+            return new DropDownBuilder<TModel>(html, new DropDown(actionText), "div", new { @class = "dropdown" }, true);
+        }
+
         public DropDownBuilder<TModel> BeginDropDown(DropDown dropDown)
         {
             Contract.Requires<ArgumentNullException>(dropDown != null, "dropDown");
             Contract.Ensures(Contract.Result<DropDownBuilder<TModel>>() != null);
 
-            return new DropDownBuilder<TModel>(this.html, dropDown, "div", new { @class = "dropdown" }, true);
+            return new DropDownBuilder<TModel>(html, dropDown, "div", new { @class = dropDown.dropup ? "dropup" : "dropdown" }, true);
         }
 
         public DropDownListControl<TModel> DropDownList(string htmlFieldName, IEnumerable<SelectListItem> selectList)
@@ -29,7 +36,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new DropDownListControl<TModel>(html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public DropDownListControl<TModel> DropDownList(string htmlFieldName, string optionlabel)
@@ -39,7 +46,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!optionlabel.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, htmlFieldName, optionlabel, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new DropDownListControl<TModel>(html, htmlFieldName, optionlabel, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public DropDownListControl<TModel> DropDownListFor<TValue>(Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> selectList)
@@ -48,31 +55,40 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new DropDownListControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
-        public DropDownListFromEnumControl<TModel> DropDownListFromEnum(string htmlFieldName)
+        public DropDownListFromEnumControl<TModel, TValue> DropDownListFromEnum<TValue>(string htmlFieldName)
+        where TValue : struct, IConvertible
         {
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            return new DropDownListFromEnumControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new DropDownListFromEnumControl<TModel, TValue>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
-        public DropDownListFromEnumControl<TModel> DropDownListFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+        public DropDownListFromEnumControl<TModel, TValue> DropDownListFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+        where TValue : struct, IConvertible
         {
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            return new DropDownListFromEnumControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new DropDownListFromEnumControl<TModel, TValue>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
 
         public DropDownMenuControl<TModel> DropDownMenu()
         {
             Contract.Ensures(Contract.Result<DropDownMenuControl<TModel>>() != null);
 
-            return new DropDownMenuControl<TModel>(this.html);
+            return new DropDownMenuControl<TModel>(html);
+        }
+
+        public DropDownMenuButtonControl<TModel> DropDownMenuButton(DropDown dropdown)
+        {
+            Contract.Ensures(Contract.Result<DropDownMenuButtonControl<TModel>>() != null);
+
+            return new DropDownMenuButtonControl<TModel>(html, dropdown);
         }
     }
 }

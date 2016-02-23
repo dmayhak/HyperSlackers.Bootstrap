@@ -43,7 +43,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.widthLg = width;
+            widthLg = width;
 
             return this;
         }
@@ -53,7 +53,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.widthMd = width;
+            widthMd = width;
 
             return this;
         }
@@ -63,7 +63,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.widthSm = width;
+            widthSm = width;
 
             return this;
         }
@@ -73,7 +73,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.widthXs = width;
+            widthXs = width;
 
             return this;
         }
@@ -83,7 +83,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.offsetLg = offset;
+            offsetLg = offset;
 
             return this;
         }
@@ -93,7 +93,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.offsetMd = offset;
+            offsetMd = offset;
 
             return this;
         }
@@ -103,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.offsetSm = offset;
+            offsetSm = offset;
 
             return this;
         }
@@ -113,7 +113,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.offsetXs = offset;
+            offsetXs = offset;
 
             return this;
         }
@@ -123,7 +123,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pushLg = push;
+            pushLg = push;
 
             return this;
         }
@@ -133,7 +133,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pushMd = push;
+            pushMd = push;
 
             return this;
         }
@@ -143,7 +143,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pushSm = push;
+            pushSm = push;
 
             return this;
         }
@@ -153,7 +153,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pushXs = push;
+            pushXs = push;
 
             return this;
         }
@@ -163,7 +163,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pullLg = pull;
+            pullLg = pull;
 
             return this;
         }
@@ -173,7 +173,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pullMd = pull;
+            pullMd = pull;
 
             return this;
         }
@@ -183,7 +183,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pullSm = pull;
+            pullSm = pull;
 
             return this;
         }
@@ -193,7 +193,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.pullXs = pull;
+            pullXs = pull;
 
             return this;
         }
@@ -202,7 +202,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.hiddenLg = true;
+            hiddenLg = true;
 
             return this;
         }
@@ -211,7 +211,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.hiddenMd = true;
+            hiddenMd = true;
 
             return this;
         }
@@ -220,7 +220,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.hiddenSm = true;
+            hiddenSm = true;
 
             return this;
         }
@@ -229,7 +229,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.hiddenXs = true;
+            hiddenXs = true;
 
             return this;
         }
@@ -238,7 +238,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.visibleLg = true;
+            visibleLg = true;
 
             return this;
         }
@@ -247,7 +247,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.visibleMd = true;
+            visibleMd = true;
 
             return this;
         }
@@ -256,7 +256,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.visibleSm = true;
+            visibleSm = true;
 
             return this;
         }
@@ -265,7 +265,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ColClassControl>() != null);
 
-            this.visibleXs = true;
+            visibleXs = true;
 
             return this;
         }
@@ -277,12 +277,12 @@ namespace HyperSlackers.Bootstrap.Controls
 
             StringBuilder cssClass = new StringBuilder();
 
-			cssClass.Append(Helpers.CssColClassWidth(this.widthXs, this.widthSm, this.widthMd, this.widthLg));
-            cssClass.Append(Helpers.CssColClassOffset(this.offsetXs, this.offsetSm, this.offsetMd, this.offsetLg));
-            cssClass.Append(Helpers.CssColClassPush(this.pushXs, this.pushSm, this.pushMd, this.pushLg));
-            cssClass.Append(Helpers.CssColClassPull(this.pullXs, this.pullSm, this.pullMd, this.pullLg));
-            cssClass.Append(Helpers.CssColClassHidden(this.hiddenXs, this.hiddenSm, this.hiddenMd, this.hiddenLg));
-            cssClass.Append(Helpers.CssColClassVisible(this.visibleXs, this.visibleSm, this.visibleMd, this.visibleLg));
+			cssClass.Append(Helpers.CssColClassWidth(widthXs, widthSm, widthMd, widthLg));
+            cssClass.Append(Helpers.CssColClassOffset(offsetXs, offsetSm, offsetMd, offsetLg));
+            cssClass.Append(Helpers.CssColClassPush(pushXs, pushSm, pushMd, pushLg));
+            cssClass.Append(Helpers.CssColClassPull(pullXs, pullSm, pullMd, pullLg));
+            cssClass.Append(Helpers.CssColClassHidden(hiddenXs, hiddenSm, hiddenMd, hiddenLg));
+            cssClass.Append(Helpers.CssColClassVisible(visibleXs, visibleSm, visibleMd, visibleLg));
 
             return cssClass.ToString();
 		}
@@ -290,7 +290,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override string ToString()
 		{
-			return this.ToHtmlString();
+			return ToHtmlString();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]

@@ -24,7 +24,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
 			this.code = code;
 
-            this.controlHtmlAttributes.AddClass("prettyprint");
+            controlHtmlAttributes.AddIfNotExistsCssClass("prettyprint");
 		}
 
         public CodeBlockControl<TModel> LineNumbers(int startAt = 1)
@@ -40,27 +40,27 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
 			TagBuilder tagBuilder = new TagBuilder("pre");
 
-            if (this.startAt.HasValue)
+            if (startAt.HasValue)
             {
                 if (startAt == 1)
                 {
                     tagBuilder.AddCssClass("linenums");
-                    this.controlHtmlAttributes.AddClass("linenums");
+                    controlHtmlAttributes.AddIfNotExistsCssClass("linenums");
                 }
                 else
                 {
-                    tagBuilder.AddCssClass("linenums:{0}".FormatWith(this.startAt));
-                    this.controlHtmlAttributes.AddClass("linenums:{0}".FormatWith(this.startAt));
+                    tagBuilder.AddCssClass("linenums:{0}".FormatWith(startAt));
+                    controlHtmlAttributes.AddIfNotExistsCssClass("linenums:{0}".FormatWith(startAt));
                 }
             }
 
 			tagBuilder.MergeHtmlAttributes(attributes);
 
-            tagBuilder.InnerHtml = this.code;
+            tagBuilder.InnerHtml = code;
 
 			return tagBuilder.ToString(TagRenderMode.Normal);
 		}

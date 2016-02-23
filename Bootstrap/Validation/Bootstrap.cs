@@ -22,7 +22,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<ValidationSummaryControl<TModel>>() != null);
 
-            return new ValidationSummaryControl<TModel>(this.html);
+            return new ValidationSummaryControl<TModel>(html);
         }
     }
 }

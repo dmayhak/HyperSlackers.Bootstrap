@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
-            this.AddClass("panel");
+            AddClass("panel");
             this.id = id;
             //this.AddOrMergeHtmlAttribute("id", this.id);
         }

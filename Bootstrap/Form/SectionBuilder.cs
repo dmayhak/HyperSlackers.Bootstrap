@@ -23,10 +23,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
             this.id = id;
-            this.doNotRender = html.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() == "post";
-            if (!this.doNotRender)
+            doNotRender = html.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() == "post";
+            if (!doNotRender)
             {
-                this.textWriter.Write("<section id=\"{0}\">".FormatWith(id));
+                textWriter.Write("<section id=\"{0}\">".FormatWith(id));
             }
 		}
 
@@ -34,21 +34,21 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            return this.id;
+            return id;
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
-                        this.textWriter.Write("</section>");
+                        textWriter.Write("</section>");
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

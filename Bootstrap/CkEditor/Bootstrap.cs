@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            return new CkEditorControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData));
+            return new CkEditorControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData));
         }
 
         public CkEditorControl<TModel> CkEditorFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -28,7 +28,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            return new CkEditorControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData));
+            return new CkEditorControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData));
         }
     }
 }

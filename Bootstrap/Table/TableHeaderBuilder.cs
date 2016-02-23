@@ -18,14 +18,14 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(tableHeader != null, "tableHeader");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
         }
 
         public TableHeaderRowBuilder<TModel> BeginRow()
         {
             Contract.Ensures(Contract.Result<TableHeaderRowBuilder<TModel>>() != null);
 
-            return new TableHeaderRowBuilder<TModel>(this.html, new TableHeaderRow());
+            return new TableHeaderRowBuilder<TModel>(html, new TableHeaderRow());
         }
 
         public TableHeaderRowBuilder<TModel> BeginRow(object htmlAttributes)
@@ -35,7 +35,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableHeaderRow row = (new TableHeaderRow()).HtmlAttributes(htmlAttributes);
 
-            return new TableHeaderRowBuilder<TModel>(this.html, row);
+            return new TableHeaderRowBuilder<TModel>(html, row);
         }
 
         public TableHeaderRowBuilder<TModel> BeginRow(TableHeaderRow row)
@@ -43,7 +43,7 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(row != null, "row");
             Contract.Ensures(Contract.Result<TableHeaderRowBuilder<TModel>>() != null);
 
-            return new TableHeaderRowBuilder<TModel>(this.html, row);
+            return new TableHeaderRowBuilder<TModel>(html, row);
         }
     }
 }

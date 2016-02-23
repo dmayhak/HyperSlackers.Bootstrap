@@ -34,11 +34,12 @@ namespace HyperSlackers.Bootstrap.Controls
             panelTagBuilder.MergeAttribute("style", "cursor:pointer;");
 
             TagBuilder linkTagBuilder = new TagBuilder("a");
+            linkTagBuilder.Attributes.Add("role", "button");
             linkTagBuilder.Attributes.Add("href", "#" + panel.panelId);
             linkTagBuilder.AddCssClass("accordion-toggle");
             linkTagBuilder.InnerHtml = panel.title;
-            //linkTagBuilder.MergeAttribute("data-toggle", "collapse");
-            //linkTagBuilder.MergeAttribute("data-parent", "#" + parentAccordionId);
+            linkTagBuilder.MergeAttribute("data-toggle", "collapse");
+            linkTagBuilder.MergeAttribute("data-parent", "#" + panel.parentAccordionId);
 
             TagBuilder titleTagBuilder = new TagBuilder("h4");
             titleTagBuilder.AddCssClass("panel-title");
@@ -62,13 +63,13 @@ namespace HyperSlackers.Bootstrap.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div></div></div>");
+                    textWriter.Write("</div></div></div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

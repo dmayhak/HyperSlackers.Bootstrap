@@ -14,6 +14,6 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
-        
+        // TODO: editor control 
     }
 }

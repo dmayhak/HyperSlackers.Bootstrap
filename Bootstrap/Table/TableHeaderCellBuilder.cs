@@ -11,15 +11,13 @@ using HyperSlackers.Bootstrap.Extensions;
 
 namespace HyperSlackers.Bootstrap.Builders
 {
-    public class TableHeaderCellBuilder<TModel> : DisposableHtmlElement<TModel, TableHeaderCell>
+    public class TableHeaderCellBuilder<TModel> : TableCellBuilderBase<TModel, TableHeaderCell>
     {
         internal TableHeaderCellBuilder(HtmlHelper<TModel> html, TableHeaderCell cell)
             : base(html, cell)
         {
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(cell != null, "cell");
-
-            this.textWriter.Write(this.element.StartTag);
         }
     }
 }

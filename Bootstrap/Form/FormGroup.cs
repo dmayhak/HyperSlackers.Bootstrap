@@ -27,69 +27,159 @@ namespace HyperSlackers.Bootstrap.Controls
         internal int? controlWidthMd;
         internal int? controlWidthSm;
         internal int? controlWidthXs;
+        internal FormGroupValidationState validationState = FormGroupValidationState.Default;
+        internal Icon feedbackIcon;
+        internal bool useDefaultFeedbackIcon;
+        internal InputSize size = InputSize.Default;
 
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(this.labelHtmlAttributes != null);
-            Contract.Invariant(this.controlHtmlAttributes != null);
-            Contract.Invariant(this.formGroupHtmlAttributes != null);
+            Contract.Invariant(labelHtmlAttributes != null);
+            Contract.Invariant(controlHtmlAttributes != null);
+            Contract.Invariant(formGroupHtmlAttributes != null);
         }
-        
+
 		internal FormGroup(HtmlHelper<TModel> html)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
 
 			this.html = html;
-		}
-        
+        }
+
 		internal FormGroup(HtmlHelper<TModel> html, Form form)
         {
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(form != null, "form");
 
             this.html = html;
-            this.formType = form.formType;
+            formType = form.formType;
 
-            this.labelWidthXs = form.labelWidthXs;
-            this.labelWidthSm = form.labelWidthSm;
-            this.labelWidthMd = form.labelWidthMd;
-            this.labelWidthLg = form.labelWidthLg;
-            this.controlWidthXs = form.controlWidthXs;
-            this.controlWidthSm = form.controlWidthSm;
-            this.controlWidthMd = form.controlWidthMd;
-            this.controlWidthLg = form.controlWidthLg;
+            labelWidthXs = form.labelWidthXs;
+            labelWidthSm = form.labelWidthSm;
+            labelWidthMd = form.labelWidthMd;
+            labelWidthLg = form.labelWidthLg;
+            controlWidthXs = form.controlWidthXs;
+            controlWidthSm = form.controlWidthSm;
+            controlWidthMd = form.controlWidthMd;
+            controlWidthLg = form.controlWidthLg;
 
-            this.LabelHtmlAttributes(form.labelHtmlAttributes);
-            this.ControlHtmlAttributes(form.controlHtmlAttributes);
+            LabelHtmlAttributes(form.labelHtmlAttributes);
+            ControlHtmlAttributes(form.controlHtmlAttributes);
         }
-        
+
         internal FormGroup(AjaxHelper<TModel> ajax, AjaxForm form)
         {
             Contract.Requires<ArgumentNullException>(ajax != null, "ajax");
             Contract.Requires<ArgumentNullException>(form != null, "form");
 
-            this.html = new HtmlHelper<TModel>(ajax.ViewContext, ajax.ViewDataContainer, ajax.RouteCollection);
-            this.formType = form.formType;
+            html = new HtmlHelper<TModel>(ajax.ViewContext, ajax.ViewDataContainer, ajax.RouteCollection);
+            formType = form.formType;
 
-            this.labelWidthXs = form.labelWidthXs;
-            this.labelWidthSm = form.labelWidthSm;
-            this.labelWidthMd = form.labelWidthMd;
-            this.labelWidthLg = form.labelWidthLg;
-            this.controlWidthXs = form.controlWidthXs;
-            this.controlWidthSm = form.controlWidthSm;
-            this.controlWidthMd = form.controlWidthMd;
-            this.controlWidthLg = form.controlWidthLg;
+            labelWidthXs = form.labelWidthXs;
+            labelWidthSm = form.labelWidthSm;
+            labelWidthMd = form.labelWidthMd;
+            labelWidthLg = form.labelWidthLg;
+            controlWidthXs = form.controlWidthXs;
+            controlWidthSm = form.controlWidthSm;
+            controlWidthMd = form.controlWidthMd;
+            controlWidthLg = form.controlWidthLg;
 
-            this.LabelHtmlAttributes(form.labelHtmlAttributes);
-            this.ControlHtmlAttributes(form.controlHtmlAttributes);
+            LabelHtmlAttributes(form.labelHtmlAttributes);
+            ControlHtmlAttributes(form.controlHtmlAttributes);
+        }
+
+        internal FormGroup(HtmlHelper<TModel> html, NavBarForm form)
+        {
+            Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Requires<ArgumentNullException>(form != null, "form");
+
+            this.html = html;
+            formType = form.formType;
+
+            labelWidthXs = form.labelWidthXs;
+            labelWidthSm = form.labelWidthSm;
+            labelWidthMd = form.labelWidthMd;
+            labelWidthLg = form.labelWidthLg;
+            controlWidthXs = form.controlWidthXs;
+            controlWidthSm = form.controlWidthSm;
+            controlWidthMd = form.controlWidthMd;
+            controlWidthLg = form.controlWidthLg;
+
+            LabelHtmlAttributes(form.labelHtmlAttributes);
+            ControlHtmlAttributes(form.controlHtmlAttributes);
+        }
+
+        public FormGroup<TModel> ValidationState(FormGroupValidationState state)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            validationState = state;
+            SetDefaultFeedbackIcon();
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> FeedbackIcon(bool useDefault = true)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            useDefaultFeedbackIcon = useDefault;
+            SetDefaultFeedbackIcon();
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> FeedbackIcon(GlyphIcon icon)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            feedbackIcon = icon.Class("form-control-feedback");
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> FeedbackIcon(FontAwesomeIcon icon)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            feedbackIcon = icon.Class("form-control-feedback");
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> FeedbackIcon(GlyphIconType icon)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            feedbackIcon = new GlyphIcon(icon).Class("form-control-feedback");
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> FeedbackIcon(FontAwesomeIconType icon)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            feedbackIcon = new FontAwesomeIcon(icon).Class("form-control-feedback");
+
+            return (FormGroup<TModel>)this;
+        }
+
+        public FormGroup<TModel> Size(InputSize inputSize)
+        {
+            Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
+
+            size = inputSize;
+
+            return this;
         }
 
         public FormGroup<TModel> Type(FormType type)
         {
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.formType = type;
+            formType = type;
 
             return (FormGroup<TModel>)this;
         }
@@ -99,7 +189,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.formGroupHtmlAttributes.AddClass(cssClass);
+            formGroupHtmlAttributes.AddIfNotExistsCssClass(cssClass);
 
 			return this;
 		}
@@ -109,7 +199,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.formGroupHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToHtmlDataAttributes());
+            formGroupHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToHtmlDataAttributes());
 
             return this;
         }
@@ -119,7 +209,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.formGroupHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            formGroupHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return this;
         }
@@ -129,7 +219,7 @@ namespace HyperSlackers.Bootstrap.Controls
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.formGroupHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            formGroupHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (FormGroup<TModel>)this;
         }
@@ -139,7 +229,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-			this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
 			return this;
 		}
@@ -149,7 +239,7 @@ namespace HyperSlackers.Bootstrap.Controls
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return this;
         }
@@ -159,7 +249,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return this;
         }
@@ -169,7 +259,7 @@ namespace HyperSlackers.Bootstrap.Controls
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return this;
         }
@@ -179,7 +269,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlWidthLg = width;
+            controlWidthLg = width;
 
             return this;
         }
@@ -189,7 +279,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlWidthMd = width;
+            controlWidthMd = width;
 
             return this;
         }
@@ -199,7 +289,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlWidthSm = width;
+            controlWidthSm = width;
 
             return this;
         }
@@ -209,7 +299,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlWidthXs = width;
+            controlWidthXs = width;
 
             return this;
         }
@@ -218,10 +308,10 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.controlWidthLg = widthLg;
-            this.controlWidthMd = widthMd;
-            this.controlWidthSm = widthSm;
-            this.controlWidthXs = widthXs;
+            controlWidthLg = widthLg;
+            controlWidthMd = widthMd;
+            controlWidthSm = widthSm;
+            controlWidthXs = widthXs;
 
             return this;
         }
@@ -231,8 +321,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelWidthLg = width;
-            this.formType = FormType.Horizontal;
+            labelWidthLg = width;
+            formType = FormType.Horizontal;
 
             return this;
         }
@@ -242,8 +332,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelWidthMd = width;
-            this.formType = FormType.Horizontal;
+            labelWidthMd = width;
+            formType = FormType.Horizontal;
 
             return this;
         }
@@ -253,8 +343,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelWidthSm = width;
-            this.formType = FormType.Horizontal;
+            labelWidthSm = width;
+            formType = FormType.Horizontal;
 
             return this;
         }
@@ -264,8 +354,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelWidthXs = width;
-            this.formType = FormType.Horizontal;
+            labelWidthXs = width;
+            formType = FormType.Horizontal;
 
             return this;
         }
@@ -274,10 +364,10 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<FormGroup<TModel>>() != null);
 
-            this.labelWidthLg = widthLg;
-            this.labelWidthMd = widthMd;
-            this.labelWidthSm = widthSm;
-            this.labelWidthXs = widthXs;
+            labelWidthLg = widthLg;
+            labelWidthMd = widthMd;
+            labelWidthSm = widthSm;
+            labelWidthXs = widthXs;
 
             return this;
         }
@@ -288,33 +378,35 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CheckBoxControl<TModel>>() != null);
 
-			return new CheckBoxControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+			return new CheckBoxControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
-        
+
         public CheckBoxControl<TModel> CheckBoxFor<TValue>(Expression<Func<TModel, TValue>> expression)
 		{
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<CheckBoxControl<TModel>>() != null);
 
-            return new CheckBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new CheckBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
-        
-        public CheckBoxListFromEnumControl<TModel> CheckBoxesFromEnum(string htmlFieldName)
-		{
+
+        public CheckBoxListFromEnumControl<TModel, TValue> CheckBoxesFromEnum<TValue>(string htmlFieldName)
+            where TValue : struct, IConvertible
+        {
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
-            return new CheckBoxListFromEnumControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new CheckBoxListFromEnumControl<TModel, TValue>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
-        
-        public CheckBoxListFromEnumControl<TModel> CheckBoxesFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
-		{
+
+        public CheckBoxListFromEnumControl<TModel, TValue> CheckBoxesFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+            where TValue : struct, IConvertible
+        {
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
-            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<CheckBoxListFromEnumControl<TModel, TValue>>() != null);
 
-            return new CheckBoxListFromEnumControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new CheckBoxListFromEnumControl<TModel, TValue>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
-        
+
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxList<TSource, SValue, SText>(string htmlFieldName, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
 		{
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
@@ -323,9 +415,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
 		}
-        
+
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxList<TSource, SValue, SText>(string htmlFieldName, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
 		{
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
@@ -334,9 +426,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
 		}
-        
+
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
 		{
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
@@ -345,9 +437,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
 		}
-        
+
         public CheckBoxListControl<TModel, TSource, SValue, SText> CheckBoxListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
 		{
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
@@ -356,7 +448,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<CheckBoxListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new CheckBoxListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
+            return new CheckBoxListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
 		}
 
         public ControlGroupControl<TModel> CustomControls(string controls)
@@ -366,7 +458,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             IHtmlString[] htmlStrings = new IHtmlString[] { MvcHtmlString.Create(controls) };
 
-            return this.CustomControls(htmlStrings);
+            return CustomControls(htmlStrings);
         }
 
         public ControlGroupControl<TModel> CustomControls(params IHtmlString[] controls)
@@ -380,40 +472,52 @@ namespace HyperSlackers.Bootstrap.Controls
                 controlList.Add(item);
             }
 
-            return new ControlGroupControl<TModel>(this.html, controlList).FormGroup(this);
+            return new ControlGroupControl<TModel>(html, controlList).FormGroup(this);
         }
-        
+
 		public DisplayControl<TModel> Display(string expression)
 		{
             Contract.Requires<ArgumentException>(!expression.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DisplayControl<TModel>>() != null);
 
-            return new DisplayControl<TModel>(this.html, expression, ModelMetadata.FromStringExpression(expression, this.html.ViewData)).FormGroup(this);
+            return new DisplayControl<TModel>(html, expression, ModelMetadata.FromStringExpression(expression, html.ViewData)).FormGroup(this);
 		}
-        
+
         public DisplayControl<TModel> DisplayFor<TValue>(Expression<Func<TModel, TValue>> expression)
 		{
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<DisplayControl<TModel>>() != null);
 
-            return new DisplayControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new DisplayControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
-        
+
+        public ControlGroupControl<TModel> StaticText(string html)
+        {
+            Contract.Requires<ArgumentException>(!html.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<ControlGroupControl<TModel>>() != null);
+
+            var p = new TagBuilder("p");
+            p.AddCssClass("form-control-static");
+            p.InnerHtml = html;
+
+            return CustomControls(p.ToString());
+        }
+
         public DisplayTextControl<TModel> DisplayText(string htmlFieldName)
         {
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DisplayTextControl<TModel>>() != null);
 
-            return new DisplayTextControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new DisplayTextControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
-        
+
         public DisplayTextControl<TModel> DisplayTextFor<TValue>(Expression<Func<TModel, TValue>> expression)
 		{
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<DisplayTextControl<TModel>>() != null);
 
-            return new DisplayTextControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new DisplayTextControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
         public DropDownListControl<TModel> DropDownList(string htmlFieldName, IEnumerable<SelectListItem> selectList)
@@ -423,7 +527,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new DropDownListControl<TModel>(html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public DropDownListControl<TModel> DropDownList(string htmlFieldName, string optionLabel)
@@ -434,7 +538,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!optionLabel.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, htmlFieldName, optionLabel, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new DropDownListControl<TModel>(html, htmlFieldName, optionLabel, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public DropDownListControl<TModel> DropDownListFor<TValue>(Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> selectList)
@@ -443,24 +547,26 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<DropDownListControl<TModel>>() != null);
 
-            return new DropDownListControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new DropDownListControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
-		public DropDownListFromEnumControl<TModel> DropDownListFromEnum(string htmlFieldName)
+		public DropDownListFromEnumControl<TModel, TValue> DropDownListFromEnum<TValue>(string htmlFieldName)
+        where TValue : struct, IConvertible
         {
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            return new DropDownListFromEnumControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new DropDownListFromEnumControl<TModel, TValue>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
-        public DropDownListFromEnumControl<TModel> DropDownListFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
-		{
+        public DropDownListFromEnumControl<TModel, TValue> DropDownListFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
+        where TValue : struct, IConvertible
+        {
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
-            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel>>() != null);
+            Contract.Ensures(Contract.Result<DropDownListFromEnumControl<TModel, TValue>>() != null);
 
-            return new DropDownListFromEnumControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new DropDownListFromEnumControl<TModel, TValue>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public EditorControl<TModel> Editor(string expression)
@@ -469,7 +575,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!expression.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<EditorControl<TModel>>() != null);
 
-            return new EditorControl<TModel>(this.html, expression, ModelMetadata.FromStringExpression(expression, this.html.ViewData)).FormGroup(this);
+            return new EditorControl<TModel>(html, expression, ModelMetadata.FromStringExpression(expression, html.ViewData)).FormGroup(this);
 		}
 
         public EditorControl<TModel> EditorFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -477,7 +583,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<EditorControl<TModel>>() != null);
 
-            return new EditorControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new EditorControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public FileControl<TModel> File(string htmlFieldName)
@@ -486,7 +592,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FileControl<TModel>>() != null);
 
-            return new FileControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new FileControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public FileControl<TModel> FileFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -494,7 +600,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<FileControl<TModel>>() != null);
 
-            return new FileControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new FileControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public ListBoxControl<TModel> ListBox(string htmlFieldName, IEnumerable<SelectListItem> selectList)
@@ -504,7 +610,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            return new ListBoxControl<TModel>(this.html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new ListBoxControl<TModel>(html, htmlFieldName, selectList, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public ListBoxControl<TModel> ListBoxFor<TValue>(Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> selectList)
@@ -512,7 +618,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Requires<ArgumentNullException>(selectList != null, "selectList");
 
-            return new ListBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new ListBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), selectList, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public PasswordControl<TModel> Password(string htmlFieldName)
@@ -521,7 +627,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            return new PasswordControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new PasswordControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public PasswordControl<TModel> PasswordFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -529,7 +635,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            return new PasswordControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new PasswordControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public RadioButtonControl<TModel> RadioButton(string htmlFieldName, object value)
@@ -538,7 +644,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<RadioButtonControl<TModel>>() != null);
 
-            return new RadioButtonControl<TModel>(this.html, htmlFieldName, value, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new RadioButtonControl<TModel>(html, htmlFieldName, value, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public RadioButtonControl<TModel> RadioButtonFor<TValue>(Expression<Func<TModel, TValue>> expression, object value)
@@ -546,9 +652,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<RadioButtonControl<TModel>>() != null);
 
-            return new RadioButtonControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), value, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new RadioButtonControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), value, ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
-        
+
 		public RadioButtonListControl<TModel, TSource, SValue, SText> RadioButtonList<TSource, SValue, SText>(string htmlFieldName, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
 		{
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
@@ -557,7 +663,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<RadioButtonListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new RadioButtonListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
+            return new RadioButtonListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
 		}
 
         public RadioButtonListControl<TModel, TSource, SValue, SText> RadioButtonList<TSource, SValue, SText>(string htmlFieldName, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -568,7 +674,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<RadioButtonListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new RadioButtonListControl<TModel, TSource, SValue, SText>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
+            return new RadioButtonListControl<TModel, TSource, SValue, SText>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
 		}
 
         public RadioButtonListControl<TModel, TSource, SValue, SText> RadioButtonListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, Expression<Func<TModel, IEnumerable<TSource>>> sourceDataExpression, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -579,7 +685,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<RadioButtonListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new RadioButtonListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
+            return new RadioButtonListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceDataExpression, valueExpression, textExpression).FormGroup(this);
 		}
 
         public RadioButtonListControl<TModel, TSource, SValue, SText> RadioButtonListFor<TValue, TSource, SValue, SText>(Expression<Func<TModel, TValue>> expression, IEnumerable<TSource> sourceData, Expression<Func<TSource, SValue>> valueExpression, Expression<Func<TSource, SText>> textExpression)
@@ -590,15 +696,15 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(textExpression != null, "textExpression");
             Contract.Ensures(Contract.Result<RadioButtonListControl<TModel, TSource, SValue, SText>>() != null);
 
-            return new RadioButtonListControl<TModel, TSource, SValue, SText>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
+            return new RadioButtonListControl<TModel, TSource, SValue, SText>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData), sourceData, valueExpression, textExpression).FormGroup(this);
 		}
 
-        public RadioButtonListFromEnumControl<TModel> RadioButtonsFromEnum(string htmlFieldName)
+        public RadioButtonListFromEnumControl<TModel> RadioButtonsFromEnum<TValue>(string htmlFieldName)
 		{
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Ensures(Contract.Result<RadioButtonListFromEnumControl<TModel>>() != null);
 
-            return new RadioButtonListFromEnumControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new RadioButtonListFromEnumControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public RadioButtonListFromEnumControl<TModel> RadioButtonsFromEnumFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -606,7 +712,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<RadioButtonListFromEnumControl<TModel>>() != null);
 
-            return new RadioButtonListFromEnumControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new RadioButtonListFromEnumControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public RadioButtonTrueFalseControl<TModel> RadioButtonTrueFalse(string htmlFieldName)
@@ -614,7 +720,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            return new RadioButtonTrueFalseControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new RadioButtonTrueFalseControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public RadioButtonTrueFalseControl<TModel> RadioButtonTrueFalseFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -622,16 +728,24 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<RadioButtonTrueFalseControl<TModel>>() != null);
 
-            return new RadioButtonTrueFalseControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
-		}
+            return new RadioButtonTrueFalseControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
+        }
 
-		public TextAreaControl<TModel> TextArea(string htmlFieldName)
+        //public StaticTextControl<TModel> Static(string text)
+        //{
+        //    //x Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(text));
+        //    Contract.Ensures(Contract.Result<TextAreaControl<TModel>>() != null);
+
+        //    return new StaticTextControl<TModel>(this.html, text).FormGroup(this);
+        //}
+
+        public TextAreaControl<TModel> TextArea(string htmlFieldName)
         {
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TextAreaControl<TModel>>() != null);
 
-            return new TextAreaControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new TextAreaControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public TextAreaControl<TModel> TextAreaFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -639,7 +753,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<TextAreaControl<TModel>>() != null);
 
-            return new TextAreaControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new TextAreaControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
 		public TextBoxControl<TModel> TextBox(string htmlFieldName)
@@ -648,7 +762,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TextBoxControl<TModel>>() != null);
 
-            return new TextBoxControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new TextBoxControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
 		}
 
         public TextBoxControl<TModel> TextBoxFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -656,7 +770,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<TextBoxControl<TModel>>() != null);
 
-            return new TextBoxControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new TextBoxControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
 		}
 
         public DatePickerControl<TModel> DatePicker(string htmlFieldName)
@@ -665,7 +779,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            return new DatePickerControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new DatePickerControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
         }
 
         public DatePickerControl<TModel> DatePickerFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -673,7 +787,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<DatePickerControl<TModel>>() != null);
 
-            return new DatePickerControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new DatePickerControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
         }
 
         public CkEditorControl<TModel> CkEditor(string htmlFieldName)
@@ -682,7 +796,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            return new CkEditorControl<TModel>(this.html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, this.html.ViewData)).FormGroup(this);
+            return new CkEditorControl<TModel>(html, htmlFieldName, ModelMetadata.FromStringExpression(htmlFieldName, html.ViewData)).FormGroup(this);
         }
 
         public CkEditorControl<TModel> CkEditorFor<TValue>(Expression<Func<TModel, TValue>> expression)
@@ -690,7 +804,29 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(expression != null, "expression");
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            return new CkEditorControl<TModel>(this.html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, this.html.ViewData)).FormGroup(this);
+            return new CkEditorControl<TModel>(html, ExpressionHelper.GetExpressionText(expression), ModelMetadata.FromLambdaExpression<TModel, TValue>(expression, html.ViewData)).FormGroup(this);
+        }
+
+        private void SetDefaultFeedbackIcon()
+        {
+            if (useDefaultFeedbackIcon)
+            {
+                switch (validationState)
+                {
+                    case FormGroupValidationState.Success:
+                        FeedbackIcon(GlyphIconType.Ok);
+                        break;
+                    case FormGroupValidationState.Warning:
+                        FeedbackIcon(GlyphIconType.WarningSign);
+                        break;
+                    case FormGroupValidationState.Error:
+                        FeedbackIcon(GlyphIconType.Remove);
+                        break;
+                    default:
+                        feedbackIcon = null;
+                        break;
+                }
+            }
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

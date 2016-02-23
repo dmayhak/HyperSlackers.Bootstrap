@@ -29,7 +29,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
 
             return this;
         }
@@ -40,7 +40,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
+            helpText = new HelpTextControl<TModel>(html, text);
 
             return this;
         }
@@ -50,7 +50,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
 
             return this;
         }
@@ -59,7 +59,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.size = inputSize;
+            size = inputSize;
 
             return this;
         }
@@ -69,7 +69,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return this;
         }
@@ -79,7 +79,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
 
             return this;
         }
@@ -89,7 +89,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
@@ -99,7 +99,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
@@ -108,7 +108,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return this;
         }
@@ -117,7 +117,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return this;
         }
@@ -127,7 +127,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            appendHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return this;
         }
@@ -136,14 +136,14 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ModelMetadata>() != null);
 
-            return this.metadata;
+            return metadata;
         }
 
         public PasswordControl<TModel> Placeholder()
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.placeholder = GetPlaceholderText();
+            placeholder = GetPlaceholderText();
 
             return this;
         }
@@ -153,17 +153,17 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!placeHolder.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.placeholder = placeHolder;
+            placeholder = placeHolder;
 
             return this;
         }
 
         public PasswordControl<TModel> Prepend(string htmlString, object containerHtmlAttributes = null)
         {
-            Contract.Requires<ArgumentException>(!htmlString.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(MvcHtmlString.Create(htmlString), containerHtmlAttributes));
 
             return this;
         }
@@ -173,7 +173,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlString != null, "htmlString");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(htmlString, containerHtmlAttributes));
 
             return this;
         }
@@ -183,7 +183,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
@@ -193,7 +193,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(icon, containerHtmlAttributes));
 
             return this;
         }
@@ -202,7 +202,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(icon), containerHtmlAttributes));
 
             return this;
         }
@@ -211,7 +211,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new FontAwesomeIcon(icon), containerHtmlAttributes));
 
             return this;
         }
@@ -221,7 +221,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<PasswordControl<TModel>>() != null);
 
-            this.prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
+            prependHtml.Add(new Tuple<IHtmlString, object>(new GlyphIcon(cssClass), containerHtmlAttributes));
 
             return this;
         }
@@ -234,39 +234,46 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
             bool alwaysShowPlaceholder = html.BootstrapDefaults().DefaultShowPlaceholder ?? false;
 
-            if (!this.placeholder.IsNullOrWhiteSpace())
+            if (!placeholder.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("placeholder", this.placeholder);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("placeholder", placeholder);
             }
             else if (alwaysShowPlaceholder)
             {
-                this.controlHtmlAttributes.AddOrReplace("placeholder", GetPlaceholderText());
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("placeholder", GetPlaceholderText());
             }
 
-            this.controlHtmlAttributes.AddClass((string)Helpers.GetCssClass(html, this.size));
+            controlHtmlAttributes.AddIfNotExistsCssClass((string)Helpers.GetCssClass(html, size));
 
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
 
-            string controlHtml = html.Password(this.htmlFieldName, null, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+            string controlHtml = html.Password(htmlFieldName, null, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
 
-            formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
-            string helpHtml = (this.helpText != null ? this.helpText.ToHtmlString() : string.Empty);
-            string validationHtml = (showValidationMessageInline ? string.Empty : this.RenderValidationMessage());
+            formatString = AddPrependAppend(formatString, prependHtml, appendHtml);
+
+            // if formgroup has feedback icon defined, use it
+            if (formGroup != null && formGroup.feedbackIcon != null)
+            {
+                formatString += formGroup.feedbackIcon.ToHtmlString();
+            }
+
+            string helpHtml = (helpText != null ? helpText.ToHtmlString() : string.Empty);
+            string validationHtml = (showValidationMessageInline ? string.Empty : RenderValidationMessage());
 
             return MvcHtmlString.Create(string.Format(formatString, controlHtml, helpHtml, validationHtml)).ToString();
         }

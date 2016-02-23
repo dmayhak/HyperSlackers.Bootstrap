@@ -12,7 +12,7 @@ namespace HyperSlackers.Bootstrap
         public CodeBlock() 
             : base("pre")
 		{
-            this.AddClass("prettyprint");
+            AddClass("prettyprint");
 		}
 
         public CodeBlock LineNumbers(int startAt = 1)
@@ -21,11 +21,11 @@ namespace HyperSlackers.Bootstrap
 
             if (startAt == 1)
             {
-                this.AddClass("linenums");
+                AddClass("linenums");
             }
             else
             {
-                this.AddClass("linenums:{0}".FormatWith(startAt));
+                AddClass("linenums:{0}".FormatWith(startAt));
             }
 
 			return this;

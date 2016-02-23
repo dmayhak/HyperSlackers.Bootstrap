@@ -14,12 +14,19 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
 {
     public partial class Bootstrap<TModel>
     {
-        public AlertControl<TModel> Alert(string alertHtml)
+        public AlertControl<TModel> Alert(string alertHtml, AlertStyle style = AlertStyle.Danger)
         {
             Contract.Requires<ArgumentException>(!alertHtml.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<AlertControl<TModel>>() != null);
 
-            return new AlertControl<TModel>(this.html, alertHtml);
+            return new AlertControl<TModel>(html, alertHtml).Style(style);
+        }
+
+        public AlertBuilder<TModel> BeginAlert(AlertStyle style = AlertStyle.Danger)
+        {
+            Contract.Ensures(Contract.Result<AlertBuilder<TModel>>() != null);
+
+            return BeginAlert(new Alert(style));
         }
 
         public AlertBuilder<TModel> BeginAlert(Alert alert)
@@ -27,14 +34,14 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(alert != null, "alert");
             Contract.Ensures(Contract.Result<AlertBuilder<TModel>>() != null);
 
-            return new AlertBuilder<TModel>(this.html, alert);
+            return new AlertBuilder<TModel>(html, alert);
         }
 
         public MessageAlertControl<TModel> MessageAlerts()
         {
             Contract.Ensures(Contract.Result<MessageAlertControl<TModel>>() != null);
 
-            return new MessageAlertControl<TModel>(this.html);
+            return new MessageAlertControl<TModel>(html);
         }
     }
 }

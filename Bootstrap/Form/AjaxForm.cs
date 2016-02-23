@@ -69,14 +69,14 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!message.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.Confirm = message;
+            ajaxOptions.Confirm = message;
 
             return this;
         }
 
         public AjaxForm AjaxInsertionMode(InsertionMode mode)
         {
-            this.ajaxOptions.InsertionMode = mode;
+            ajaxOptions.InsertionMode = mode;
 
             return this;
         }
@@ -85,7 +85,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentOutOfRangeException>(duration >= 0);
 
-            this.ajaxOptions.LoadingElementDuration = duration;
+            ajaxOptions.LoadingElementDuration = duration;
 
             return this;
         }
@@ -94,7 +94,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.LoadingElementId = id;
+            ajaxOptions.LoadingElementId = id;
 
             return this;
         }
@@ -103,7 +103,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!jsFunctionName.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.OnBegin = jsFunctionName;
+            ajaxOptions.OnBegin = jsFunctionName;
 
             return this;
         }
@@ -112,7 +112,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!jsFunctionName.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.OnComplete = jsFunctionName;
+            ajaxOptions.OnComplete = jsFunctionName;
 
             return this;
         }
@@ -121,7 +121,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!jsFunctionName.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.OnFailure = jsFunctionName;
+            ajaxOptions.OnFailure = jsFunctionName;
 
             return this;
         }
@@ -130,7 +130,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!jsFunctionName.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.OnSuccess = jsFunctionName;
+            ajaxOptions.OnSuccess = jsFunctionName;
 
             return this;
         }
@@ -139,7 +139,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.UpdateTargetId = id;
+            ajaxOptions.UpdateTargetId = id;
 
             return this;
         }
@@ -148,7 +148,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Requires<ArgumentException>(!url.IsNullOrWhiteSpace());
 
-            this.ajaxOptions.Url = url;
+            ajaxOptions.Url = url;
 
             return this;
         }

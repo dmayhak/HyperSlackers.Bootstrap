@@ -14,14 +14,21 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(toolbar != null, "toolbar");
-		}
+        }
 
-		public ButtonGroupBuilder<TModel> BeginButtonGroup(ButtonGroup buttonGroup)
+        public ButtonGroupBuilder<TModel> BeginButtonGroup()
+        {
+            Contract.Ensures(Contract.Result<ButtonGroupBuilder<TModel>>() != null);
+
+            return new ButtonGroupBuilder<TModel>(html, new ButtonGroup());
+        }
+
+        public ButtonGroupBuilder<TModel> BeginButtonGroup(ButtonGroup buttonGroup)
 		{
             Contract.Requires<ArgumentNullException>(buttonGroup != null, "buttonGroup");
             Contract.Ensures(Contract.Result<ButtonGroupBuilder<TModel>>() != null);
 
-			return new ButtonGroupBuilder<TModel>(this.html, buttonGroup);
+			return new ButtonGroupBuilder<TModel>(html, buttonGroup);
 		}
 	}
 }

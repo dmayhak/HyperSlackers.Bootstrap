@@ -41,10 +41,10 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
             string formatString = string.Empty;
             
-            CheckBoxControl<TModel> checkBox = new CheckBoxControl<TModel>(this.html, this.htmlFieldName, this.metadata);
+            CheckBoxControl<TModel> checkBox = new CheckBoxControl<TModel>(html, htmlFieldName, metadata);
             checkBox.Value(controlValue);
             checkBox.ControlHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
             checkBox.ControlId(fullHtmlFieldName.FormatForMvcInputId() + "_" + index.ToString());
@@ -55,7 +55,7 @@ namespace HyperSlackers.Bootstrap.Controls
             checkBox.LabelHtmlAttributes(labelHtmlAttributes);
             checkBox.LabelShowRequiredStar(false);
 
-            if (this.displayInlineBlock)
+            if (displayInlineBlock)
             {
                 checkBox.ControlClass("checkbox-inline");
             }

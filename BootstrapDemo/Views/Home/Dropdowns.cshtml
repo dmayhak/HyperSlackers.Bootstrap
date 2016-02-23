@@ -1,0 +1,88 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.DropdownModel
+
+@{
+    ViewBag.Title = "Dropdowns";
+}
+
+<h2>Dropdowns</h2>
+
+<h5>Plain</h5>
+
+@using (var dd = Html.Bootstrap().BeginDropDown("Dropdown"))
+{
+    @dd.ActionLink("Link 1", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 2", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 3", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 4", MVC.Home.Dropdowns())
+}
+
+<h5>Dropup</h5>
+
+@using (var dd = Html.Bootstrap().BeginDropDown(new DropDown("Dropup").Dropup()))
+{
+    @dd.ActionLink("Link 1", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 2", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 3", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 4", MVC.Home.Dropdowns())
+}
+
+<h5>Right Align (width of parent matters here...)</h5>
+
+<div style="width:250px; text-align: right;">
+    @using (var dd = Html.Bootstrap().BeginDropDown(new DropDown("Wide Dropdown aligned right").AlignTo(DropDownAlignment.Right)))
+    {
+        @dd.ActionLink("Link 1", MVC.Home.Dropdowns())
+        @dd.ActionLink("Link 2", MVC.Home.Dropdowns())
+        @dd.ActionLink("Link 3", MVC.Home.Dropdowns())
+        @dd.ActionLink("Link 4", MVC.Home.Dropdowns())
+    }
+</div>
+
+<h5>Headers and Dividers</h5>
+
+@using (var dd = Html.Bootstrap().BeginDropDown("Dropdown"))
+{
+    @dd.Header("Header #1")
+    @dd.ActionLink("Link 1", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 2", MVC.Home.Dropdowns())
+    @dd.Header("Header #2")
+    @dd.ActionLink("Link 3", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 4", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 5", MVC.Home.Dropdowns())
+    @dd.Divider()
+    @dd.ActionLink("Link 6", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 7", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 8", MVC.Home.Dropdowns())
+}
+
+<h5>Plain with disabled item</h5>
+
+@using (var dd = Html.Bootstrap().BeginDropDown("Dropdown"))
+{
+    @dd.ActionLink("Link 1", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 2", MVC.Home.Dropdowns())
+    @dd.ActionLink("Link 3", MVC.Home.Dropdowns(), true)
+    @dd.ActionLink("Link 4", MVC.Home.Dropdowns())
+}
+
+<h5>DropDownFromEnum</h5>
+
+@(Html.Bootstrap().DropDownListFromEnum<ColorType>("dropdownfromenum").PrependIcon(FontAwesomeIconType.Anchor).AppendIcon(FontAwesomeIconType.Bolt).Tooltip("Tooltip Here!"))
+
+<h5>DropDownFromEnumFor</h5>
+
+@Html.Bootstrap().DropDownListFromEnumFor(m => m.Color1)
+
+
+<h5>DropDownListFor</h5>
+
+@Html.Bootstrap().DropDownListFor(m => m.Car1, HyperSlackers.Bootstrap.Demo.Common.Car.AllCars().Select(c => new SelectListItem() { Text = c.Name,  Value = c.Code }))
+
+
+
+
+
+
+
+
+

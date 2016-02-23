@@ -25,16 +25,16 @@ namespace HyperSlackers.Bootstrap
         /// Initializes a new instance of the <see cref="Carousel"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
-		public Carousel(string id) 
+		public Carousel(string id)
             : base("div")
 		{
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
 			this.id = HtmlHelper.GenerateIdFromName(id);
-			this.interval = 3500;
-			base.AddClass("carousel slide");
-            base.MergeHtmlAttribute("data-ride", "carousel");
-			base.AddOrMergeHtmlAttribute("id", this.id, true);
+            interval = 3500;
+            AddClass("carousel slide");
+            MergeHtmlAttribute("data-ride", "carousel");
+            AddOrReplaceHtmlAttribute("id", this.id);
 		}
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.nextIcon = new GlyphIcon(icon);
+            nextIcon = new GlyphIcon(icon);
 
             return this;
         }
@@ -60,7 +60,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.nextIcon = new FontAwesomeIcon(icon);
+            nextIcon = new FontAwesomeIcon(icon);
 
             return this;
         }
@@ -77,7 +77,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.nextIcon = icon;
+            nextIcon = icon;
 
             return this;
         }
@@ -94,7 +94,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!iconCssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.nextIcon = new GlyphIcon(iconCssClass);
+            nextIcon = new GlyphIcon(iconCssClass);
 
             return this;
         }
@@ -110,7 +110,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.prevIcon = new GlyphIcon(icon);
+            prevIcon = new GlyphIcon(icon);
 
             return this;
         }
@@ -126,7 +126,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.prevIcon = new FontAwesomeIcon(icon);
+            prevIcon = new FontAwesomeIcon(icon);
 
             return this;
         }
@@ -143,7 +143,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.prevIcon = icon;
+            prevIcon = icon;
 
             return this;
         }
@@ -160,7 +160,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!iconCssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-            this.prevIcon = new GlyphIcon(iconCssClass);
+            prevIcon = new GlyphIcon(iconCssClass);
 
             return this;
         }
@@ -173,7 +173,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-			base.RemoveClass("slide");
+            RemoveClass("slide");
 
 			return this;
 		}
@@ -204,7 +204,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
 			this.interval = interval;
-			base.AddOrMergeHtmlAttribute("data-interval", interval.ToString(), true);
+            AddOrReplaceHtmlAttribute("data-interval", interval.ToString());
 
 			return this;
 		}
@@ -217,8 +217,8 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-			this.pause = true;
-			base.AddOrMergeHtmlAttribute("data-pause", "hover", true);
+            pause = true;
+            AddOrReplaceHtmlAttribute("data-pause", "hover");
 
 			return this;
 		}
@@ -231,7 +231,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Carousel>() != null);
 
-			this.withJs = true;
+            withJs = true;
 
 			return this;
 		}

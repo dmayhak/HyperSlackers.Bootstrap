@@ -8,7 +8,7 @@ namespace Links
 {
     public static partial class Bundles
     {
-        public static partial class Scripts
+        public static partial class Script
         {
             public static readonly string all = "~/bundles/all";
             public static readonly string jquery = "~/bundles/jquery";
@@ -23,12 +23,12 @@ namespace Links
             public static readonly string dropzone = "~/bundles/dropzone";
 
 
-            //public static readonly string jqueryui = "~/Scripts/jqueryui";
-            //public static readonly string jqueryall = "~/Scripts/jqueryall";
-            //public static readonly string jquerymigrate = "~/Scripts/jquerymigrate";
+            //public static read-only string jqueryui = "~/Scripts/jqueryui";
+            //public static read-only string jqueryall = "~/Scripts/jqueryall";
+            //public static read-only string jquerymigrate = "~/Scripts/jquerymigrate";
         }
 
-        public static partial class Styles
+        public static partial class Style
         {
             public static readonly string all_css = "~/Content/All/css";
             public static readonly string site_css = "~/Content/Site/css";
@@ -37,7 +37,7 @@ namespace Links
             public static readonly string content_datepicker_css = "~/Content/DatePicker/css";
             public static readonly string content_codeprettify_css = "~/Content/CodePrettify/css";
             public static readonly string content_dropzone_css = "~/Content/DropZone/css";
-            //public static readonly string themes_base_css = "~/content/themes/base/jquery";
+            //public static read-only string themes_base_css = "~/content/themes/base/jquery";
         }
     }
 }
@@ -49,92 +49,95 @@ namespace HyperSlackers.Bootstrap.Demo
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            // bundles.IgnoreList.Clear(); // did not fix scriptes not working on stage (see below)
+            // bundles.IgnoreList.Clear(); // did not fix scripts not working on stage (see below)
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.all).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.all).Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/ckeditor/ckeditor.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/jquery.validate*",
-                "~/Scripts/DataTables-1.10.0/jquery.dataTables.js",
+                "~/Scripts/DataTables-1.10.1/jquery.dataTables.js",
                 "~/Scripts/bootstrap-datepicker.js",
                 "~/Scripts/bootstrap.typeahead.js",
                 "~/Scripts/Prettify/run_prettify.js",
-                "~/Scripts/ckeditor/ckeditor.js",
                 "~/Scripts/ckeditor/adapters/jquery.js",
                 "~/Scripts/hyperslackers.bootstrap.js",
                 "~/Scripts/dropzone/dropzone.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.jquery).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.jquery).Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.jqueryval).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.jqueryval).Include(
                 "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.modernizr).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.modernizr).Include(
                 "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.bootstrap).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.bootstrap).Include(
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/bootstrap.typeahead.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.datatabes).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.datatabes).Include(
                 //"~/Scripts/DataTables-1.9.4/media/js/jquery.js",
-                "~/Scripts/DataTables-1.10.0/jquery.dataTables.js"));
+                "~/Scripts/DataTables-1.10.1/jquery.dataTables.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.datepicker).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.datepicker).Include(
                 "~/Scripts/bootstrap-datepicker.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.codeprettifier).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.codeprettifier).Include(
                 "~/Scripts/Prettify/run_prettify.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.ckeditor).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.ckeditor).Include(
                 "~/Scripts/ckeditor/ckeditor.js",
                 "~/Scripts/ckeditor/adapters/jquery.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.hyperslackers).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.hyperslackers).Include(
                 "~/Scripts/hyperslackers.bootstrap.js"));
 
-            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.dropzone).Include(
+            bundles.Add(new ScriptBundle(Links.Bundles.Script.dropzone).Include(
                 "~/Scripts/dropzone/dropzone.js"));
 
 
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.all_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.all_css).Include(
+                "~/Content/bootstrap.css",
                 "~/Content/font-awesome.css",
-                "~/Content/DataTables-1.10.0/css/jquery.dataTables.css",
-                "~/Content/DataTables-1.10.0/css/jquery.dataTables_themeroller.css",
-                "~/Content/DataTables-1.10.0/css/demo_table.css",
+                //"~/Content/DataTables-1.10.1/css/jquery.dataTables.css",
+                "~/Content/DataTables/css/dataTables.bootstrap.css",
+                //"~/Content/DataTables/css/jquery.dataTables.css",
+                //"~/Content/DataTables/css/jquery.dataTables_themeroller.css",
                 "~/Content/bootstrap-datepicker3.css",
                 "~/Content/Prettify/prettify.css",
-                "~/Content/site.css",
                 "~/Scripts/dropzone/css/basic.css",
-                "~/Scripts/dropzone/css/dropzone.css"));
-
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.site_css).Include(
+                "~/Scripts/dropzone/css/dropzone.css",
+                "~/Content/hyperslackers-bootstrap3.css",
                 "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.content_fontawesome_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.site_css).Include(
+                "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle(Links.Bundles.Style.content_fontawesome_css).Include(
                 "~/Content/font-awesome.css"));
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.content_datatables_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.content_datatables_css).Include(
                 "~/Content/DataTables-1.10.0/css/jquery.dataTables.css",
                 "~/Content/DataTables-1.10.0/css/jquery.dataTables_themeroller.css",
                 "~/Content/DataTables-1.10.0/css/demo_table.css")); // TODO: should we use this or not?
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.content_datepicker_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.content_datepicker_css).Include(
                 //"~/Content/bootstrap-datepicker.css",
                 "~/Content/bootstrap-datepicker3.css"));
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.content_codeprettify_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.content_codeprettify_css).Include(
                 "~/Content/Prettify/prettify.css"));
 
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.content_dropzone_css).Include(
+            bundles.Add(new StyleBundle(Links.Bundles.Style.content_dropzone_css).Include(
                 "~/Scripts/dropzone/css/basic.css",
                 "~/Scripts/dropzone/css/dropzone.css"));
 

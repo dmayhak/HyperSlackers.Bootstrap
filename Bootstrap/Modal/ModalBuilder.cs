@@ -24,12 +24,12 @@ namespace HyperSlackers.Bootstrap.Controls
             this.doNotRender = doNotRender;
             if (!this.doNotRender)
             {
-                this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] = this.element;
+                this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] = element;
 
-                this.textWriter.Write(this.element.StartTag);
+                textWriter.Write(element.StartTag);
 
                 string modalSize = string.Empty;
-                switch (this.element.size)
+                switch (element.size)
                 {
                     case ModalSize.Large:
                         modalSize = " modal-lg";
@@ -42,7 +42,7 @@ namespace HyperSlackers.Bootstrap.Controls
                         break;
                 }
 
-                this.textWriter.Write("<div class=\"modal-dialog{0}\"><div class=\"modal-content\">".FormatWith(modalSize));
+                textWriter.Write("<div class=\"modal-dialog{0}\"><div class=\"modal-content\">".FormatWith(modalSize));
             }
 		}
 
@@ -50,21 +50,21 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<ModalBodyBuilder>() != null);
 
-            return new ModalBodyBuilder(this.textWriter);
+            return new ModalBodyBuilder(textWriter);
 		}
 
         public ModalFooterBuilder BeginFooter()
 		{
             Contract.Ensures(Contract.Result<ModalFooterBuilder>() != null);
 
-            return new ModalFooterBuilder(this.textWriter);
+            return new ModalFooterBuilder(textWriter);
 		}
 
         public ModalHeaderBuilder BeginHeader()
 		{
             Contract.Ensures(Contract.Result<ModalHeaderBuilder>() != null);
 
-            return new ModalHeaderBuilder(this.textWriter, this.element.closeable);
+            return new ModalHeaderBuilder(textWriter, element.closeable);
 		}
 
 		public IHtmlString Header(string title)
@@ -72,7 +72,7 @@ namespace HyperSlackers.Bootstrap.Controls
             StringBuilder header = new StringBuilder();
 
             header.Append("<div class=\"modal-header\">");
-            if (this.element.closeable)
+            if (element.closeable)
             {
                 header.Append("<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>");
             }
@@ -84,18 +84,18 @@ namespace HyperSlackers.Bootstrap.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
-                        this.textWriter.Write("</div></div>");
+                        textWriter.Write("</div></div>");
 
-                        this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] = null;
+                        html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] = null;
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

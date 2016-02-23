@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Navs";
+}
+
+<h2>Navs</h2>
+
+<h3>Plain Nav</h3>
+
+@using (var nav = Html.Bootstrap().BeginNav())
+{
+    @nav.ActionLink("Link 1", MVC.Home.Navs(), true)
+    @nav.ActionLink("Link 2", MVC.Home.Navs())
+    @nav.ActionLink("Link 3", MVC.Home.Navs())
+    using (var dd = nav.BeginDropDown(new DropDown("DropDown 1")))
+    {
+        @dd.ActionLink("Link 4", MVC.Home.Navs())
+        @dd.ActionLink("Link 5", MVC.Home.Navs())
+        @dd.ActionLink("Link 6", MVC.Home.Navs())
+        @dd.Divider()
+        @dd.ActionLink("Link 7", MVC.Home.Navs())
+        @dd.ActionLink("Link 8", MVC.Home.Navs())
+    }
+}
+
+<h3>Nav Using Pills</h3>
+
+@using (var nav = Html.Bootstrap().BeginNav(NavType.Pills))
+{
+    @nav.ActionLink("Link 1", MVC.Home.Navs(), true)
+    @nav.ActionLink("Link 2", MVC.Home.Navs())
+    @nav.ActionLink("Link 3", MVC.Home.Navs())
+    using (var dd = nav.BeginDropDown(new DropDown("DropDown 1")))
+    {
+        @dd.ActionLink("Link 4", MVC.Home.Navs())
+        @dd.ActionLink("Link 5", MVC.Home.Navs())
+        @dd.ActionLink("Link 6", MVC.Home.Navs())
+        @dd.Divider()
+        @dd.ActionLink("Link 7", MVC.Home.Navs())
+        @dd.ActionLink("Link 8", MVC.Home.Navs())
+    }
+}
+
+<h3>Stacked Nav Using Pills</h3>
+
+@using (var nav = Html.Bootstrap().BeginNav(new Nav(NavType.Pills).Stacked()))
+{
+    @nav.ActionLink("Link 1", MVC.Home.Navs(), true)
+    @nav.ActionLink("Link 2", MVC.Home.Navs())
+    @nav.ActionLink("Link 3", MVC.Home.Navs())
+    using (var dd = nav.BeginDropDown(new DropDown("DropDown 1")))
+    {
+        @dd.ActionLink("Link 4", MVC.Home.Navs())
+        @dd.ActionLink("Link 5", MVC.Home.Navs())
+        @dd.ActionLink("Link 6", MVC.Home.Navs())
+        @dd.Divider()
+        @dd.ActionLink("Link 7", MVC.Home.Navs())
+        @dd.ActionLink("Link 8", MVC.Home.Navs())
+    }
+}
+
+<h3>Navbar</h3>
+
+@using (var navbar = Html.Bootstrap().BeginNavBar(new NavBar("navbar1").FluidContainer()))
+{
+    using (var panel = navbar.BeginPanel(new NavBarPanel()))
+    {
+        @panel.ActionLink("Link 1", MVC.Home.Navs())
+        @panel.ActionLink("Link 2", MVC.Home.Navs())
+        @panel.Button("Button 1")
+        @panel.Text("Plain Text")
+        using (var dd = panel.BeginDropDown(new DropDown("DropDown 1")))
+        {
+            @dd.ActionLink("Link 3", MVC.Home.Navs())
+            @dd.Link("Link 4 (plain link)", "#")
+            @dd.Link("Link 5 (plain link)", "#")
+            @dd.Divider()
+            @dd.Link("Link 6 (plain link)", "#")
+            @dd.Link("Link 7 (plain link)", "#")
+        }
+    }
+
+    using (var form = navbar.BeginForm(new NavBarForm("navbarform1")))
+    {
+        @form.FormGroup().TextBox("navBarTextBox1").Prepend("Look For:").Append(Html.Bootstrap().Button("Search"))
+    }
+
+    using (var panel = navbar.BeginPanel(new NavBarPanel().AlignRight()))
+    {
+        @panel.ActionLink("Link A", MVC.Home.Navs())
+        @panel.ActionLink("Link B", MVC.Home.Navs())
+    }
+}
+
+

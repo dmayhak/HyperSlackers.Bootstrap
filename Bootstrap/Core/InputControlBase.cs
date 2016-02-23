@@ -21,7 +21,7 @@ namespace HyperSlackers.Bootstrap.Core
     public class InputControlBase<TControl, TModel> : FormGroupControlBase<TControl, TModel> where TControl : InputControlBase<TControl, TModel>
     {
         internal string format;
-        internal object value;
+        internal object selectedValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InputControlBase{TControl, TModel}"/> class.
@@ -47,7 +47,7 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.value = value;
+            selectedValue = value;
 
             return (TControl)this;
         }
@@ -90,7 +90,22 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.tooltip = new Tooltip(text);
+            tooltip = new Tooltip(text);
+
+            return (TControl)this;
+        }
+
+        /// <summary>
+        /// Adds a tooltip with the specified test to the control.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public TControl Tooltip(string text, Placement placement)
+        {
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            tooltip = new Tooltip(text).Placement(placement);
 
             return (TControl)this;
         }
@@ -105,7 +120,22 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
+
+            return (TControl)this;
+        }
+
+        /// <summary>
+        /// Adds a tooltip with the specified test to the control.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <returns></returns>
+        public TControl Tooltip(IHtmlString html, Placement placement)
+        {
+            Contract.Requires<ArgumentNullException>(html != null, "html");
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            tooltip = new Tooltip(html).Placement(placement);
 
             return (TControl)this;
         }
@@ -122,9 +152,9 @@ namespace HyperSlackers.Bootstrap.Core
 
             string format = null;
 
-            if (this.metadata != null)
+            if (metadata != null)
             {
-                format = this.metadata.DisplayFormatString;   //there is one for Edit too!!!!!
+                format = metadata.DisplayFormatString;   //there is one for Edit too!!!!!
             }
 
             if (!format.IsNullOrWhiteSpace())
@@ -159,65 +189,66 @@ namespace HyperSlackers.Bootstrap.Core
             {
                 divTagBuilder.AddCssClass("input-group");
 
+                TagBuilder preTagBuilder = new TagBuilder("div");
                 foreach (var item in prependHtml)
                 {
                     string htmlString = item.Item1.ToHtmlString();
                     bool isButton = htmlString.Contains("btn");
-                    TagBuilder tagBuilder = new TagBuilder("span");
 
                     if (item.Item2 != null)
                     {
-                        tagBuilder.MergeHtmlAttributes(item.Item2.ToDictionary().FormatHtmlAttributes());
+                        preTagBuilder.MergeHtmlAttributes(item.Item2.ToDictionary().FormatHtmlAttributes());
                     }
 
                     if (isButton)
                     {
-                        tagBuilder.AddOrMergeCssClass("input-group-btn");
+                        preTagBuilder.AddOrMergeCssClass("input-group-btn");
                     }
                     else
                     {
-                        tagBuilder.AddOrMergeCssClass("input-group-addon");
+                        preTagBuilder.AddOrMergeCssClass("input-group-addon");
                     }
 
-                    tagBuilder.InnerHtml = htmlString;
-
-                    prepend = tagBuilder.ToString();
+                    preTagBuilder.InnerHtml += htmlString;
                 }
+
+                prepend = preTagBuilder.ToString();
             }
 
             if (appendHtml.Count > 0)
             {
                 divTagBuilder.AddCssClass("input-group");
 
+                TagBuilder postTagBuilder = new TagBuilder("div");
+
                 foreach (var item in appendHtml)
                 {
                     string htmlString = item.Item1.ToHtmlString();
                     bool isButton = htmlString.Contains("btn");
-                    TagBuilder tagBuilder = new TagBuilder("span");
 
                     if (item.Item2 != null)
                     {
-                        tagBuilder.MergeHtmlAttributes(item.Item2.ToDictionary().FormatHtmlAttributes());
+                        postTagBuilder.MergeHtmlAttributes(item.Item2.ToDictionary().FormatHtmlAttributes());
                     }
 
                     if (isButton)
                     {
-                        tagBuilder.AddCssClass("input-group-btn");
+                        postTagBuilder.AddOrMergeCssClass("input-group-btn");
                     }
                     else
                     {
-                        tagBuilder.AddCssClass("input-group-addon");
+                        postTagBuilder.AddOrMergeCssClass("input-group-addon");
                     }
 
-                    tagBuilder.InnerHtml = htmlString;
-
-                    append = tagBuilder.ToString();
+                    postTagBuilder.InnerHtml += htmlString;
                 }
+
+                append = postTagBuilder.ToString();
             }
 
             divTagBuilder.InnerHtml = prepend + "{0}" + append;
 
-            bool showValidationMessageBeforeInput = this.html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
+            bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
 
             if (showValidationMessageBeforeInput)
             {

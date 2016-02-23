@@ -32,37 +32,37 @@ namespace HyperSlackers.Bootstrap.Controls
             this.doNotRender = doNotRender;
             if (!this.doNotRender)
             {
-                ajax.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = this.element;
+                ajax.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = element;
 
-                if (this.element.renderSection && (ajax.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() != "post"))
+                if (element.renderSection && (ajax.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() != "post"))
                 {
-                    this.textWriter.Write("<section id=\"{0}\">".FormatWith(this.element.section));
+                    textWriter.Write("<section id=\"{0}\">".FormatWith(element.section));
                 }
 
-                if (this.element.formType != FormType.Default)
+                if (element.formType != FormType.Default)
                 {
-                    this.element.htmlAttributes.AddClass(Helpers.GetCssClass(this.element.formType));
+                    element.htmlAttributes.AddIfNotExistsCssClass(Helpers.GetCssClass(element.formType));
                 }
 
-                switch (this.element.actionTypePassed)
+                switch (element.actionTypePassed)
                 {
                     case ActionType.HtmlRegular:
                         {
-                            if (this.element.routeValues.Count == 0)
+                            if (element.routeValues.Count == 0)
                             {
-                                this.element.routeValues = HttpContext.Current.Request.QueryString.ToRouteValues();
+                                element.routeValues = HttpContext.Current.Request.QueryString.ToRouteValues();
                             }
-                            ajax.BeginForm(this.element.action, this.element.controller, this.element.routeValues, this.element.ajaxOptions, this.element.htmlAttributes);
+                            ajax.BeginForm(element.action, element.controller, element.routeValues, element.ajaxOptions, element.htmlAttributes);
                             return;
                         }
                     case ActionType.HtmlActionResult:
                         {
-                            ajax.BeginForm(this.element.result, this.element.ajaxOptions, this.element.htmlAttributes);
+                            ajax.BeginForm(element.result, element.ajaxOptions, element.htmlAttributes);
                             return;
                         }
                     case ActionType.HtmlTaskResult:
                         {
-                            ajax.BeginForm(this.element.taskResult, this.element.ajaxOptions, this.element.htmlAttributes);
+                            ajax.BeginForm(element.taskResult, element.ajaxOptions, element.htmlAttributes);
                             break;
                         }
                     default:
@@ -75,14 +75,14 @@ namespace HyperSlackers.Bootstrap.Controls
 
         public FormGroup<TModel> FormGroup()
         {
-            return new FormGroup<TModel>(this.ajax, this.element);
+            return new FormGroup<TModel>(ajax, element);
         }
 
         public FieldSetBuilder<TModel> BeginFieldSet()
         {
             Contract.Ensures(Contract.Result<FieldSetBuilder<TModel>>() != null);
 
-            return new FieldSetBuilder<TModel>(this.ajax, new FieldSet());
+            return new FieldSetBuilder<TModel>(ajax, new FieldSet());
         }
 
         public FieldSetBuilder<TModel> BeginFieldSet(string legend)
@@ -90,32 +90,32 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!String.IsNullOrEmpty(legend));
             Contract.Ensures(Contract.Result<FieldSetBuilder<TModel>>() != null);
 
-            return new FieldSetBuilder<TModel>(this.ajax, new FieldSet().Legend(legend));
+            return new FieldSetBuilder<TModel>(ajax, new FieldSet().Legend(legend));
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (!this.doNotRender)
+                    if (!doNotRender)
                     {
-                        this.textWriter.Write("</form>");
+                        textWriter.Write("</form>");
 
-                        if (this.element.renderSection && (ajax.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() != "post"))
+                        if (element.renderSection && (ajax.ViewContext.RequestContext.HttpContext.Request.RequestType.ToLowerInvariant() != "post"))
                         {
                             // don't re-render section tag on postback, it's still there
-                            this.textWriter.Write("</section>");
+                            textWriter.Write("</section>");
                         }
 
-                        if (this.ajax != null)
+                        if (ajax != null)
                         {
-                            this.ajax.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = null;
+                            ajax.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] = null;
                         }
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

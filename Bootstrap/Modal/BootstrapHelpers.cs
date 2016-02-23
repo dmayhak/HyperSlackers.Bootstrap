@@ -18,13 +18,13 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<ModalBuilder<TModel>>() != null);
 
-            Modal modal = this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] as Modal;
+            Modal modal = html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Modal.ToString()] as Modal;
             if (modal != null)
             {
-                return new ModalBuilder<TModel>(this.html, modal, true);
+                return new ModalBuilder<TModel>(html, modal, true);
             }
 
-            return new ModalBuilder<TModel>(this.html, new Modal().Closeable(closable), true);
+            return new ModalBuilder<TModel>(html, new Modal().Closeable(closable), true);
         }
     }
 }

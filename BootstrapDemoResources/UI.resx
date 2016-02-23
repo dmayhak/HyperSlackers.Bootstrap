@@ -221,6 +221,9 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="RowsAndColumns" xml:space="preserve">
+    <value>Rows &amp;amp; Columns (Grid System)</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

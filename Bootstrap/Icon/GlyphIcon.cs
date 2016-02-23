@@ -15,12 +15,12 @@ namespace HyperSlackers.Bootstrap
         
         public GlyphIcon(GlyphIconType icon)
         {
-            this.glyphIcon = icon;
+            glyphIcon = icon;
         }
 
         public GlyphIcon(GlyphIconType icon, bool isWhite)
         {
-            this.glyphIcon = icon;
+            glyphIcon = icon;
             this.isWhite = isWhite;
         }
 
@@ -42,7 +42,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<GlyphIcon>() != null);
 
-            this.isWhite = true;
+            isWhite = true;
 
             return this;
         }
@@ -53,32 +53,32 @@ namespace HyperSlackers.Bootstrap
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
 			TagBuilder tagBuilder = new TagBuilder("i");
-			IDictionary<string, object> attributes = this.htmlAttributes.FormatHtmlAttributes();
+			IDictionary<string, object> attributes = htmlAttributes.FormatHtmlAttributes();
 
-			if (this.tooltip != null)
+			if (tooltip != null)
 			{
-				attributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
 			}
 
-			if (this.popover != null)
+			if (popover != null)
 			{
-				attributes.MergeHtmlAttributes(this.popover.ToDictionary());
+				attributes.AddOrReplaceHtmlAttributes(popover.ToDictionary());
 			}
 
 			tagBuilder.MergeHtmlAttributes(attributes);
 
-            if (this.glyphIcon != GlyphIconType.Undefined)
+            if (glyphIcon != GlyphIconType.Undefined)
             {
                 tagBuilder.AddCssClass("glyphicon");
-                tagBuilder.AddCssClass(GetIconCssClass(this.glyphIcon));
+                tagBuilder.AddCssClass(GetIconCssClass(glyphIcon));
             }
 
-            if (!this.cssClass.IsNullOrWhiteSpace())
+            if (!cssClass.IsNullOrWhiteSpace())
             {
-                tagBuilder.AddCssClass(this.cssClass);
+                tagBuilder.AddCssClass(cssClass);
             }
 
-            if (this.isWhite)
+            if (isWhite)
             {
                 tagBuilder.AddCssClass("icon-white");
             }

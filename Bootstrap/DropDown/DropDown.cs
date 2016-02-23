@@ -14,28 +14,39 @@ namespace HyperSlackers.Bootstrap
 		internal ButtonStyle buttonStyle;
 		internal ButtonSize buttonSize;
 		internal DropDownAlignment? allignToDirection;
+        internal bool dropup;
 
 		public DropDown(string actionText) 
             : base(string.Empty)
 		{
-            Contract.Requires<ArgumentException>(!actionText.IsNullOrWhiteSpace());
+            Contract.Requires<ArgumentNullException>(actionText != null, "actionText");
 
-			this.actionText = actionText;
+            this.actionText = actionText;
 		}
 
         public DropDown AlignTo(DropDownAlignment direction)
 		{
             Contract.Ensures(Contract.Result<DropDown>() != null);
 
-			this.allignToDirection = direction;
-			return this;
-		}
+            allignToDirection = direction;
 
-		public DropDown SetLinksActiveByController()
+			return this;
+        }
+
+        public DropDown Dropup(bool dropup = true)
+        {
+            Contract.Ensures(Contract.Result<DropDown>() != null);
+
+            this.dropup = dropup;
+
+            return this;
+        }
+
+        public DropDown SetLinksActiveByController()
 		{
             Contract.Ensures(Contract.Result<DropDown>() != null);
 
-			this.activeLinksByController = true;
+            activeLinksByController = true;
 
 			return this;
 		}
@@ -44,7 +55,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<DropDown>() != null);
 
-			this.activeLinksByControllerAndAction = true;
+            activeLinksByControllerAndAction = true;
 
 			return this;
 		}
@@ -53,7 +64,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<DropDown>() != null);
 
-			this.buttonSize = size;
+            buttonSize = size;
 
 			return this;
 		}
@@ -62,7 +73,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<DropDown>() != null);
 
-            this.buttonStyle = style;
+            buttonStyle = style;
 
             return this;
         }

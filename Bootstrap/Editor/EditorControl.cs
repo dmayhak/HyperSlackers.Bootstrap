@@ -62,7 +62,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            return html.Editor(this.expression, this.templateName, this.htmlFieldName, this.additionalViewData).ToHtmlString();
+            return html.Editor(expression, templateName, htmlFieldName, additionalViewData).ToHtmlString();
         }	
     }
 }

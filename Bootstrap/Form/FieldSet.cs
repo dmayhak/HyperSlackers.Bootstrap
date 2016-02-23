@@ -12,6 +12,7 @@ namespace HyperSlackers.Bootstrap
     public class FieldSet : HtmlElement<FieldSet>
     {
         internal string legend;
+        internal bool disabled;
 
         public FieldSet()
             : base("fieldset")
@@ -23,6 +24,15 @@ namespace HyperSlackers.Bootstrap
             Contract.Ensures(Contract.Result<FieldSet>() != null);
 
             this.legend = legend;
+
+            return this;
+        }
+
+        public FieldSet Disabled(bool disabled = true)
+        {
+            Contract.Ensures(Contract.Result<FieldSet>() != null);
+
+            this.disabled = disabled;
 
             return this;
         }

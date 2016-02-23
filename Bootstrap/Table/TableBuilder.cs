@@ -21,11 +21,11 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(table != null, "table");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 
-            if (!this.element.caption.IsNullOrWhiteSpace())
+            if (!element.caption.IsNullOrWhiteSpace())
             {
-                this.textWriter.Write(string.Format("<caption>{0}</caption>", this.element.caption));
+                textWriter.Write(string.Format("<caption>{0}</caption>", element.caption));
             }
         }
 
@@ -33,9 +33,9 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             Contract.Ensures(Contract.Result<TableHeaderBuilder<TModel>>() != null);
 
-            this.element.wasHeaderTagRendered = true;
+            element.wasHeaderTagRendered = true;
 
-            return new TableHeaderBuilder<TModel>(this.html, new TableHeader());
+            return new TableHeaderBuilder<TModel>(html, new TableHeader());
         }
 
         public TableHeaderBuilder<TModel> BeginHeader(TableHeader header)
@@ -43,12 +43,19 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(header != null, "header");
             Contract.Ensures(Contract.Result<TableHeaderBuilder<TModel>>() != null);
 
-            this.element.wasHeaderTagRendered = true;
+            element.wasHeaderTagRendered = true;
 
-            return new TableHeaderBuilder<TModel>(this.html, header);
+            return new TableHeaderBuilder<TModel>(html, header);
         }
 
         public IHtmlString Header(params string[] columnHeaders)
+        {
+            Contract.Requires<ArgumentNullException>(columnHeaders != null, "columnHeaders");
+
+            return Header(TableColor.Default, columnHeaders);
+        }
+
+        public IHtmlString Header(TableColor style, params string[] columnHeaders)
         {
             Contract.Requires<ArgumentNullException>(columnHeaders != null, "columnHeaders");
 
@@ -57,6 +64,8 @@ namespace HyperSlackers.Bootstrap.Builders
             StringBuilder header = new StringBuilder();
             TableHeaderRow row = new TableHeaderRow();
             TableHeaderCell cell = new TableHeaderCell();
+
+            row.Style(style);
 
             header.Append(row.StartTag);
 
@@ -76,11 +85,20 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             Contract.Requires<ArgumentNullException>(columnHeaders != null, "columnHeaders");
 
+            return Header(TableColor.Default, columnHeaders);
+        }
+
+        public IHtmlString Header(TableColor style, params IHtmlString[] columnHeaders)
+        {
+            Contract.Requires<ArgumentNullException>(columnHeaders != null, "columnHeaders");
+
             EnsureHeader();
 
             StringBuilder header = new StringBuilder();
             TableHeaderRow row = new TableHeaderRow();
             TableHeaderCell cell = new TableHeaderCell();
+
+            row.Style(style);
 
             header.Append(row.StartTag);
 
@@ -100,9 +118,9 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             Contract.Ensures(Contract.Result<TableBodyBuilder<TModel>>() != null);
 
-            this.element.wasBodyTagRendered = true;
+            element.wasBodyTagRendered = true;
 
-            return new TableBodyBuilder<TModel>(this.html, new TableBody());
+            return new TableBodyBuilder<TModel>(html, new TableBody());
         }
 
         public TableBodyBuilder<TModel> BeginBody(TableBody body)
@@ -110,9 +128,9 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(body != null, "body");
             Contract.Ensures(Contract.Result<TableBodyBuilder<TModel>>() != null);
 
-            this.element.wasBodyTagRendered = true;
+            element.wasBodyTagRendered = true;
 
-            return new TableBodyBuilder<TModel>(this.html, body);
+            return new TableBodyBuilder<TModel>(html, body);
         }
 
         public TableRowBuilder<TModel> BeginRow()
@@ -121,7 +139,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             EnsureBody();
 
-            return new TableRowBuilder<TModel>(this.html, new TableRow());
+            return new TableRowBuilder<TModel>(html, new TableRow());
         }
 
         public TableRowBuilder<TModel> BeginRow(TableRow row)
@@ -131,7 +149,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             EnsureBody();
 
-            return new TableRowBuilder<TModel>(this.html, row);
+            return new TableRowBuilder<TModel>(html, row);
         }
 
         public TableRowBuilder<TModel> BeginRow(TableColor style)
@@ -142,7 +160,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow tableRow = (new TableRow()).Style(style);
 
-            return new TableRowBuilder<TModel>(this.html, tableRow);
+            return new TableRowBuilder<TModel>(html, tableRow);
         }
 
         public TableRowBuilder<TModel> BeginRow(object htmlAttributes)
@@ -154,7 +172,7 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow tableRow = (new TableRow()).HtmlAttributes(htmlAttributes);
 
-            return new TableRowBuilder<TModel>(this.html, tableRow);
+            return new TableRowBuilder<TModel>(html, tableRow);
         }
 
         public TableRowBuilder<TModel> BeginRow(TableColor style, object htmlAttributes)
@@ -166,10 +184,17 @@ namespace HyperSlackers.Bootstrap.Builders
 
             TableRow tableRow = (new TableRow()).Style(style).HtmlAttributes(htmlAttributes);
 
-            return new TableRowBuilder<TModel>(this.html, tableRow);
+            return new TableRowBuilder<TModel>(html, tableRow);
         }
 
         public IHtmlString Row(params string[] cellContents)
+        {
+            Contract.Requires<ArgumentNullException>(cellContents != null, "cellContents");
+
+            return Row(TableColor.Default, cellContents);
+        }
+
+        public IHtmlString Row(TableColor style, params string[] cellContents)
         {
             Contract.Requires<ArgumentNullException>(cellContents != null, "cellContents");
 
@@ -178,6 +203,8 @@ namespace HyperSlackers.Bootstrap.Builders
             StringBuilder tableRow = new StringBuilder();
             TableRow row = new TableRow();
             TableCell cell = new TableCell();
+
+            row.Style(style);
 
             tableRow.Append(row.StartTag);
 
@@ -197,11 +224,20 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             Contract.Requires<ArgumentNullException>(cellContents != null, "cellContents");
 
+            return Row(TableColor.Default, cellContents);
+        }
+
+        public IHtmlString Row(TableColor style, params IHtmlString[] cellContents)
+        {
+            Contract.Requires<ArgumentNullException>(cellContents != null, "cellContents");
+
             EnsureBody();
 
             StringBuilder tableRow = new StringBuilder();
             TableRow row = new TableRow();
             TableCell cell = new TableCell();
+
+            row.Style(style);
 
             tableRow.Append(row.StartTag);
 
@@ -221,7 +257,7 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             Contract.Ensures(Contract.Result<TableFooterBuilder<TModel>>() != null);
 
-            return new TableFooterBuilder<TModel>(this.html, new TableFooter());
+            return new TableFooterBuilder<TModel>(html, new TableFooter());
         }
 
         public TableFooterBuilder<TModel> BeginFooter(TableFooter footer)
@@ -229,7 +265,7 @@ namespace HyperSlackers.Bootstrap.Builders
             Contract.Requires<ArgumentNullException>(footer != null, "footer");
             Contract.Ensures(Contract.Result<TableFooterBuilder<TModel>>() != null);
 
-            return new TableFooterBuilder<TModel>(this.html, footer);
+            return new TableFooterBuilder<TModel>(html, footer);
         }
 
         public IHtmlString Footer(params string[] columnFooters)
@@ -282,22 +318,22 @@ namespace HyperSlackers.Bootstrap.Builders
 
         private void EnsureHeader()
         {
-            if (!this.element.wasHeaderTagRendered && !this.element.isHeaderTagOpen)
+            if (!element.wasHeaderTagRendered && !element.isHeaderTagOpen)
             {
-                this.element.isHeaderTagOpen = true;
+                element.isHeaderTagOpen = true;
 
-                this.textWriter.Write("<thead>");
+                textWriter.Write("<thead>");
             }
         }
 
         private void EnsureHeaderClosed()
         {
-            if (this.element.isHeaderTagOpen)
+            if (element.isHeaderTagOpen)
             {
-                this.element.isHeaderTagOpen = false;
-                this.element.wasHeaderTagRendered = true;
+                element.isHeaderTagOpen = false;
+                element.wasHeaderTagRendered = true;
 
-                this.textWriter.Write("</thead>");
+                textWriter.Write("</thead>");
             }
         }
 
@@ -305,22 +341,22 @@ namespace HyperSlackers.Bootstrap.Builders
         {
             EnsureHeaderClosed();
 
-            if (!this.element.wasBodyTagRendered && !this.element.isBodyTagOpen)
+            if (!element.wasBodyTagRendered && !element.isBodyTagOpen)
             {
-                this.element.isBodyTagOpen = true;
+                element.isBodyTagOpen = true;
 
-                this.textWriter.Write("<tbody>");
+                textWriter.Write("<tbody>");
             }
         }
 
         private void EnsureBodyClosed()
         {
-            if (this.element.isBodyTagOpen)
+            if (element.isBodyTagOpen)
             {
-                this.element.isBodyTagOpen = false;
-                this.element.wasBodyTagRendered = true;
+                element.isBodyTagOpen = false;
+                element.wasBodyTagRendered = true;
 
-                this.textWriter.Write("</tbody>");
+                textWriter.Write("</tbody>");
             }
         }
 
@@ -329,28 +365,28 @@ namespace HyperSlackers.Bootstrap.Builders
             EnsureHeaderClosed();
             EnsureBodyClosed();
 
-            if (!this.element.wasFooterTagRendered && !this.element.isFooterTagOpen)
+            if (!element.wasFooterTagRendered && !element.isFooterTagOpen)
             {
-                this.element.isFooterTagOpen = true;
+                element.isFooterTagOpen = true;
 
-                this.textWriter.Write("<tfoot>");
+                textWriter.Write("<tfoot>");
             }
         }
 
         private void EnsureFooterClosed()
         {
-            if (this.element.isFooterTagOpen)
+            if (element.isFooterTagOpen)
             {
-                this.element.isFooterTagOpen = false;
-                this.element.wasFooterTagRendered = true;
+                element.isFooterTagOpen = false;
+                element.wasFooterTagRendered = true;
 
-                this.textWriter.Write("</tfoot>");
+                textWriter.Write("</tfoot>");
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
@@ -358,7 +394,7 @@ namespace HyperSlackers.Bootstrap.Builders
                     EnsureBodyClosed();
                     EnsureFooterClosed();
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

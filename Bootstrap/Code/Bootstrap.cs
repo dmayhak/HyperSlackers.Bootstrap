@@ -20,14 +20,14 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!code.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CodeBlockControl<TModel>>() != null);
 
-            return new CodeBlockControl<TModel>(this.html, code);
+            return new CodeBlockControl<TModel>(html, code);
         }
 
         public CodeBlockBuilder<TModel> BeginCodeBlock()
         {
             Contract.Ensures(Contract.Result<CodeBlockBuilder<TModel>>() != null);
 
-            return new CodeBlockBuilder<TModel>(this.html, new CodeBlock());
+            return new CodeBlockBuilder<TModel>(html, new CodeBlock());
         }
 
         public CodeBlockBuilder<TModel> BeginCodeBlock(CodeBlock codeBlock)
@@ -35,7 +35,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(codeBlock != null, "codeBlock");
             Contract.Ensures(Contract.Result<CodeBlockBuilder<TModel>>() != null);
 
-            return new CodeBlockBuilder<TModel>(this.html, codeBlock);
+            return new CodeBlockBuilder<TModel>(html, codeBlock);
         }
     }
 }

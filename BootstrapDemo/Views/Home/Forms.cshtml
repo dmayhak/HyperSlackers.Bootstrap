@@ -1,0 +1,214 @@
+﻿@model HyperSlackers.Bootstrap.Demo.Models.FormsModel
+
+@{
+    ViewBag.Title = "Forms";
+}
+
+<h2>Forms</h2>
+
+<hr />
+
+<h3>Simple Form</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("simple-form")))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email)
+    @form.FormGroup().PasswordFor(m => m.Password)
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName)
+    @form.FormGroup().TextBoxFor(m => m.LastName)
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().DatePickerFor(m => m.SignUpDate)
+
+    @form.FormGroup().TextAreaFor(m => m.Description)
+
+    @form.FormGroup().StaticText("static text")
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Controls with Prepend/Append</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("simple-form")))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email).Append("@xyz.com ").AppendIcon(FontAwesomeIconType.Bolt)
+    @form.FormGroup().PasswordFor(m => m.Password).PrependIcon(FontAwesomeIconType.Bomb).Prepend(" ").PrependIcon(new FontAwesomeIcon(FontAwesomeIconType.Cog).Spin())
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName)
+    @form.FormGroup().TextBoxFor(m => m.LastName)
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().DatePickerFor(m => m.SignUpDate)
+
+    @form.FormGroup().TextAreaFor(m => m.Description)
+
+    @form.FormGroup().StaticText("static text")
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Inline Form 1</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("inline-form1").Inline()))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email).Label()
+    @form.FormGroup().TextBoxFor(m => m.Password)
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Login"))
+}
+
+<h3>Inline Form 2 (screen reader)</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("inline-form2").Inline()))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email).Placeholder("Email").LabelClass("sr-only") // TODO: add method?
+    @form.FormGroup().TextBoxFor(m => m.Password).Placeholder("Password").LabelClass("sr-only") // TODO: add method?
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Login"))
+}
+
+<h3>Inline Form 3</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("inline-form3").Inline()))
+{
+    @form.FormGroup().TextBox("dollarAmount").PrependIcon(FontAwesomeIconType.Dollar).Append(".00")
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Transfer Cash"))
+}
+
+<h3>Horizontal Form</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("horizontal-form").Horizontal()))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email)
+    @form.FormGroup().TextBoxFor(m => m.Password)
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName)
+    @form.FormGroup().TextBoxFor(m => m.LastName)
+
+    @form.FormGroup().StaticText("static text here...")
+    @form.FormGroup().StaticText("static text here too...").Label("With Label")
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Checkboxes Form</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("horizontal-form").Horizontal()))
+{
+    using (var fieldset = form.BeginFieldSet("Checkbox"))
+    {
+        @form.FormGroup().CheckBox("checkbox")
+    }
+
+    using (var fieldset = form.BeginFieldSet("CheckboxFor"))
+    {
+        @form.FormGroup().CheckBoxFor(m => m.IsHappy)
+    }
+
+    using (var fieldset = form.BeginFieldSet("CheckboxFromEnum"))
+    {
+        @(form.FormGroup().CheckBoxesFromEnum<ColorType>("checkboxfromenum"))
+    }
+
+    using (var fieldset = form.BeginFieldSet("CheckboxFromEnumFor"))
+    {
+        @form.FormGroup().CheckBoxesFromEnumFor(m => m.FavoriteColor)
+    }
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Validation States</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("horizontal-form").Horizontal()))
+{
+    @form.FormGroup().ValidationState(FormGroupValidationState.Error).FeedbackIcon().TextBoxFor(m => m.Email).PrependIcon(FontAwesomeIconType.Beer).Placeholder("(Error State)")
+    @form.FormGroup().TextBoxFor(m => m.Password)
+
+    @form.FormGroup().ValidationState(FormGroupValidationState.Warning).FeedbackIcon().TextBoxFor(m => m.FirstName).Placeholder("(Warning State)")
+    @form.FormGroup().ValidationState(FormGroupValidationState.Success).FeedbackIcon().TextBoxFor(m => m.LastName).Placeholder("(Success State)")
+
+    @form.FormGroup().StaticText("static text here...")
+    @form.FormGroup().StaticText("static text here too...").Label("With Label")
+    @form.FormGroup().ValidationState(FormGroupValidationState.Error).StaticText("more static text (with validation state)").Label("Label for Static Text")
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Control Sizing</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("simple-form").Horizontal()))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email).Size(InputSize.Large).Placeholder("Input Size: Large")
+    @form.FormGroup().TextBoxFor(m => m.Password).Size(InputSize.Small).Placeholder("Input Size: Small")
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName)
+    @form.FormGroup().Size(InputSize.Large).TextBoxFor(m => m.LastName).Placeholder("Group Size: Large")
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor).Size(InputSize.Small)
+
+    @form.FormGroup().DatePickerFor(m => m.SignUpDate)
+
+    @form.FormGroup().TextAreaFor(m => m.Description)
+
+    @form.FormGroup().StaticText("static text")
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Column Sizing (.WidthMd(4))</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("simple-form").Horizontal().ControlWidthMd(4)))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email)
+    @form.FormGroup().TextBoxFor(m => m.Password)
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName)
+    @form.FormGroup().TextBoxFor(m => m.LastName)
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().DatePickerFor(m => m.SignUpDate)
+
+    @form.FormGroup().TextAreaFor(m => m.Description)
+
+    @form.FormGroup().StaticText("static text")
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+<h3>Input Groups</h3>
+
+@using (var form = Html.Bootstrap().BeginForm(new Form("simple-form")))
+{
+    @form.FormGroup().TextBoxFor(m => m.Email).Prepend("(prepend text)").Append(Html.Bootstrap().Button("Append Button").Style(ButtonStyle.Primary))
+    @form.FormGroup().TextBoxFor(m => m.Password).Append(Html.Bootstrap().Button("Append 1")).Append(Html.Bootstrap().Button("Append 2"))
+
+    @form.FormGroup().TextBoxFor(m => m.FirstName).Prepend(Html.Bootstrap().CheckBox("precheckbox"))
+    @form.FormGroup().TextBoxFor(m => m.LastName).Append(Html.Bootstrap().DropDownMenuButton(new DropDown("Action")).MenuItems(m =>
+    {
+        m.MenuItem(Html.Bootstrap().ActionLink("item 1", MVC.Home.Forms()).ToHtmlString());
+        m.MenuItem(Html.Bootstrap().ActionLink("item 2", MVC.Home.Forms()).ToHtmlString());
+        m.Divider();
+        m.MenuItem(Html.Bootstrap().ActionLink("item 3", MVC.Home.Forms()).ToHtmlString());
+    }))
+
+    @form.FormGroup().DropDownListFromEnumFor(m => m.FavoriteColor)
+
+    @form.FormGroup().DatePickerFor(m => m.SignUpDate)
+
+    @form.FormGroup().TextAreaFor(m => m.Description)
+
+    @form.FormGroup().StaticText("static text")
+
+    @form.FormGroup().CustomControls(Html.Bootstrap().SubmitButton("Submit"))
+}
+
+

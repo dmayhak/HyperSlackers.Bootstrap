@@ -29,7 +29,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ControlGroupControl<TModel>>() != null);
 
-            this.addSpaces = addSpace;
+            addSpaces = addSpace;
 
             return this;
         }
@@ -40,9 +40,9 @@ namespace HyperSlackers.Bootstrap.Controls
 
             StringBuilder controlHtml = new StringBuilder();
 
-            foreach (var item in this.controls)
+            foreach (var item in controls)
             {
-                if (this.addSpaces && controlHtml.Length > 0)
+                if (addSpaces && controlHtml.Length > 0)
                 {
                     controlHtml.Append(" ");
                 }
@@ -57,14 +57,16 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            if (!this.labelText.IsNullOrWhiteSpace())
+            if (!labelText.IsNullOrWhiteSpace())
             {
                 return base.RenderFormGroupControl(controlHtml, labelHtml, validationMessage, fieldIsValid);
             }
 
             TagBuilder controlTagBuilder = new TagBuilder("div");
-            controlTagBuilder.MergeHtmlAttributes(this.formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
+            controlTagBuilder.MergeHtmlAttributes(formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
             controlTagBuilder.AddOrMergeCssClass("form-group");
+
+            controlTagBuilder.AddOrMergeCssClass((string)Helpers.GetCssClass(html, formGroup.size).Replace("input", "form-group"));
 
             if (!fieldIsValid)
             {
@@ -75,12 +77,12 @@ namespace HyperSlackers.Bootstrap.Controls
 
             string formatString = "{0}";
 
-            if (this.formGroup.formType == FormType.Horizontal)
+            if (formGroup.formType == FormType.Horizontal)
             {
                 TagBuilder horizontalFormControlTagBuilder = new TagBuilder("div");
-                horizontalFormControlTagBuilder.MergeAttributes<string, object>(this.formGroup.controlHtmlAttributes);
+                horizontalFormControlTagBuilder.MergeAttributes<string, object>(formGroup.controlHtmlAttributes);
                 horizontalFormControlTagBuilder.AddCssClass(GetHorizontalFromGroupControlCssClass());
-                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(this.labelWidthXs, this.labelWidthSm, this.labelWidthMd, this.labelWidthLg));
+                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(labelWidthXs, labelWidthSm, labelWidthMd, labelWidthLg));
                 horizontalFormControlTagBuilder.SetInnerText(formatString);
                 formatString = horizontalFormControlTagBuilder.ToString();
             }

@@ -17,7 +17,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
     {
         internal readonly HtmlHelper<TModel> html;
 
-        internal Bootstrap(HtmlHelper<TModel> html) 
+        internal Bootstrap(HtmlHelper<TModel> html)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
 
@@ -28,7 +28,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<BootstrapHelpers<TModel>>() != null);
 
-            return new BootstrapHelpers<TModel>(this.html);
+            return new BootstrapHelpers<TModel>(html);
         }
 
         public RowBuilder<TModel> BeginRow(Row row)
@@ -36,14 +36,22 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(row != null, "row");
             Contract.Ensures(Contract.Result<RowBuilder<TModel>>() != null);
 
-            return new RowBuilder<TModel>(this.html, row);
+            return new RowBuilder<TModel>(html, row);
+        }
+
+        public RowBuilder<TModel> BeginRow(string id)
+        {
+            Contract.Requires<ArgumentNullException>(!id.IsNullOrWhiteSpace(), "id");
+            Contract.Ensures(Contract.Result<RowBuilder<TModel>>() != null);
+
+            return new RowBuilder<TModel>(html, new Row().Id(id));
         }
 
         public RowBuilder<TModel> BeginRow()
         {
             Contract.Ensures(Contract.Result<RowBuilder<TModel>>() != null);
 
-            return new RowBuilder<TModel>(this.html, new Row());
+            return new RowBuilder<TModel>(html, new Row());
         }
 
         public ColumnBuilder<TModel> BeginColumn(Column column)
@@ -51,7 +59,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(column != null, "column");
             Contract.Ensures(Contract.Result<ColumnBuilder<TModel>>() != null);
 
-            return new ColumnBuilder<TModel>(this.html, column);
+            return new ColumnBuilder<TModel>(html, column);
         }
 
 		public ColClassControl ColClass()
@@ -65,20 +73,20 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            return new Defaults(this.html);
+            return new Defaults(html);
         }
 
         public bool IsAuthorized<TController>(Expression<Action<TController>> action)
         {
             Contract.Requires<ArgumentNullException>(action != null, "action");
 
-            return this.html.IsAuthorized(action);
+            return html.IsAuthorized(action);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
-            return base.ToString(); 
+            return base.ToString();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

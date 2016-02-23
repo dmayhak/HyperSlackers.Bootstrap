@@ -22,9 +22,9 @@ namespace HyperSlackers.Bootstrap.Core
 
             this.element = element;
             this.html = html;
-            this.textWriter = html.ViewContext.Writer;
+            textWriter = html.ViewContext.Writer;
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(this.element.StartTag);
         }
 
         internal BuilderBase(AjaxHelper ajax, TElement element)
@@ -34,9 +34,9 @@ namespace HyperSlackers.Bootstrap.Core
 
             this.element = element;
             this.ajax = ajax;
-            this.textWriter = ajax.ViewContext.Writer;
+            textWriter = ajax.ViewContext.Writer;
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(this.element.StartTag);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -73,13 +73,13 @@ namespace HyperSlackers.Bootstrap.Core
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write(this.element.EndTag);
+                    textWriter.Write(element.EndTag);
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
         }
@@ -100,8 +100,8 @@ namespace HyperSlackers.Bootstrap.Core
 
 			this.element = element;
 			this.html = html;
-			this.textWriter = html.ViewContext.Writer;
-    		this.textWriter.Write(this.element.StartTag);
+            textWriter = html.ViewContext.Writer;
+            textWriter.Write(this.element.StartTag);
 		}
 
 		internal BuilderBase(AjaxHelper<TModel> ajax, TElement element)
@@ -111,9 +111,9 @@ namespace HyperSlackers.Bootstrap.Core
 
 			this.element = element;
 			this.ajax = ajax;
-			this.textWriter = ajax.ViewContext.Writer;
+            textWriter = ajax.ViewContext.Writer;
 
-			this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(this.element.StartTag);
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -150,13 +150,13 @@ namespace HyperSlackers.Bootstrap.Core
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write(this.element.EndTag);
+                    textWriter.Write(element.EndTag);
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
         }

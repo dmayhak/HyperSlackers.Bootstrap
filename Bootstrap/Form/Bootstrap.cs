@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(form != null, "form");
             Contract.Ensures(Contract.Result<FormBuilder<TModel>>() != null);
 
-            return new FormBuilder<TModel>(this.html, form);
+            return new FormBuilder<TModel>(html, form);
         }
 
         public SectionBuilder<TModel> BeginSection(string id)
@@ -27,7 +27,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<SectionBuilder<TModel>>() != null);
 
-            return new SectionBuilder<TModel>(this.html, id);
+            return new SectionBuilder<TModel>(html, id);
         }
     }
 }

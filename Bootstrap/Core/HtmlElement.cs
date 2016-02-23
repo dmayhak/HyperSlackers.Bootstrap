@@ -28,7 +28,7 @@ namespace HyperSlackers.Bootstrap.Core
 			: base(tag)
 		{
 			Contract.Requires<ArgumentNullException>(tag != null, "tag");
-		}
+        }
 
         /// <summary>
         /// Sets the control's id.
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.Core
 			// some objects just render from attributes, so we gotta make sure it's in there as well
 			if (!id.IsNullOrWhiteSpace())
 			{
-				this.htmlAttributes.AddOrReplace("id", id);
+                htmlAttributes.AddOrReplaceHtmlAttribute("id", id);
 			}
 
 			return (TControl)this;
@@ -61,10 +61,25 @@ namespace HyperSlackers.Bootstrap.Core
 			Contract.Requires<ArgumentNullException>(cssClass != null, "cssClass");
 			Contract.Ensures(Contract.Result<TControl>() != null);
 
-			base.AddClass(cssClass);
+            AddClass(cssClass);
 
 			return (TControl)this;
-		}
+        }
+
+        /// <summary>
+        /// Adds a CSS class.
+        /// </summary>
+        /// <param name="cssClass">The CSS class.</param>
+        /// <returns></returns>
+		public TControl Style(string property, string value)
+        {
+            Contract.Requires<ArgumentNullException>(property != null, "property");
+            Contract.Ensures(Contract.Result<TControl>() != null);
+
+            htmlAttributes.AddOrReplaceCssStyle(property , value);
+
+            return (TControl)this;
+        }
 
         /// <summary>
         /// Adds/merges HTML data- attributes.
@@ -93,7 +108,7 @@ namespace HyperSlackers.Bootstrap.Core
 			//x Contract.Requires<ArgumentNullException>(value != null, "value");
 			Contract.Ensures(Contract.Result<TControl>() != null);
 
-			this.htmlAttributes.MergeHtmlAttribute(key, value);
+            htmlAttributes.AddOrReplaceHtmlAttribute(key, value);
 
 			return (TControl)this;
 		}
@@ -137,7 +152,8 @@ namespace HyperSlackers.Bootstrap.Core
         readonly internal IDictionary<string, object> htmlAttributes = new Dictionary<string, object>();
         readonly internal string tag = string.Empty;
 		internal string id = string.Empty;
-        readonly internal string requiredCssClass = string.Empty; // TODO: what use is this? do we need it?
+        readonly internal List<string> requiredCssClasses = new List<string>(); // TODO: what use is this? do we need it?
+        readonly internal Dictionary<string, string> requiredCssStyles = new Dictionary<string, string>(); // TODO: what use is this? do we need it?
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HtmlElement"/> class.
@@ -162,12 +178,12 @@ namespace HyperSlackers.Bootstrap.Core
 			{
 				Contract.Ensures(Contract.Result<string>() != null);
 
-				if (this.tag.IsNullOrWhiteSpace())
+				if (tag.IsNullOrWhiteSpace())
 				{
 					return string.Empty;
 				}
 
-				return "</{0}>".FormatWith(this.tag);
+				return "</{0}>".FormatWith(tag);
 			}
 		}
 
@@ -183,14 +199,14 @@ namespace HyperSlackers.Bootstrap.Core
 			{
 				Contract.Ensures(Contract.Result<string>() != null);
 
-				if (this.tag.IsNullOrWhiteSpace())
+				if (tag.IsNullOrWhiteSpace())
 				{
 					return string.Empty;
 				}
 
-				TagBuilder tagBuilder = new TagBuilder(this.tag);
+				TagBuilder tagBuilder = new TagBuilder(tag);
 
-				tagBuilder.MergeHtmlAttributes(this.htmlAttributes.FormatHtmlAttributes());
+				tagBuilder.MergeHtmlAttributes(htmlAttributes.FormatHtmlAttributes());
 
 				return tagBuilder.ToString(TagRenderMode.StartTag);
 			}
@@ -225,7 +241,7 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="className">Name of the class.</param>
 		protected void AddClass(string className)
 		{
-			this.htmlAttributes.AddClass(className);
+            htmlAttributes.AddIfNotExistsCssClass(className);
 		}
 
         /// <summary>
@@ -234,58 +250,74 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="className">Name of the class.</param>
 		protected void RemoveClass(string className)
 		{
-			this.htmlAttributes.RemoveClass(className);
+            htmlAttributes.RemoveCssClass(className);
+        }
 
-			if (!this.requiredCssClass.IsNullOrWhiteSpace())
-			{
-				this.AddClass(this.requiredCssClass);
-			}
-		}
+        /// <summary>
+        /// Adds a CSS style.
+        /// </summary>
+        /// <param name="className">Name of the class.</param>
+		protected void AddStyle(string property, string value)
+        {
+            htmlAttributes.AddOrReplaceCssStyle(property, value);
+        }
+
+        /// <summary>
+        /// Removes a CSS style.
+        /// </summary>
+        /// <param name="className">Name of the class.</param>
+		protected void RemoveStyle(string property)
+        {
+            htmlAttributes.RemoveCssClass(property);
+        }
+
+        protected void EnsureRequiredCssClasses()
+        {
+            foreach (var item in requiredCssClasses)
+            {
+                AddClass(item);
+            }
+        }
+
+        protected void EnsureRequiredCssStyles()
+        {
+            foreach (var item in requiredCssStyles)
+            {
+                AddStyle(item.Key, item.Value);
+            }
+        }
+
+        /// <summary>
+        /// Removes an HTML attribute.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        protected void RemoveHtmlAttribute(string key)
+        {
+            // TODO: move this logic to DIctionaryExtensions?
+            if (key.IsNullOrWhiteSpace())
+            {
+                return;
+            }
+
+            if (htmlAttributes.ContainsKey(key))
+            {
+                htmlAttributes.Remove(key);
+            }
+        }
+
+        protected void ReplaceHtmlAttribute(string key, string value)
+        {
+            htmlAttributes.AddOrReplaceHtmlAttribute(key, value);
+        }
 
         /// <summary>
         /// Adds/merges HTML attribute.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <param name="replaceExisting">if set to <c>true</c> [replace existing].</param>
-		protected void AddOrMergeHtmlAttribute(string key, string value, bool replaceExisting = true)
+		protected void AddOrReplaceHtmlAttribute(string key, string value)
 		{
-			// TODO: move this logic to DIctionaryExtensions?
-			if (key.IsNullOrWhiteSpace())
-			{
-				return;
-			}
-
-			if (!this.htmlAttributes.ContainsKey(key))
-			{
-				this.htmlAttributes.Add(key, value);
-
-				return;
-			}
-
-			if (replaceExisting)
-			{
-				this.htmlAttributes[key] = value;
-
-				return;
-			}
-
-
-			if (value.IsNullOrWhiteSpace())
-			{
-				return;
-			}
-
-			// split incoming class name on ' ' just in case multiple items are being passed at one time
-			string existing = this.htmlAttributes[key].ToString();
-			string[] newItems = value.Split(' ');
-			foreach (var item in newItems)
-			{
-				if (!item.IsNullOrWhiteSpace() && !Regex.IsMatch(existing, "(^|\\s){0}($|\\s)".FormatWith(item)))
-				{
-					this.htmlAttributes[key] += " " + item;
-				}
-			}
+            htmlAttributes.AddOrReplaceHtmlAttribute(key, (object)value);
 		}
 
         /// <summary>
@@ -295,42 +327,18 @@ namespace HyperSlackers.Bootstrap.Core
         /// <param name="value">The value.</param>
 		protected void MergeHtmlAttribute(string key, string value)
 		{
-			this.htmlAttributes.AddOrReplace(key, value);
-		}
-
-        /// <summary>
-        /// Merges the HTML attributes.
-        /// </summary>
-        /// <param name="htmlAttributes">The HTML attributes.</param>
-        /// <param name="appendToKey">The append to key.</param>
-		protected void MergeHtmlAttributes(object htmlAttributes, string appendToKey = "")
-		{
-			// TODO: move this logic to DictionaryExtensions?
-			Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
-
-			foreach (KeyValuePair<string, object> dictionary in htmlAttributes.ToDictionary())
-			{
-				if (!appendToKey.IsNullOrWhiteSpace() && dictionary.Key.StartsWith(appendToKey))
-				{
-					// key already starts with the appendToKey
-					this.MergeHtmlAttribute(dictionary.Key, dictionary.Value.ToString());
-				}
-				else
-				{
-					this.MergeHtmlAttribute(appendToKey + dictionary.Key, dictionary.Value.ToString());
-				}
-			}
+            htmlAttributes.AddOrReplaceHtmlAttribute(key, (object)value);
 		}
 
         /// <summary>
         /// Merges the HTML data- attributes.
         /// </summary>
         /// <param name="htmlAttributes">The HTML attributes.</param>
-		protected void MergeHtmlDataAttributes(object htmlAttributes)
+		protected void MergeHtmlDataAttributes(object htmlDataAttributes)
 		{
-			Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
+			Contract.Requires<ArgumentNullException>(htmlDataAttributes != null, "htmlDataAttributes");
 
-			this.MergeHtmlAttributes(htmlAttributes, "data-");
+            MergeHtmlAttributes(htmlDataAttributes.ToHtmlDataAttributes());
 		}
 
         /// <summary>
@@ -341,7 +349,7 @@ namespace HyperSlackers.Bootstrap.Core
 		{
 			Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
 
-			this.htmlAttributes.MergeHtmlAttributes(htmlAttributes);
+			this.htmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 		}
 
         /// <summary>
@@ -352,7 +360,7 @@ namespace HyperSlackers.Bootstrap.Core
 		{
 			Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
 
-			this.MergeHtmlAttributes(htmlAttributes.ToDictionary().FormatHtmlAttributes());
+            MergeHtmlAttributes(htmlAttributes.ToDictionary().FormatHtmlAttributes());
 		}
 
         /// <summary>
@@ -384,7 +392,7 @@ namespace HyperSlackers.Bootstrap.Core
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override int GetHashCode()

@@ -17,7 +17,13 @@ namespace HyperSlackers.Bootstrap
         public Tree()
             : base("div")
         {
-            this.AddClass("tree");
+            AddClass("tree");
+        }
+
+        public Tree(string id)
+            : this()
+        {
+            Id(id);
         }
 
         public Tree Collapsed(bool collapsed = true)
@@ -44,15 +50,5 @@ namespace HyperSlackers.Bootstrap
                 return "</ul>" + base.EndTag;
             }
         }
-
-        //public void Add(TreeHeader header)
-        //{
-        //    items.Add(header);
-        //}
-
-        //public void Add(TreeItem item)
-        //{
-        //    items.Add(item);
-        //}
     }
 }

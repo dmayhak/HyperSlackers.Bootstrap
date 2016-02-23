@@ -52,7 +52,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            return "<div class='form-control-static'>{0}</div>".FormatWith(this.html.Display(this.expression, this.templateName, this.htmlFieldName, this.additionalViewData).ToHtmlString());
+            return "<div class='form-control-static'>{0}</div>".FormatWith(html.Display(expression, templateName, htmlFieldName, additionalViewData).ToHtmlString());
         }
     }
 }

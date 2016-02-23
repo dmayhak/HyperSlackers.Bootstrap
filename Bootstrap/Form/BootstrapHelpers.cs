@@ -18,13 +18,13 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
         {
             Contract.Ensures(Contract.Result<FormBuilder<TModel>>() != null);
 
-            Form form = this.html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] as Form;
+            Form form = html.ViewContext.HttpContext.Items[ContextItemKey.HS_Bootstrap_Current_Form.ToString()] as Form;
             if (form != null)
             {
-                return new FormBuilder<TModel>(this.html, form, true);
+                return new FormBuilder<TModel>(html, form, true);
             }
 
-            return new FormBuilder<TModel>(this.html, new Form("dummyForm"), true);
+            return new FormBuilder<TModel>(html, new Form("dummyForm"), true);
         }
     }
 }

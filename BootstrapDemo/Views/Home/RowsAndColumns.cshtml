@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "Rows And Columns (Grid System)";
+}
+
+@section Style
+{
+    <style type="text/css">
+        .demoRow {
+            margin: 10px 0 10px 0;
+        }
+        .demoCol {
+            padding: 5px;
+            border: 1px solid;
+            background-color: LightGray;
+        }
+        .demoCol .demoRow {
+            margin: 10px -5px 10px -5px;
+        }
+        .demoCol .demoCol {
+            border: 1px solid;
+            background-color: DarkGray;
+        }
+    </style>
+}
+
+<h2>Rows And Columns</h2>
+
+<h4>Stacked to horizontal</h4>
+
+@using(var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(1).Class("demoCol")))
+    {
+        @:WidthMd(1)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(8).Class("demoCol")))
+    {
+        @:WidthMd(8)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(6).Class("demoCol")))
+    {
+        @:WidthMd(6)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(6).Class("demoCol")))
+    {
+        @:WidthMd(6)
+    }
+}
+
+<h4>Mobile and Desktop</h4>
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthXs(12).WidthMd(8).Class("demoCol")))
+    {
+        @:WidthXs(12).WidthMd(8)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthMd(4).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthMd(4)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthMd(4).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthMd(4)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthMd(4).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthMd(4)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthMd(4).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthMd(4)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthXs(6).Class("demoCol")))
+    {
+        @:WidthXs(6)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).Class("demoCol")))
+    {
+        @:WidthXs(6)
+    }
+}
+
+<h4>Column Resets</h4>
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthSm(3).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthSm(3)
+        @:(Plus some other text to make this column a little taller than the rest.)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthSm(3).Class("demoCol").ClearfixXs()))
+    {
+        @:WidthXs(6).WidthSm(3)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthSm(3).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthSm(3)
+    }
+    using (var col = row.BeginColumn(new Column().WidthXs(6).WidthSm(3).Class("demoCol")))
+    {
+        @:WidthXs(6).WidthSm(3)
+    }
+}
+
+<h4>Column Offsets</h4>
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(4).OffsetMd(4).Class("demoCol")))
+    {
+        @:WidthMd(4).OffsetMd(4)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(3).OffsetMd(3).Class("demoCol")))
+    {
+        @:WidthMd(3).OffsetMd(3)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(3).OffsetMd(3).Class("demoCol")))
+    {
+        @:WidthMd(3).OffsetMd(3)
+    }
+}
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(6).OffsetMd(3).Class("demoCol")))
+    {
+        @:WidthMd(6).OffsetMd(3)
+    }
+}
+
+<h4>Column Nesting</h4>
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthSm(9).Class("demoCol")))
+    {
+        @:WidthSm(9) (Level 1)
+
+        using (var innerRow = col.BeginRow(new Row().Class("demoRow")))
+        {
+            using (var innerCol = row.BeginColumn(new Column().WidthXs(8).WidthSm(6).Class("demoCol")))
+            {
+                @:WidthXs(8).WidthSm(6) (level 2)
+            }
+            using (var innerCol = row.BeginColumn(new Column().WidthXs(4).WidthSm(6).Class("demoCol")))
+            {
+                @:WidthXs(4).WidthSm(6) (level 2)
+            }
+        }
+    }
+}
+
+<h4>Column Ordering</h4>
+
+@using (var row = Html.Bootstrap().BeginRow(new Row().Class("demoRow")))
+{
+    using (var col = row.BeginColumn(new Column().WidthMd(9).PushMd(3).Class("demoCol")))
+    {
+        @:WidthMd(9).PushMd(3) (Furst Column)
+    }
+    using (var col = row.BeginColumn(new Column().WidthMd(3).PullMd(9).Class("demoCol")))
+    {
+        @:WidthMd(3).PullMd(9) (Second Column)
+    }
+}

@@ -15,7 +15,7 @@ namespace HyperSlackers.Bootstrap.Core
 		{
             Contract.Requires<ArgumentNullException>(data != null, "data");
 
-			this.RouteData = data;
+            RouteData = data;
 		}
 
 		public RouteInfo(Uri uri, string applicationPath)
@@ -24,7 +24,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(applicationPath != null, "applicationPath");
             Contract.Requires<ArgumentException>(!applicationPath.IsNullOrWhiteSpace());
 
-			this.RouteData = RouteTable.Routes.GetRouteData(new RouteInfo.InternalHttpContext(uri, applicationPath));
+            RouteData = RouteTable.Routes.GetRouteData(new RouteInfo.InternalHttpContext(uri, applicationPath));
 		}
 
 		private class InternalHttpContext : HttpContextBase
@@ -36,14 +36,14 @@ namespace HyperSlackers.Bootstrap.Core
                 Contract.Requires<ArgumentNullException>(uri != null, "uri");
                 Contract.Requires<ArgumentNullException>(applicationPath != null, "applicationPath");
 
-				this.request = new RouteInfo.InternalRequestContext(uri, applicationPath);
+                request = new RouteInfo.InternalRequestContext(uri, applicationPath);
 			}
 
 			public override HttpRequestBase Request
 			{
 				get
 				{
-					return this.request;
+					return request;
 				}
 			}
 		}
@@ -58,15 +58,15 @@ namespace HyperSlackers.Bootstrap.Core
                 Contract.Requires<ArgumentNullException>(uri != null, "uri");
                 Contract.Requires<ArgumentNullException>(applicationPath != null, "applicationPath");
 
-				this.pathInfo = uri.Query;
+                pathInfo = uri.Query;
 
                 if (!applicationPath.IsNullOrWhiteSpace() && uri.AbsolutePath.StartsWith(applicationPath, StringComparison.OrdinalIgnoreCase))
                 {
-                    this.appRelativePath = uri.AbsolutePath;
+                    appRelativePath = uri.AbsolutePath;
                 }
                 else
                 {
-                    this.appRelativePath = uri.AbsolutePath.Substring(applicationPath.Length);
+                    appRelativePath = uri.AbsolutePath.Substring(applicationPath.Length);
                 }
 			}
 
@@ -74,7 +74,7 @@ namespace HyperSlackers.Bootstrap.Core
 			{
 				get
 				{
-					return string.Concat("~", this.appRelativePath);
+					return string.Concat("~", appRelativePath);
 				}
 			}
 
@@ -82,7 +82,7 @@ namespace HyperSlackers.Bootstrap.Core
 			{
 				get
 				{
-					return this.pathInfo;
+					return pathInfo;
 				}
 			}
 		}

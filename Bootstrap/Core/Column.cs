@@ -39,10 +39,15 @@ namespace HyperSlackers.Bootstrap
         internal bool visibleMd;
         internal bool visibleSm;
         internal bool visibleXs;
+        internal bool clearfixLg;
+        internal bool clearfixMd;
+        internal bool clearfixSm;
+        internal bool clearfixXs;
         internal ColumnVisibilityType visibilityTypeLg;
         internal ColumnVisibilityType visibilityTypeMd;
         internal ColumnVisibilityType visibilityTypeSm;
         internal ColumnVisibilityType visibilityTypeXs;
+        // TODO: hidden/visible for print
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
@@ -62,7 +67,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.widthLg = width;
+            widthLg = width;
 
             return this;
         }
@@ -77,7 +82,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.widthMd = width;
+            widthMd = width;
 
             return this;
         }
@@ -92,7 +97,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.widthSm = width;
+            widthSm = width;
 
             return this;
         }
@@ -107,7 +112,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.widthXs = width;
+            widthXs = width;
 
             return this;
         }
@@ -122,7 +127,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.offsetLg = offset;
+            offsetLg = offset;
 
             return this;
         }
@@ -137,7 +142,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.offsetMd = offset;
+            offsetMd = offset;
 
             return this;
         }
@@ -152,7 +157,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.offsetSm = offset;
+            offsetSm = offset;
 
             return this;
         }
@@ -167,7 +172,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(offset == null || (offset > 0 && offset < 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.offsetXs = offset;
+            offsetXs = offset;
 
             return this;
         }
@@ -182,7 +187,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pushLg = push;
+            pushLg = push;
 
             return this;
         }
@@ -197,7 +202,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pushMd = push;
+            pushMd = push;
 
             return this;
         }
@@ -212,7 +217,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pushSm = push;
+            pushSm = push;
 
             return this;
         }
@@ -227,7 +232,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(push == null || (push > 0 && push <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pushXs = push;
+            pushXs = push;
 
             return this;
         }
@@ -242,7 +247,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pullLg = pull;
+            pullLg = pull;
 
             return this;
         }
@@ -257,7 +262,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pullMd = pull;
+            pullMd = pull;
 
             return this;
         }
@@ -272,7 +277,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pullSm = pull;
+            pullSm = pull;
 
             return this;
         }
@@ -287,7 +292,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(pull == null || (pull > 0 && pull <= 12));
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.pullXs = pull;
+            pullXs = pull;
 
             return this;
         }
@@ -300,7 +305,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.hiddenLg = true;
+            hiddenLg = true;
 
             return this;
         }
@@ -313,7 +318,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.hiddenMd = true;
+            hiddenMd = true;
 
             return this;
         }
@@ -326,7 +331,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.hiddenSm = true;
+            hiddenSm = true;
 
             return this;
         }
@@ -339,7 +344,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.hiddenXs = true;
+            hiddenXs = true;
 
             return this;
         }
@@ -353,8 +358,8 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.visibleLg = true;
-            this.visibilityTypeLg = displayType;
+            visibleLg = true;
+            visibilityTypeLg = displayType;
 
             return this;
         }
@@ -367,8 +372,8 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.visibleMd = true;
-            this.visibilityTypeMd = displayType;
+            visibleMd = true;
+            visibilityTypeMd = displayType;
 
             return this;
         }
@@ -381,8 +386,8 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.visibleSm = true;
-            this.visibilityTypeSm = displayType;
+            visibleSm = true;
+            visibilityTypeSm = displayType;
 
             return this;
         }
@@ -395,8 +400,60 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Column>() != null);
 
-            this.visibleXs = true;
-            this.visibilityTypeXs = displayType;
+            visibleXs = true;
+            visibilityTypeXs = displayType;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a "clearfix" div after the column on large displays.
+        /// </summary>
+        /// <returns></returns>
+        public Column ClearfixLg()
+        {
+            Contract.Ensures(Contract.Result<Column>() != null);
+
+            clearfixLg = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a "clearfix" div after the column on medium displays.
+        /// </summary>
+        /// <returns></returns>
+        public Column ClearfixMd()
+        {
+            Contract.Ensures(Contract.Result<Column>() != null);
+
+            clearfixMd = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a "clearfix" div after the column on small displays.
+        /// </summary>
+        /// <returns></returns>
+        public Column ClearfixSm()
+        {
+            Contract.Ensures(Contract.Result<Column>() != null);
+
+            clearfixSm = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a "clearfix" div after the column on extra-small displays.
+        /// </summary>
+        /// <returns></returns>
+        public Column ClearfixXs()
+        {
+            Contract.Ensures(Contract.Result<Column>() != null);
+
+            clearfixXs = true;
 
             return this;
         }

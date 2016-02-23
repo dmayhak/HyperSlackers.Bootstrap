@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -66,7 +68,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         public readonly string Name = "Home";
         [GeneratedCode("T4MVC", "2.0")]
         public const string NameConst = "Home";
-
+        [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
@@ -76,6 +78,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public readonly string Index = "Index";
             public readonly string About = "About";
             public readonly string Contact = "Contact";
+            public readonly string RowsAndColumns = "RowsAndColumns";
             public readonly string Accordions = "Accordions";
             public readonly string Alerts = "Alerts";
             public readonly string ButtonsAndLinks = "ButtonsAndLinks";
@@ -86,6 +89,10 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public readonly string CodeBlock = "CodeBlock";
             public readonly string DatePicker = "DatePicker";
             public readonly string Display = "Display";
+            public readonly string Dropdowns = "Dropdowns";
+            public readonly string Forms = "Forms";
+            public readonly string Icons = "Icons";
+            public readonly string Navs = "Navs";
             public readonly string Tables = "Tables";
             public readonly string Wells = "Wells";
         }
@@ -96,6 +103,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public const string Index = "Index";
             public const string About = "About";
             public const string Contact = "Contact";
+            public const string RowsAndColumns = "RowsAndColumns";
             public const string Accordions = "Accordions";
             public const string Alerts = "Alerts";
             public const string ButtonsAndLinks = "ButtonsAndLinks";
@@ -106,6 +114,10 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public const string CodeBlock = "CodeBlock";
             public const string DatePicker = "DatePicker";
             public const string Display = "Display";
+            public const string Dropdowns = "Dropdowns";
+            public const string Forms = "Forms";
+            public const string Icons = "Icons";
+            public const string Navs = "Navs";
             public const string Tables = "Tables";
             public const string Wells = "Wells";
         }
@@ -132,7 +144,12 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
                 public readonly string Contact = "Contact";
                 public readonly string DatePicker = "DatePicker";
                 public readonly string Display = "Display";
+                public readonly string Dropdowns = "Dropdowns";
+                public readonly string Forms = "Forms";
+                public readonly string Icons = "Icons";
                 public readonly string Index = "Index";
+                public readonly string Navs = "Navs";
+                public readonly string RowsAndColumns = "RowsAndColumns";
                 public readonly string Tables = "Tables";
                 public readonly string Wells = "Wells";
             }
@@ -147,7 +164,12 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string DatePicker = "~/Views/Home/DatePicker.cshtml";
             public readonly string Display = "~/Views/Home/Display.cshtml";
+            public readonly string Dropdowns = "~/Views/Home/Dropdowns.cshtml";
+            public readonly string Forms = "~/Views/Home/Forms.cshtml";
+            public readonly string Icons = "~/Views/Home/Icons.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string Navs = "~/Views/Home/Navs.cshtml";
+            public readonly string RowsAndColumns = "~/Views/Home/RowsAndColumns.cshtml";
             public readonly string Tables = "~/Views/Home/Tables.cshtml";
             public readonly string Wells = "~/Views/Home/Wells.cshtml";
         }
@@ -192,6 +214,17 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         }
 
         [NonAction]
+        partial void RowsAndColumnsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RowsAndColumns()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RowsAndColumns);
+            RowsAndColumnsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void AccordionsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -232,7 +265,7 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ButtonsAndLinksAsync);
             ButtonsAndLinksAsyncOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
         }
 
         [NonAction]
@@ -302,6 +335,50 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         }
 
         [NonAction]
+        partial void DropdownsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Dropdowns()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Dropdowns);
+            DropdownsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FormsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Forms()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Forms);
+            FormsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IconsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Icons()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Icons);
+            IconsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void NavsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Navs()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Navs);
+            NavsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void TablesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -327,4 +404,4 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
 }
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114

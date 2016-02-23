@@ -25,14 +25,14 @@ namespace HyperSlackers.Bootstrap
         public Table()
             : base("table")
         {
-            base.AddClass("table");
+            AddClass("table");
         }
 
         public Table Bordered()
         {
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            base.AddClass("table-bordered");
+            AddClass("table-bordered");
 
             return this;
         }
@@ -51,7 +51,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            base.AddClass("table-condensed");
+            AddClass("table-condensed");
 
             return this;
         }
@@ -60,7 +60,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            base.AddClass("table-hover");
+            AddClass("table-hover");
 
             return this;
         }
@@ -69,7 +69,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            this.isResponsive = true;
+            isResponsive = true;
 
             return this;
         }
@@ -78,7 +78,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            base.AddClass("table-striped");
+            AddClass("table-striped");
 
             return this;
         }
@@ -88,8 +88,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!title.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            this.panel = new Panel(this.id + "Panel").Style(style).Collapsible(collapsible).Collapsed(collapsed);
-            this.panelTitle = title;
+            panel = new Panel(id + "Panel").Style(style).Collapsible(collapsible).Collapsed(collapsed);
+            panelTitle = title;
 
             return this;
         }
@@ -99,8 +99,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!title.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            this.panel = new Panel(this.id + "Panel").Style(style);
-            this.panelTitle = title;
+            panel = new Panel(id + "Panel").Style(style);
+            panelTitle = title;
 
             return this;
         }
@@ -110,8 +110,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!title.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            this.panel = new Panel(this.id + "Panel").Collapsible(collapsible).Collapsed(collapsed);
-            this.panelTitle = title;
+            panel = new Panel(id + "Panel").Collapsible(collapsible).Collapsed(collapsed);
+            panelTitle = title;
 
             return this;
         }
@@ -121,8 +121,8 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!title.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Table>() != null);
 
-            this.panel = new Panel(this.id + "Panel");
-            this.panelTitle = title;
+            panel = new Panel(id + "Panel");
+            panelTitle = title;
 
             return this;
         }
@@ -133,32 +133,32 @@ namespace HyperSlackers.Bootstrap
             {
                 StringBuilder pre = new StringBuilder();
 
-                if (this.panel != null)
+                if (panel != null)
                 {
-                    this.panel.Class(Helpers.GetCssClass(this.panel.style));
-                    pre.Append(this.panel.StartTag);
+                    panel.Class(Helpers.GetCssClass(panel.style));
+                    pre.Append(panel.StartTag);
 
-                    if (this.panel.collapsible)
+                    if (panel.collapsible)
                     {
-                        pre.Append("<div class=\"panel-heading{1}\" data-toggle=\"collapse\" data-target=\"{0}\" style=\"cursor:pointer;\">".FormatWith("#" + this.panel.id + "Collapse", this.panel.collapsed ? " collapsed" : string.Empty));
+                        pre.Append("<div class=\"panel-heading{1}\" data-toggle=\"collapse\" data-target=\"{0}\" style=\"cursor:pointer;\">".FormatWith("#" + panel.id + "Collapse", panel.collapsed ? " collapsed" : string.Empty));
                     }
                     else
                     {
                         pre.Append("<div class=\"panel-heading\">");
                     }
 
-                    pre.Append("<h4 class=\"panel-title{1}\">{0}</h4>".FormatWith(this.panelTitle, this.panel.collapsible ? " accordion-toggle" : string.Empty));
+                    pre.Append("<h4 class=\"panel-title{1}\">{0}</h4>".FormatWith(panelTitle, panel.collapsible ? " accordion-toggle" : string.Empty));
                     pre.Append("</div>");
 
-                    if (this.panel.collapsible)
+                    if (panel.collapsible)
                     {
-                        pre.Append("<div id=\"{0}Collapse\" class=\"panel-collapse collapse{1}\">".FormatWith(this.panel.id, this.panel.collapsed ? string.Empty : " in"));
+                        pre.Append("<div id=\"{0}Collapse\" class=\"panel-collapse collapse{1}\">".FormatWith(panel.id, panel.collapsed ? string.Empty : " in"));
                     }
 
                     pre.Append("<div class=\"panel-body\">");
                 }
 
-                if (this.isResponsive)
+                if (isResponsive)
                 {
                     pre.Append("<div class=\"table-responsive\">");
                 }
@@ -173,16 +173,16 @@ namespace HyperSlackers.Bootstrap
             {
                 StringBuilder post = new StringBuilder();
 
-                if (this.isResponsive)
+                if (isResponsive)
                 {
                     post.Append("</div>");
                 }
 
-                if (this.panel != null)
+                if (panel != null)
                 {
                     post.Append("</div>"); // panel body
 
-                    if (this.panel.collapsible)
+                    if (panel.collapsible)
                     {
                         post.Append("</div>"); // collapse panel
                     }

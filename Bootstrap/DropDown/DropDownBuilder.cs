@@ -21,22 +21,22 @@ namespace HyperSlackers.Bootstrap.Controls
 		private readonly bool wrapTagControllerAndActionAware;
         private bool disposed = false;
 
-        internal DropDownBuilder(HtmlHelper<TModel> html, DropDown dropDown, string wrapperTag = null, object wrapperTagHtmlAttributes = null, bool withCaret = true) 
+        internal DropDownBuilder(HtmlHelper<TModel> html, DropDown dropDown, string wrapperTag = null, object wrapperTagHtmlAttributes = null, bool withCaret = true)
             : base(html, dropDown)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(dropDown != null, "dropDown");
 
             this.wrapperTag = wrapperTag;
-			
+
 			if (dropDown.activeLinksByController)
 			{
-				this.wrapTagControllerAware = true;
+                wrapTagControllerAware = true;
 			}
 
 			if (dropDown.activeLinksByControllerAndAction)
 			{
-				this.wrapTagControllerAndActionAware = true;
+                wrapTagControllerAndActionAware = true;
 			}
 
             if (!this.wrapperTag.IsNullOrWhiteSpace())
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
                 wrapperTagBuilder.MergeHtmlAttributes(wrapperTagHtmlAttributes.ToDictionary().FormatHtmlAttributes());
 
-                this.textWriter.Write(wrapperTagBuilder.ToString(TagRenderMode.StartTag));
+                textWriter.Write(wrapperTagBuilder.ToString(TagRenderMode.StartTag));
             }
 
 			TagBuilder linkTagBuilder = new TagBuilder("a");
@@ -54,88 +54,88 @@ namespace HyperSlackers.Bootstrap.Controls
 
 			if (this.wrapperTag != "li")
 			{
-				linkTagBuilder.AddCssClass(Helpers.GetCssClass(this.element.buttonSize));
-				linkTagBuilder.AddCssClass(Helpers.GetCssClass(html, this.element.buttonStyle));
+				linkTagBuilder.AddCssClass(Helpers.GetCssClass(element.buttonSize));
+				linkTagBuilder.AddCssClass(Helpers.GetCssClass(html, element.buttonStyle));
 				linkTagBuilder.AddCssClass("btn dropdown-toggle");
 			}
 
-			linkTagBuilder.InnerHtml = this.element.actionText + (withCaret ? " <span class=\"caret\"></span>" : string.Empty);
+			linkTagBuilder.InnerHtml = element.actionText + (withCaret ? " <span class=\"caret\"></span>" : string.Empty);
 
-            this.textWriter.Write(linkTagBuilder.ToString(TagRenderMode.Normal));
+            textWriter.Write(linkTagBuilder.ToString(TagRenderMode.Normal));
 
 			TagBuilder menuTagBuilder = new TagBuilder("ul");
 			menuTagBuilder.AddCssClass("dropdown-menu");
 
-            if (this.element.allignToDirection.HasValue)
+            if (element.allignToDirection.HasValue)
             {
-                menuTagBuilder.AddCssClass(Helpers.GetCssClass(this.element.allignToDirection.Value));
+                menuTagBuilder.AddCssClass(Helpers.GetCssClass(element.allignToDirection.Value));
             }
 
-            this.textWriter.Write(menuTagBuilder.ToString(TagRenderMode.StartTag));
+            textWriter.Write(menuTagBuilder.ToString(TagRenderMode.StartTag));
 		}
 
-        public ActionLinkControl<TModel> ActionLink(string linkText, ActionResult result)
+        public ActionLinkControl<TModel> ActionLink(string linkText, ActionResult result, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(result != null, "result");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return (new ActionLinkControl<TModel>(this.html, linkText, result)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(html, linkText, result)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> ActionLink(string linkText, Task<ActionResult> taskResult)
+        public ActionLinkControl<TModel> ActionLink(string linkText, Task<ActionResult> taskResult, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return (new ActionLinkControl<TModel>(this.html, linkText, taskResult)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(html, linkText, taskResult)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> ActionLink(string linkText, string actionName)
+        public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return (new ActionLinkControl<TModel>(this.html, linkText, actionName)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(html, linkText, actionName)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, string controllerName)
+        public ActionLinkControl<TModel> ActionLink(string linkText, string actionName, string controllerName, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!controllerName.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            return (new ActionLinkControl<TModel>(this.html, linkText, actionName, controllerName)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(html, linkText, actionName, controllerName)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> AjaxActionLink(string linkText, ActionResult result, AjaxOptions ajaxOptions)
+        public ActionLinkControl<TModel> AjaxActionLink(string linkText, ActionResult result, AjaxOptions ajaxOptions, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(result != null, "result");
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(this.html.ViewContext, this.html.ViewDataContainer, this.html.RouteCollection);
+            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(html.ViewContext, html.ViewDataContainer, html.RouteCollection);
 
-            return (new ActionLinkControl<TModel>(this.ajax, linkText, result, ajaxOptions)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(this.ajax, linkText, result, ajaxOptions)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> AjaxActionLink(string linkText, string actionName, AjaxOptions ajaxOptions)
+        public ActionLinkControl<TModel> AjaxActionLink(string linkText, string actionName, AjaxOptions ajaxOptions, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(this.html.ViewContext, this.html.ViewDataContainer, this.html.RouteCollection);
+            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(html.ViewContext, html.ViewDataContainer, html.RouteCollection);
 
-            return (new ActionLinkControl<TModel>(this.ajax, linkText, actionName, ajaxOptions)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(this.ajax, linkText, actionName, ajaxOptions)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
-        public ActionLinkControl<TModel> AjaxActionLink(string linkText, string actionName, string controllerName, AjaxOptions ajaxOptions)
+        public ActionLinkControl<TModel> AjaxActionLink(string linkText, string actionName, string controllerName, AjaxOptions ajaxOptions, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
@@ -143,9 +143,9 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
             Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
 
-            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(this.html.ViewContext, this.html.ViewDataContainer, this.html.RouteCollection);
+            AjaxHelper<TModel> ajax = new AjaxHelper<TModel>(html.ViewContext, html.ViewDataContainer, html.RouteCollection);
 
-            return (new ActionLinkControl<TModel>(this.ajax, linkText, actionName, controllerName, ajaxOptions)).WrapInto("li").WrapTagControllerAware(this.wrapTagControllerAware).WrapTagControllerAndActionAware(this.wrapTagControllerAndActionAware);
+            return (new ActionLinkControl<TModel>(this.ajax, linkText, actionName, controllerName, ajaxOptions)).WrapInto(new WrapperTag("li").Disabled(disabled)).WrapTagControllerAware(wrapTagControllerAware).WrapTagControllerAndActionAware(wrapTagControllerAndActionAware);
 		}
 
 		public IHtmlString Divider()
@@ -163,28 +163,28 @@ namespace HyperSlackers.Bootstrap.Controls
             return MvcHtmlString.Create("<li class=\"dropdown-header\">{0}</li>".FormatWith(header));
 		}
 
-        public LinkControl<TModel> Link(string linkText, string url)
+        public LinkControl<TModel> Link(string linkText, string url, bool disabled = false)
 		{
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!url.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<LinkControl<TModel>>() != null);
 
-            return (new LinkControl<TModel>(this.html, linkText, url)).WrapInto("li");
+            return (new LinkControl<TModel>(html, linkText, url)).WrapInto(new WrapperTag("li").Disabled(disabled));
 		}
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</ul>");
-                    if (!this.wrapperTag.IsNullOrWhiteSpace())
+                    textWriter.Write("</ul>");
+                    if (!wrapperTag.IsNullOrWhiteSpace())
                     {
-                        this.textWriter.Write(string.Format("</{0}>", this.wrapperTag));
+                        textWriter.Write(string.Format("</{0}>", wrapperTag));
                     }
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

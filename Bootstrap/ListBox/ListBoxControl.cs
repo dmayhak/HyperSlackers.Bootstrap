@@ -11,13 +11,12 @@ namespace HyperSlackers.Bootstrap.Controls
 {
 	public class ListBoxControl<TModel> : InputControlBase<ListBoxControl<TModel>, TModel>
 	{
-        internal object selectedValue;
         internal IEnumerable<SelectListItem> selectList;
         internal List<Tuple<IHtmlString, object>> prependHtml = new List<Tuple<IHtmlString, object>>();
         internal List<Tuple<IHtmlString, object>> appendHtml = new List<Tuple<IHtmlString, object>>();
         internal InputSize size = InputSize.Default;
 
-		internal ListBoxControl(HtmlHelper<TModel> html, string htmlFieldName, IEnumerable<SelectListItem> selectList, ModelMetadata metadata) 
+		internal ListBoxControl(HtmlHelper<TModel> html, string htmlFieldName, IEnumerable<SelectListItem> selectList, ModelMetadata metadata)
             : base(html, htmlFieldName, metadata)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
@@ -33,8 +32,8 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
-            
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
+
             return this;
         }
 
@@ -44,8 +43,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
-            
+            helpText = new HelpTextControl<TModel>(html, text);
+
             return this;
         }
 
@@ -54,8 +53,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
-            
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+
             return this;
         }
 
@@ -63,7 +62,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            this.selectedValue = value;
+            selectedValue = value;
 
             return this;
         }
@@ -72,7 +71,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ListBoxControl<TModel>>() != null);
 
-            this.size = inputSize;
+            size = inputSize;
 
             return this;
         }
@@ -85,11 +84,11 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            if (this.selectedValue != null)
+            if (selectedValue != null)
             {
-                foreach (SelectListItem selectListItem in this.selectList)
+                foreach (SelectListItem selectListItem in selectList)
                 {
-                    if (selectListItem.Value == this.selectedValue.ToString())
+                    if (selectListItem.Value == selectedValue.ToString())
                     {
                         selectListItem.Selected = true;
                         break;
@@ -97,32 +96,32 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
 
-            this.controlHtmlAttributes.AddClass(Helpers.GetCssClass(html, this.size));
+            controlHtmlAttributes.AddIfNotExistsCssClass(Helpers.GetCssClass(html, size));
 
-            string controlHtml = html.ListBox(this.htmlFieldName, this.selectList, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+            string controlHtml = html.ListBox(htmlFieldName, selectList, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
 
-            formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
+            formatString = AddPrependAppend(formatString, prependHtml, appendHtml);
 
-            string helpHtml = (this.helpText != null ? this.helpText.ToHtmlString() : string.Empty);
+            string helpHtml = (helpText != null ? helpText.ToHtmlString() : string.Empty);
             string validationHtml = string.Empty;
             if (!showValidationMessageInline)
             {
-                validationHtml = this.RenderValidationMessage();
+                validationHtml = RenderValidationMessage();
             }
 
             return MvcHtmlString.Create(string.Format(formatString, controlHtml, helpHtml, validationHtml)).ToString();

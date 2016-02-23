@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(tabs != null, "tabs");
             Contract.Ensures(Contract.Result<TabsBuilder<TModel>>() != null);
 
-            return new TabsBuilder<TModel>(this.html, tabs);
+            return new TabsBuilder<TModel>(html, tabs);
         }
     }
 }

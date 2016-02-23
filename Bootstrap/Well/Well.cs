@@ -20,7 +20,7 @@ namespace HyperSlackers.Bootstrap
         public Well()
             : base("div")
         {
-            this.AddClass("well");
+            AddClass("well");
         }
 
         /// <summary>
@@ -35,10 +35,10 @@ namespace HyperSlackers.Bootstrap
             switch (size)
             {
                 case WellSize.Large:
-                    this.AddClass("well-lg");
+                    AddClass("well-lg");
                     break;
                 case WellSize.Small:
-                    this.AddClass("well-sm");
+                    AddClass("well-sm");
                     break;
                 case WellSize.Default:
                 default:

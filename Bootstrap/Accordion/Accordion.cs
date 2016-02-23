@@ -13,14 +13,14 @@ namespace HyperSlackers.Bootstrap
         internal int? activePanel;
         internal PanelStyle style = PanelStyle.Default;
 
-		public Accordion(string id) 
+		public Accordion(string id)
             : base("div")
 		{
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
 
 			this.id = HtmlHelper.GenerateIdFromName(id);
-            this.AddClass("panel-group");
-            this.AddOrMergeHtmlAttribute("id", this.id, true);
+            AddClass("panel-group");
+            AddOrReplaceHtmlAttribute("id", this.id);
 		}
 
         public Accordion Style(PanelStyle style)
@@ -37,7 +37,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentOutOfRangeException>(panelNumber >= 0);
             Contract.Ensures(Contract.Result<Accordion>() != null);
 
-			this.activePanel = new int?(panelNumber);
+			activePanel = new int?(panelNumber);
 
 			return this;
 		}

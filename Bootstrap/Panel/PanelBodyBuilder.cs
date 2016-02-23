@@ -31,13 +31,13 @@ namespace HyperSlackers.Bootstrap.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div>");
+                    textWriter.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

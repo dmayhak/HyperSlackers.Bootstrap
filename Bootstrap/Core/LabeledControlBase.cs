@@ -62,7 +62,7 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.isLabeled = true;
+            isLabeled = true;
 
             return (TControl)this;
         }
@@ -77,11 +77,11 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(label != null, "label");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.isLabeled = true;
+            isLabeled = true;
 
             foreach (var item in label)
             {
-                this.labelText += item.ToHtmlString();
+                labelText += item.ToHtmlString();
             }
 
             return (TControl)this;
@@ -97,7 +97,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentException>(!labelText.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.isLabeled = true;
+            isLabeled = true;
             this.labelText = labelText;
 
             return (TControl)this;
@@ -127,7 +127,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthLg = width;
+            labelWidthLg = width;
 
             return (TControl)this;
         }
@@ -142,7 +142,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthMd = width;
+            labelWidthMd = width;
 
             return (TControl)this;
         }
@@ -157,7 +157,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthSm = width;
+            labelWidthSm = width;
 
             return (TControl)this;
         }
@@ -172,7 +172,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelWidthXs = width;
+            labelWidthXs = width;
 
             return (TControl)this;
         }
@@ -187,7 +187,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthLg = width;
+            controlWidthLg = width;
 
             return (TControl)this;
         }
@@ -202,7 +202,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthMd = width;
+            controlWidthMd = width;
 
             return (TControl)this;
         }
@@ -217,7 +217,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthSm = width;
+            controlWidthSm = width;
 
             return (TControl)this;
         }
@@ -232,7 +232,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentOutOfRangeException>(width == null || (width > 0 && width <= 12));
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlWidthXs = width;
+            controlWidthXs = width;
 
             return (TControl)this;
         }
@@ -247,7 +247,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.AddClass(cssClass);
+            labelHtmlAttributes.AddIfNotExistsCssClass(cssClass);
 
             return (TControl)this;
         }
@@ -264,7 +264,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(value != null, "value");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttribute(key, value);
+            labelHtmlAttributes.AddOrReplaceHtmlAttribute(key, value);
 
             return (TControl)this;
         }
@@ -279,7 +279,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return (TControl)this;
         }
@@ -294,7 +294,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (TControl)this;
         }
@@ -309,7 +309,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(dataAttributes != null, "dataAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributes.MergeHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
+            labelHtmlAttributes.AddOrReplaceHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
 
             return (TControl)this;
         }
@@ -336,9 +336,9 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            if (!this.isLabeled)
+            if (!isLabeled)
             {
-                return base.Render(); 
+                return base.Render();
             }
 
             return RenderLabeledControl();
@@ -368,13 +368,13 @@ namespace HyperSlackers.Bootstrap.Core
 
             TagBuilder labelTagBuilder = GetLabelTagBuilder();
 
-            if (this.labelText.IsNullOrWhiteSpace())
+            if (labelText.IsNullOrWhiteSpace())
             {
-                labelTagBuilder.InnerHtml = this.labelText + " " + this.validationMessage;
+                labelTagBuilder.InnerHtml = labelText + " " + validationMessage;
             }
             else
             {
-                labelTagBuilder.InnerHtml = this.labelText + GetRequiredStarTagBuilder().ToString() + " " + this.validationMessage;
+                labelTagBuilder.InnerHtml = labelText + GetRequiredStarTagBuilder().ToString() + " " + validationMessage;
             }
 
             return MvcHtmlString.Create(labelTagBuilder.ToString(TagRenderMode.Normal)).ToHtmlString();
@@ -388,12 +388,12 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            if (this.htmlFieldName.IsNullOrWhiteSpace())
+            if (htmlFieldName.IsNullOrWhiteSpace())
             {
                 return string.Empty;
             }
 
-            return html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            return html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
         }
 
         /// <summary>
@@ -401,22 +401,22 @@ namespace HyperSlackers.Bootstrap.Core
         /// </summary>
         protected virtual void SetLabelText()
         {
-            if (!this.labelText.IsNullOrWhiteSpace())
+            if (!labelText.IsNullOrWhiteSpace())
             {
                 return;
             }
 
             string displayName = null;
 
-            if (this.metadata != null)
+            if (metadata != null)
             {
-                displayName = this.metadata.DisplayName;
+                displayName = metadata.DisplayName;
 
                 if (displayName == null)
                 {
-                    if (this.metadata.PropertyName != null)
+                    if (metadata.PropertyName != null)
                     {
-                        displayName = this.metadata.PropertyName.SpaceOnUpperCase();
+                        displayName = metadata.PropertyName.SpaceOnUpperCase();
                     }
                     else
                     {
@@ -430,7 +430,7 @@ namespace HyperSlackers.Bootstrap.Core
                 displayName = GetFullHtmlFieldName().Split('.').Last().SpaceOnUpperCase();
             }
 
-            this.labelText = displayName;
+            labelText = displayName;
         }
 
         /// <summary>
@@ -443,8 +443,8 @@ namespace HyperSlackers.Bootstrap.Core
 
             TagBuilder labelTagBuilder = new TagBuilder("label");
 
-            labelTagBuilder.Attributes.Add("for", string.Concat(GetFullHtmlFieldName().FormatForMvcInputId(), (this.index.HasValue ? string.Concat("_", this.index.Value) : string.Empty)));
-            labelTagBuilder.MergeHtmlAttributes(this.labelHtmlAttributes.FormatHtmlAttributes());
+            labelTagBuilder.Attributes.Add("for", string.Concat(GetFullHtmlFieldName().FormatForMvcInputId(), (index.HasValue ? string.Concat("_", index.Value) : string.Empty)));
+            labelTagBuilder.MergeHtmlAttributes(labelHtmlAttributes.FormatHtmlAttributes());
 
             return labelTagBuilder;
         }
@@ -469,11 +469,11 @@ namespace HyperSlackers.Bootstrap.Core
             }
             else if (html.BootstrapDefaults().DefaultShowRequiredStar.HasValue)
             {
-                showRequiredStar = (this.labelText.IsNullOrWhiteSpace() ? false : html.BootstrapDefaults().DefaultShowRequiredStar.Value);
+                showRequiredStar = (labelText.IsNullOrWhiteSpace() ? false : html.BootstrapDefaults().DefaultShowRequiredStar.Value);
             }
             else
             {
-                showRequiredStar = (this.labelText.IsNullOrWhiteSpace() || this.metadata == null ? false : this.metadata.IsRequired);
+                showRequiredStar = (labelText.IsNullOrWhiteSpace() || metadata == null ? false : metadata.IsRequired);
             }
 
             if (!showRequiredStar)
@@ -492,17 +492,17 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            if (this.metadata == null)
+            if (metadata == null)
             {
                 return string.Empty;
             }
 
-            if (this.metadata.Description.IsNullOrWhiteSpace())
+            if (metadata.Description.IsNullOrWhiteSpace())
             {
                 return string.Empty;
             }
 
-            return this.metadata.Description;
+            return metadata.Description;
         }
 
         /// <summary>
@@ -513,27 +513,27 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            if (this.metadata == null)
+            if (metadata == null)
             {
                 return string.Empty;
             }
 
-            if (!this.metadata.Watermark.IsNullOrWhiteSpace())
+            if (!metadata.Watermark.IsNullOrWhiteSpace())
             {
-                return this.metadata.Watermark;
+                return metadata.Watermark;
             }
 
-            if (!this.metadata.DisplayName.IsNullOrWhiteSpace())
+            if (!metadata.DisplayName.IsNullOrWhiteSpace())
             {
-                return this.metadata.DisplayName;
+                return metadata.DisplayName;
             }
 
             if (!metadata.PropertyName.IsNullOrWhiteSpace())
             {
-                return this.metadata.PropertyName.SpaceOnUpperCase();
+                return metadata.PropertyName.SpaceOnUpperCase();
             }
 
-            return this.htmlFieldName.SpaceOnUpperCase();
+            return htmlFieldName.SpaceOnUpperCase();
         }
 
         /// <summary>
@@ -544,22 +544,22 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            if (this.metadata == null)
+            if (metadata == null)
             {
                 return string.Empty;
             }
 
-            if (!this.metadata.AdditionalValues.ContainsKey("HelpText"))
+            if (!metadata.AdditionalValues.ContainsKey("HelpText"))
             {
                 return string.Empty;
             }
 
-            if (this.metadata.AdditionalValues["HelpText"].ToString().IsNullOrWhiteSpace())
+            if (metadata.AdditionalValues["HelpText"].ToString().IsNullOrWhiteSpace())
             {
                 return string.Empty;
             }
 
-            return this.metadata.AdditionalValues["HelpText"].ToString();
+            return metadata.AdditionalValues["HelpText"].ToString();
         }
 
         /// <summary>
@@ -567,13 +567,13 @@ namespace HyperSlackers.Bootstrap.Core
         /// </summary>
         protected void SetDefaultTooltip()
         {
-            if (this.tooltip == null && this.html.BootstrapDefaults().DefaultShowTooltip)
+            if (tooltip == null && html.BootstrapDefaults().DefaultShowTooltip)
             {
                 string tooltipText = GetTooltipText();
 
                 if (!tooltipText.IsNullOrWhiteSpace())
                 {
-                    this.tooltip = new Tooltip(tooltipText);
+                    tooltip = new Tooltip(tooltipText);
                 }
             }
         }
@@ -583,13 +583,13 @@ namespace HyperSlackers.Bootstrap.Core
         /// </summary>
         protected void SetDefaultHelpText()
         {
-            if (this.helpText == null && this.html.BootstrapDefaults().DefaultShowHelpText)
+            if (helpText == null && html.BootstrapDefaults().DefaultShowHelpText)
             {
                 string helpTextText = GetHelpTextText();
 
                 if (!helpTextText.IsNullOrWhiteSpace())
                 {
-                    this.helpText = new HelpTextControl<TModel>(this.html, helpTextText);
+                    helpText = new HelpTextControl<TModel>(html, helpTextText);
                 }
             }
         }

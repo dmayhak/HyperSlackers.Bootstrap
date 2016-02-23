@@ -41,7 +41,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<ValidationSummaryControl<TModel>>() != null);
 
-            this.closeable = closable;
+            closeable = closable;
 			
             return this;
 		}
@@ -55,7 +55,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<ValidationSummaryControl<TModel>>() != null);
 
-			this.excludePropertyErrors = exclude;
+			excludePropertyErrors = exclude;
 			
             return this;
 		}

@@ -14,6 +14,17 @@
 
 @Html.Bootstrap().DatePicker("fieldName")
 
+<h5>DatePicker with tooltip and placeholder (watermark)</h5>
+
+@Html.Bootstrap().DatePicker("fieldName").Tooltip("tooltip from cshtml file", Placement.Right).Placeholder("Pick a date")
+
+<h5>DatePicker start and end dates</h5>
+
+@Html.Bootstrap().DatePicker("fieldName").StartDate(DateTime.Now).EndDate(DateTime.Now.AddMonths(2))
+
+<h5>DatePicker with weekends disabled</h5>
+
+@Html.Bootstrap().DatePicker("fieldName").DaysOfWeekDisabled(new DayOfWeek[] { DayOfWeek.Saturday, DayOfWeek.Sunday })
 
 <h5>DatePickerFor</h5>
 

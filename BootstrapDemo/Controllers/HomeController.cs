@@ -29,6 +29,12 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             return View();
         }
 
+        [Route("~/RowsAndColumns", Order = 0)]
+        [Route("~/home/RowsAndColumns", Order = 1)] // when starting from IDE
+        public virtual ActionResult RowsAndColumns()
+        {
+            return View();
+        }
 
         [Route("~/accordions", Order = 0)]
         [Route("~/home/accordions", Order = 1)] // when starting from IDE
@@ -110,8 +116,35 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
             return View(model);
         }
 
+        [Route("~/dropdowns", Order = 0)]
+        [Route("~/home/dropdowns", Order = 1)] // when starting from IDE
+        public virtual ActionResult Dropdowns()
+        {
+            return View();
+        }
 
+        [Route("~/forms", Order = 0)]
+        [Route("~/home/forms", Order = 1)] // when starting from IDE
+        public virtual ActionResult Forms()
+        {
+            var model = new FormsModel();
 
+            return View(model);
+        }
+
+        [Route("~/icons", Order = 0)]
+        [Route("~/home/icons", Order = 1)] // when starting from IDE
+        public virtual ActionResult Icons()
+        {
+            return View();
+        }
+
+        [Route("~/navs", Order = 0)]
+        [Route("~/home/navs", Order = 1)] // when starting from IDE
+        public virtual ActionResult Navs()
+        {
+            return View();
+        }
 
         [Route("~/tables", Order = 0)]
         [Route("~/home/tables", Order = 1)] // when starting from IDE
@@ -119,9 +152,6 @@ namespace HyperSlackers.Bootstrap.Demo.Controllers
         {
             return View();
         }
-
-
-
 
         [Route("~/wells", Order = 0)]
         [Route("~/home/wells", Order = 1)] // when starting from IDE

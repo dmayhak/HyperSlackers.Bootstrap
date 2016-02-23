@@ -59,14 +59,14 @@ namespace HyperSlackers.Bootstrap.Controls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.disposed = true;
-                    this.html.ViewContext.Writer.Write("</div>");
+                    disposed = true;
+                    html.ViewContext.Writer.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
         }

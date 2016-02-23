@@ -26,7 +26,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<DropDownMenuControl<TModel>>() != null);
 
-			this.alignToDirection = direction;
+            alignToDirection = direction;
 
 			return this;
 		}
@@ -36,7 +36,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentOutOfRangeException>(heightInPixels > 0);
             Contract.Ensures(Contract.Result<DropDownMenuControl<TModel>>() != null);
 
-			this.maxHeight = new int?(heightInPixels);
+            maxHeight = new int?(heightInPixels);
 
 			return this;
 		}
@@ -46,12 +46,12 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(dropDownMenuBuilder != null, "dropDownMenuBuilder");
             Contract.Ensures(Contract.Result<DropDownMenuControl<TModel>>() != null);
 
-            DropDownMenuBuilder<TModel> dropDownMenuBuilders = new DropDownMenuBuilder<TModel>(this.html);
+            DropDownMenuBuilder<TModel> dropDownMenuBuilders = new DropDownMenuBuilder<TModel>(html);
 			dropDownMenuBuilder(dropDownMenuBuilders);
 
             foreach (DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem in dropDownMenuBuilders)
 			{
-				this.menuItems.Add(bootstrapDropDownMenuItem);
+                menuItems.Add(bootstrapDropDownMenuItem);
 			}
 
 			return this;
@@ -63,22 +63,22 @@ namespace HyperSlackers.Bootstrap.Controls
 
 			TagBuilder menuTagBuilder = new TagBuilder("ul");
 
-			menuTagBuilder.MergeHtmlAttributes(this.controlHtmlAttributes.FormatHtmlAttributes());
+			menuTagBuilder.MergeHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
 
-			if (this.maxHeight.HasValue)
+			if (maxHeight.HasValue)
 			{
-				menuTagBuilder.AddCssStyle("max-height", string.Concat(this.maxHeight.ToString(), "px"));
+				menuTagBuilder.AddCssStyle("max-height", string.Concat(maxHeight.ToString(), "px"));
 				menuTagBuilder.AddCssStyle("overflow-y", "scroll");
 			}
 
 			menuTagBuilder.AddCssClass("dropdown-menu");
 
-			if (this.alignToDirection == DropDownAlignment.Right)
+			if (alignToDirection == DropDownAlignment.Right)
 			{
 				menuTagBuilder.AddCssClass("pull-right");
 			}
 
-            foreach (var item in this.menuItems)
+            foreach (var item in menuItems)
             {
                 menuTagBuilder.InnerHtml += item.ToHtmlString();
             }

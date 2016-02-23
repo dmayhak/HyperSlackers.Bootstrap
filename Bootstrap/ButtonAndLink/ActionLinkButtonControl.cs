@@ -52,10 +52,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(result != null, "result");
 
-            this.text = linkText;
+            text = linkText;
             this.result = result;
-            this.size = ButtonSize.Default;
-            this.actionTypePassed = ActionType.HtmlActionResult;
+            size = ButtonSize.Default;
+            actionTypePassed = ActionType.HtmlActionResult;
         }
 
         internal ActionLinkButtonControl(HtmlHelper<TModel> html, string linkText, Task<ActionResult> taskResult)
@@ -65,10 +65,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(taskResult != null, "taskResult");
 
-            this.text = linkText;
+            text = linkText;
             this.taskResult = taskResult;
-            this.size = ButtonSize.Default;
-            this.actionTypePassed = ActionType.HtmlTaskResult;
+            size = ButtonSize.Default;
+            actionTypePassed = ActionType.HtmlTaskResult;
         }
 
         internal ActionLinkButtonControl(HtmlHelper<TModel> html, string linkText, string actionName)
@@ -78,10 +78,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
 
-            this.text = linkText;
+            text = linkText;
             this.actionName = actionName;
-            this.size = ButtonSize.Default;
-            this.actionTypePassed = ActionType.HtmlRegular;
+            size = ButtonSize.Default;
+            actionTypePassed = ActionType.HtmlRegular;
         }
 
         internal ActionLinkButtonControl(HtmlHelper<TModel> html, string linkText, string actionName, string controllerName)
@@ -92,11 +92,11 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!actionName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentException>(!controllerName.IsNullOrWhiteSpace());
 
-            this.text = linkText;
+            text = linkText;
             this.actionName = actionName;
             this.controllerName = controllerName;
-            this.size = ButtonSize.Default;
-            this.actionTypePassed = ActionType.HtmlRegular;
+            size = ButtonSize.Default;
+            actionTypePassed = ActionType.HtmlRegular;
         }
 
         internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, ActionResult result, AjaxOptions ajaxOptions) 
@@ -108,11 +108,11 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
 
             this.ajax = ajax;
-            this.text = linkText;
+            text = linkText;
             this.result = result;
-            this.size = ButtonSize.Default;
+            size = ButtonSize.Default;
             this.ajaxOptions = ajaxOptions;
-            this.actionTypePassed = ActionType.AjaxActionResult;
+            actionTypePassed = ActionType.AjaxActionResult;
         }
 
         internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, Task<ActionResult> taskResult, AjaxOptions ajaxOptions)
@@ -124,11 +124,11 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
 
             this.ajax = ajax;
-            this.text = linkText;
+            text = linkText;
             this.taskResult = taskResult;
-            this.size = ButtonSize.Default;
+            size = ButtonSize.Default;
             this.ajaxOptions = ajaxOptions;
-            this.actionTypePassed = ActionType.AjaxTaskResult;
+            actionTypePassed = ActionType.AjaxTaskResult;
         }
 
         internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, string actionName, AjaxOptions ajaxOptions)
@@ -140,11 +140,11 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
 
             this.ajax = ajax;
-            this.text = linkText;
+            text = linkText;
             this.actionName = actionName;
-            this.size = ButtonSize.Default;
+            size = ButtonSize.Default;
             this.ajaxOptions = ajaxOptions;
-            this.actionTypePassed = ActionType.AjaxRegular;
+            actionTypePassed = ActionType.AjaxRegular;
         }
 
         internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, string actionName, string controllerName, AjaxOptions ajaxOptions)
@@ -157,19 +157,19 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(ajaxOptions != null, "ajaxOptions");
 
             this.ajax = ajax;
-            this.text = linkText;
+            text = linkText;
             this.actionName = actionName;
             this.controllerName = controllerName;
-            this.size = ButtonSize.Default;
+            size = ButtonSize.Default;
             this.ajaxOptions = ajaxOptions;
-            this.actionTypePassed = ActionType.AjaxRegular;
+            actionTypePassed = ActionType.AjaxRegular;
         }
 
         public ActionLinkButtonControl<TModel> Active()
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.ControlClass("active");
+            ControlClass("active");
 
             return this;
         }
@@ -179,7 +179,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconAppend = icon;
+            iconAppend = icon;
 
             return this;
         }
@@ -189,7 +189,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconAppend = icon;
+            iconAppend = icon;
 
             return this;
         }
@@ -198,7 +198,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconAppend = new GlyphIcon(icon, isWhite);
+            iconAppend = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -207,7 +207,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconAppend = new FontAwesomeIcon(icon, isWhite);
+            iconAppend = new FontAwesomeIcon(icon, isWhite);
 
             return this;
         }
@@ -217,7 +217,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconAppend = new GlyphIcon(cssClass);
+            iconAppend = new GlyphIcon(cssClass);
 
             return this;
         }
@@ -228,11 +228,11 @@ namespace HyperSlackers.Bootstrap.Controls
 
             if (isFocused)
             {
-                this.controlHtmlAttributes.AddIfNotExist("autofocus", null);
+                controlHtmlAttributes.AddIfNotExist("autofocus", null);
             }
             else
             {
-                this.controlHtmlAttributes.Remove("autofocus");
+                controlHtmlAttributes.Remove("autofocus");
             }
 
             return this;
@@ -242,7 +242,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.buttonBlock = true;
+            buttonBlock = true;
 
             return this;
         }
@@ -251,7 +251,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.disabled = isDisabled;
+            disabled = isDisabled;
 
             return this;
         }
@@ -260,7 +260,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.isDropDownToggle = true;
+            isDropDownToggle = true;
 
             return this;
         }
@@ -289,7 +289,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.isTextHtml = isHtml;
+            isTextHtml = isHtml;
 
             return this;
         }
@@ -319,7 +319,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconPrepend = icon;
+            iconPrepend = icon;
 
             return this;
         }
@@ -328,7 +328,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconPrepend = new GlyphIcon(icon, isWhite);
+            iconPrepend = new GlyphIcon(icon, isWhite);
 
             return this;
         }
@@ -338,7 +338,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(icon != null, "icon");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconPrepend = icon;
+            iconPrepend = icon;
 
             return this;
         }
@@ -347,7 +347,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconPrepend = new FontAwesomeIcon(icon, isWhite);
+            iconPrepend = new FontAwesomeIcon(icon, isWhite);
 
             return this;
         }
@@ -357,7 +357,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.iconPrepend = new GlyphIcon(cssClass);
+            iconPrepend = new GlyphIcon(cssClass);
 
             return this;
         }
@@ -387,7 +387,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(routeValues != null, "routeValues");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.routeValues.MergeHtmlAttributes(routeValues.ToDictionary());
+            this.routeValues.AddOrReplaceHtmlAttributes(routeValues.ToDictionary());
 
             return this;
         }
@@ -397,7 +397,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(routeValues != null, "routeValues");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.routeValues.MergeHtmlAttributes(routeValues);
+            this.routeValues.AddOrReplaceHtmlAttributes(routeValues);
 
             return this;
         }
@@ -445,7 +445,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(text);
+            tooltip = new Tooltip(text);
 
             return this;
         }
@@ -455,7 +455,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.tooltip = new Tooltip(html);
+            tooltip = new Tooltip(html);
 
             return this;
         }
@@ -482,7 +482,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            this.ControlClass("alert-link");
+            ControlClass("alert-link");
 
             return this;
         }
@@ -493,31 +493,31 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            switch (this.actionTypePassed)
+            switch (actionTypePassed)
             {
                 case ActionType.HtmlRegular:
                     {
-                        return this.html.ActionLink(linkText, this.actionName, this.controllerName, this.protocol, this.hostName, this.fragment, this.routeValues, htmlAttributes).ToHtmlString();
+                        return html.ActionLink(linkText, actionName, controllerName, protocol, hostName, fragment, routeValues, htmlAttributes).ToHtmlString();
                     }
                 case ActionType.HtmlActionResult:
                     {
-                        return this.html.ActionLink(linkText, this.result, htmlAttributes, this.protocol, this.hostName, this.fragment).ToHtmlString();
+                        return html.ActionLink(linkText, result, htmlAttributes, protocol, hostName, fragment).ToHtmlString();
                     }
                 case ActionType.HtmlTaskResult:
                     {
-                        return this.html.ActionLink(linkText, this.taskResult, htmlAttributes, this.protocol, this.hostName, this.fragment).ToHtmlString();
+                        return html.ActionLink(linkText, taskResult, htmlAttributes, protocol, hostName, fragment).ToHtmlString();
                     }
                 case ActionType.AjaxRegular:
                     {
-                        return this.ajax.ActionLink(linkText, this.actionName, this.controllerName, this.protocol, this.hostName, this.fragment, this.routeValues, this.ajaxOptions, htmlAttributes).ToHtmlString();
+                        return ajax.ActionLink(linkText, actionName, controllerName, protocol, hostName, fragment, routeValues, ajaxOptions, htmlAttributes).ToHtmlString();
                     }
                 case ActionType.AjaxActionResult:
                     {
-                        return this.ajax.ActionLink(linkText, this.result, this.ajaxOptions, htmlAttributes).ToHtmlString();
+                        return ajax.ActionLink(linkText, result, ajaxOptions, htmlAttributes).ToHtmlString();
                     }
                 case ActionType.AjaxTaskResult:
                     {
-                        return this.ajax.ActionLink(linkText, this.taskResult, this.ajaxOptions, htmlAttributes).ToHtmlString();
+                        return ajax.ActionLink(linkText, taskResult, ajaxOptions, htmlAttributes).ToHtmlString();
                     }
             }
 
@@ -528,85 +528,85 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                attributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                attributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            attributes.AddClass("btn");
+            attributes.AddIfNotExistsCssClass("btn");
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                attributes.AddOrReplace("id", this.id);
+                attributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            attributes.AddClass(Helpers.GetCssClass(this.size));
-            attributes.AddClass(Helpers.GetCssClass(this.html, this.style));
+            attributes.AddIfNotExistsCssClass(Helpers.GetCssClass(size));
+            attributes.AddIfNotExistsCssClass(Helpers.GetCssClass(this.html, style));
 
-            if (this.buttonBlock)
+            if (buttonBlock)
             {
-                attributes.AddClass("btn-block");
+                attributes.AddIfNotExistsCssClass("btn-block");
             }
 
-            if (this.isDropDownToggle)
+            if (isDropDownToggle)
             {
-                attributes.AddClass("dropdown-toggle");
+                attributes.AddIfNotExistsCssClass("dropdown-toggle");
                 attributes.AddIfNotExist("data-toggle", "dropdown");
             }
 
-            if (this.disabled)
+            if (disabled)
             {
-                attributes.AddClass("disabled");
+                attributes.AddIfNotExistsCssClass("disabled");
                 //x attributes.Add("disabled", "");
             }
 
-            if (!this.loadingText.IsNullOrWhiteSpace())
+            if (!loadingText.IsNullOrWhiteSpace())
             {
-                attributes.AddOrReplace("data-loading-text", this.loadingText);
+                attributes.AddOrReplaceHtmlAttribute("data-loading-text", loadingText);
             }
 
-            if (!this.title.IsNullOrWhiteSpace())
+            if (!title.IsNullOrWhiteSpace())
             {
-                attributes.Add("title", this.title);
+                attributes.Add("title", title);
             }
 
-            if (!this.name.IsNullOrWhiteSpace())
+            if (!name.IsNullOrWhiteSpace())
             {
-                attributes.Add("name", this.name);
+                attributes.Add("name", name);
             }
 
             string replaceMe = Guid.NewGuid().ToString();
-            string linkText = this.text;
-            string linkHtml = this.GenerateActionLink(replaceMe, attributes);
+            string linkText = text;
+            string linkHtml = GenerateActionLink(replaceMe, attributes);
 
-            if (this.iconPrepend != null || this.iconAppend != null)
+            if (iconPrepend != null || iconAppend != null)
             {
                 string prepend = string.Empty;
                 string append = string.Empty;
-                if (this.iconPrepend != null)
+                if (iconPrepend != null)
                 {
-                    prepend = this.iconPrepend.ToHtmlString();
+                    prepend = iconPrepend.ToHtmlString();
                 }
-                if (this.iconAppend != null)
+                if (iconAppend != null)
                 {
-                    append = this.iconAppend.ToHtmlString();
+                    append = iconAppend.ToHtmlString();
                 }
                 StringBuilder html = new StringBuilder();
                 html.Append(prepend);
-                if (html.Length > 0 && !this.text.IsNullOrWhiteSpace())
+                if (html.Length > 0 && !text.IsNullOrWhiteSpace())
                 {
                     html.Append(" ");
                 }
                 html.Append(replaceMe);
-                if (html.Length > 0 && this.iconAppend != null)
+                if (html.Length > 0 && iconAppend != null)
                 {
                     html.Append(" ");
                 }
                 html.Append(append);
 
-                linkText = html.ToString().Replace(replaceMe, this.text);
+                linkText = html.ToString().Replace(replaceMe, text);
             }
 
             return MvcHtmlString.Create(linkHtml.Replace(replaceMe, linkText)).ToString();

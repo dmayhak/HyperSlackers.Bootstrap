@@ -29,7 +29,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
 			TagBuilder tagBuilder = new TagBuilder("span");
 		    tagBuilder.AddCssClass("help-block");
-			tagBuilder.InnerHtml = this.text;
+			tagBuilder.InnerHtml = text;
 			
             return tagBuilder.ToString();
 		}

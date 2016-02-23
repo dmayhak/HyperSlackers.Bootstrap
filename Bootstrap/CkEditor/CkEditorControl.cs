@@ -24,11 +24,11 @@ namespace HyperSlackers.Bootstrap.Controls
 
             if (metadata.Model != null)
             {
-                this.value = metadata.Model.ToString();
+                selectedValue = metadata.Model.ToString();
             }
             else
             {
-                this.value = null;
+                selectedValue = null;
             }
 		}
 
@@ -36,7 +36,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
 
             return this;
         }
@@ -47,7 +47,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
+            helpText = new HelpTextControl<TModel>(html, text);
 
             return this;
         }
@@ -57,7 +57,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
 
             return this;
         }
@@ -86,7 +86,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<CkEditorControl<TModel>>() != null);
 
-            this.value = value;
+            selectedValue = value;
 
             return this;
         }
@@ -99,26 +99,26 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
-            this.controlHtmlAttributes.AddClass("ckeditor");
-            this.controlHtmlAttributes.AddClass("form-control");
+            controlHtmlAttributes.AddIfNotExistsCssClass("ckeditor");
+            controlHtmlAttributes.AddIfNotExistsCssClass("form-control");
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            string helpHtml = (this.helpText != null ? this.helpText.ToHtmlString() : string.Empty);
-            string validationHtml = (showValidationMessageInline ? string.Empty : this.RenderValidationMessage());
+            string helpHtml = (helpText != null ? helpText.ToHtmlString() : string.Empty);
+            string validationHtml = (showValidationMessageInline ? string.Empty : RenderValidationMessage());
 
-            return string.Format(formatString, html.TextArea(this.htmlFieldName, (this.value ?? string.Empty).ToString(), this.rows, this.columns, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), helpHtml, validationHtml);
+            return string.Format(formatString, html.TextArea(htmlFieldName, (selectedValue ?? string.Empty).ToString(), rows, columns, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), helpHtml, validationHtml);
         }
 	}
 }

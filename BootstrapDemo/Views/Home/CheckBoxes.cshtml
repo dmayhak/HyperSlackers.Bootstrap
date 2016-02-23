@@ -18,9 +18,13 @@
 
 @Html.Bootstrap().CheckBox("fieldName2", "pickle").Label("labels can be used too...")
 
+<h5>CheckBox (with value and tooltip)</h5>
+
+@Html.Bootstrap().CheckBox("fieldName2", "jalepeno").Label("this is the label").Tooltip("This is the tooltip...")
+
 <h5>CheckBoxesFromEnum</h5>
 
-@Html.Bootstrap().CheckBoxesFromEnum("Color1").DisplayInColumns(3, 150)
+@(Html.Bootstrap().CheckBoxesFromEnum<ColorType>("Color1").DisplayInColumns(3, 150))
 
 <h5>CheckBoxesFromEnumFor</h5>
 

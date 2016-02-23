@@ -3,24 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-
-    @* Theme for BootStrap (load default if not using a theme) *@
-    @Styles.Render(Helpers.GetBootstrapThemeCss("cerulean"))
+    <title>@ViewBag.Title - Bootstrap Demo</title>
 
     @* Stylesheets *@
     @*@if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Super))
         {
             @Styles.Render("~/bundles/fileupload/jqueryui/css")
         }*@
-    @Styles.Render(Links.Bundles.Styles.all_css)
-    @Scripts.Render(Links.Bundles.Scripts.modernizr)
+    @Styles.Render(Links.Bundles.Style.all_css)
+    @Scripts.Render(Links.Bundles.Script.modernizr)
+
+    @* Theme for BootStrap (load default if not using a theme) *@
+    @*@Styles.Render(Helpers.GetBootswatchThemeCss("cerulean"))  // TODO: LOAD THIS IN BETWEEN bootstrap.css and site.css or other user-defined css *@
+
+
+    @if (IsSectionDefined("Style"))
+    {
+        @RenderSection("Style");
+    }
 
     <meta name="description" content="@ViewBag.Meta" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -38,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container-fluid body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -47,12 +53,43 @@
     </div>
 
     @* Scripts *@
-    @Scripts.Render(Links.Bundles.Scripts.all)
+    @Scripts.Render(Links.Bundles.Script.all)
     @*@if (User.IsInRole(RoleType.Admin) || User.IsInRole(RoleType.Super))
         {
             @Scripts.Render("~/bundles/fileupload/jqueryui/js")
         }*@
     @Html.RenderScripts()
     @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+        //$(function () {
+
+        //    // Bind an event to window.onhashchange that, when the hash changes, gets the
+        //    // hash and adds the class "selected" to any matching nav link.
+        //    $(window).hashchange(function () {
+        //        setTimeout(function () {
+        //            var $anchor = $(':target'),
+        //                fixedElementHeight = 100;
+
+        //            if ($anchor.length > 0) {
+        //                //window.scrollTo(0, $anchor.offset().top - fixedElementHeight);
+        //                $('html, body').delay(2000)
+        //                    .stop()
+        //                    .animate({
+        //                        scrollTop: $anchor.offset().top - fixedElementHeight
+        //                    }, 200);
+
+        //            }
+        //        }, 300);
+        //    })
+
+        //    // Since the event is only triggered when the hash changes, we need to trigger
+        //    // the event now, to handle the hash the page may have loaded with.
+        //    $(window).hashchange();
+
+        //});
+    </script>
+
 </body>
 </html>

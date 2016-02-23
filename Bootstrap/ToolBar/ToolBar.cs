@@ -11,7 +11,7 @@ namespace HyperSlackers.Bootstrap
 		public ToolBar() 
             : base("div")
 		{
-			base.AddClass("btn-toolbar");
+            AddClass("btn-toolbar");
 		}
-	}
+    }
 }

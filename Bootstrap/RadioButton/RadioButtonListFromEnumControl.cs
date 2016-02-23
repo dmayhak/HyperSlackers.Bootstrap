@@ -49,7 +49,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             this.numberOfColumns = new int?(numberOfColumns);
             this.columnPixelWidth = columnPixelWidth;
-            this.displayInColumnsCondition = condition;
+            displayInColumnsCondition = condition;
 
             return (RadioButtonListFromEnumControl<TModel>)this;
         }
@@ -58,7 +58,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<RadioButtonListFromEnumControl<TModel>>() != null);
 
-            this.displayInlineBlock = true;
+            displayInlineBlock = true;
             this.marginRightPx = marginRightPx;
 
             return (RadioButtonListFromEnumControl<TModel>)this;
@@ -71,7 +71,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             foreach (TEnum tEnum in Enum.GetValues(typeof(TEnum)).OfType<TEnum>())
             {
-                this.controlHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
+                controlHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
             }
 
             return (RadioButtonListFromEnumControl<TModel>)this;
@@ -84,7 +84,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             foreach (TEnum tEnum in Enum.GetValues(typeof(TEnum)).OfType<TEnum>())
             {
-                this.labelHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
+                labelHtmlAttributesFromFunc.Add(new Tuple<object, object>((object)tEnum, htmlAttributesFunc(tEnum)));
             }
 
             return (RadioButtonListFromEnumControl<TModel>)this;
@@ -94,7 +94,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            Type t = this.metadata.ModelType;
+            Type t = metadata.ModelType;
             List<SelectListItem> listItems = new List<SelectListItem>();
 
             foreach (var e in Enum.GetValues(t).OfType<Enum>())
@@ -103,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Controls
                 {
                     Text = e.GetEnumDescription(),
                     Value = Enum.Parse(t, e.ToString()).ToString(),
-                    Selected = e.Equals(this.metadata.Model)
+                    Selected = e.Equals(metadata.Model)
                 });
             }
 
@@ -119,7 +119,7 @@ namespace HyperSlackers.Bootstrap.Controls
                     null,
                     null,
                     item.Selected,
-                    this.isDisabled)); 
+                    isDisabled)); 
                 index++;
             }
 
@@ -130,11 +130,11 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            string fullHtmlFieldName = this.html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
+            string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
             string formatString = string.Empty;
             string controlHtml = string.Empty;
 
-            RadioButtonControl<TModel> radioButton = new RadioButtonControl<TModel>(this.html, this.htmlFieldName, controlValue, this.metadata);
+            RadioButtonControl<TModel> radioButton = new RadioButtonControl<TModel>(html, htmlFieldName, controlValue, metadata);
             radioButton.ControlHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
             radioButton.ControlId(fullHtmlFieldName.FormatForMvcInputId() + "_" + index.ToString());
             radioButton.IsChecked(inputIsChecked);
@@ -144,7 +144,7 @@ namespace HyperSlackers.Bootstrap.Controls
             radioButton.LabelHtmlAttributes(labelHtmlAttributes);
             radioButton.LabelShowRequiredStar(false);
 
-            if (this.displayInlineBlock)
+            if (displayInlineBlock)
             {
                 return "<div class='radio checkbox-inline'>{0}</div>".FormatWith(radioButton.ToHtmlString());
             }

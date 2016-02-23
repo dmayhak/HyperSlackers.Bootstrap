@@ -21,7 +21,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(actionLink != null, "actionLink");
 
-			this.menuItem = actionLink;
+            menuItem = actionLink;
 		}
 
         internal DropDownMenuItemControl(HtmlHelper<TModel> html, string link)
@@ -30,7 +30,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentException>(!link.IsNullOrWhiteSpace());
 
-			this.menuItem = MvcHtmlString.Create(link);
+            menuItem = MvcHtmlString.Create(link);
 		}
 
         internal DropDownMenuItemControl(HtmlHelper<TModel> html, bool isDivider)
@@ -54,23 +54,23 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<DropDownMenuControl<TModel>>() != null);
 
-            this.dropDownMenu = new DropDownMenuControl<TModel>(this.html);
+            dropDownMenu = new DropDownMenuControl<TModel>(html);
 
-			return this.dropDownMenu;
+			return dropDownMenu;
 		}
 
 		protected override string RenderControl()
 		{
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-			if (this.isDivider)
+			if (isDivider)
 			{
 				return "<li class=\"divider\"></li>";
 			}
-			string str = this.menuItem.ToHtmlString().Replace("<a", "<a tabindex=\"-1\"");
-			string str1 = (this.dropDownMenu != null ? this.dropDownMenu.ToHtmlString() : string.Empty);
-			string str2 = (this.dropDownMenu != null ? " class=\"dropdown-submenu\"" : string.Empty);
-			object[] objArray = new object[] { str, str1, str2, (this.active ? " class=\"active\"" : string.Empty) };
+			string str = menuItem.ToHtmlString().Replace("<a", "<a tabindex=\"-1\"");
+			string str1 = (dropDownMenu != null ? dropDownMenu.ToHtmlString() : string.Empty);
+			string str2 = (dropDownMenu != null ? " class=\"dropdown-submenu\"" : string.Empty);
+			object[] objArray = new object[] { str, str1, str2, (active ? " class=\"active\"" : string.Empty) };
 			return string.Format("<li{2}{3}>{0}{1}</li>", objArray);
 		}
 	}

@@ -17,10 +17,10 @@ namespace HyperSlackers.Bootstrap
         internal bool fluidContainer;
         internal string brand;
 
-        public NavBar()
+        public NavBar(string id)
             : base("nav")
         {
-
+            Id(id);
         }
 
         public NavBar Alignment(NavBarAlignment alignment)
@@ -45,11 +45,12 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<NavBar>() != null);
 
-            this.fluidContainer = fluid;
+            fluidContainer = fluid;
 
             return this;
         }
 
+        // TODO: allow image, etc.
         public NavBar Brand(string brand)
         {
             Contract.Requires<ArgumentException>(!brand.IsNullOrWhiteSpace());

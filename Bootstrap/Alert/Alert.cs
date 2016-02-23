@@ -12,19 +12,27 @@ namespace HyperSlackers.Bootstrap
         internal AlertStyle alertStyle = AlertStyle.Danger;
         internal bool isDismissible;
 
-		public Alert()
+        public Alert()
             : base("div")
 		{
-			base.AddClass("alert");
-            this.Style(alertStyle); // ensures that the attribute gets added
-		}
+			AddClass("alert");
+            Style(alertStyle); // ensures that the attribute gets added
+        }
 
-		public Alert Dismissible()
+        public Alert(AlertStyle style)
+            : base("div")
+        {
+            AddClass("alert");
+            alertStyle = style;
+            Style(style); // ensures that the attribute gets added
+        }
+
+        public Alert Dismissible()
 		{
             Contract.Ensures(Contract.Result<Alert>() != null);
 
-			this.isDismissible = true;
-            this.AddClass("alert-dismissible");
+			isDismissible = true;
+            AddClass("alert-dismissible");
 
 			return this;
 		}
@@ -33,7 +41,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Alert>() != null);
 
-            this.AddClass("alert-block");
+            AddClass("alert-block");
 
 			return this;
 		}
@@ -42,9 +50,9 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Alert>() != null);
 
-            this.RemoveClass("alert-danger");
-            this.alertStyle = style;
-            this.AddClass(Helpers.GetCssClass(alertStyle));
+            RemoveClass(Helpers.GetCssClass(alertStyle)); // remove old class
+            alertStyle = style;
+            AddClass(Helpers.GetCssClass(alertStyle)); // add new class
 
             return this;
         }

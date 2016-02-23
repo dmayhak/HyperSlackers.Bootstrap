@@ -32,7 +32,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             this.wellHtml = wellHtml;
 
-            this.controlHtmlAttributes.AddClass("well");
+            controlHtmlAttributes.AddIfNotExistsCssClass("well");
 		}
 
         /// <summary>
@@ -53,15 +53,15 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
             switch (size)
             {
                 case WellSize.Large:
-                    attributes.AddClass("well-lg");
+                    attributes.AddIfNotExistsCssClass("well-lg");
                     break;
                 case WellSize.Small:
-                    attributes.AddClass("well-sm");
+                    attributes.AddIfNotExistsCssClass("well-sm");
                     break;
                 case WellSize.Default:
                 default:
@@ -72,7 +72,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             tagBuilder.MergeHtmlAttributes(attributes);
 
-            tagBuilder.InnerHtml = this.wellHtml;
+            tagBuilder.InnerHtml = wellHtml;
 
             return tagBuilder.ToString(TagRenderMode.Normal);
         }

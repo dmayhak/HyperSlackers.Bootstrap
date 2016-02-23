@@ -22,7 +22,7 @@ namespace HyperSlackers.Bootstrap.Controls
             : base(html)
 		{
             Contract.Requires<ArgumentNullException>(html != null, "html");
-            Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace()); 
+            Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
 			this.htmlFieldName = htmlFieldName;
@@ -36,7 +36,7 @@ namespace HyperSlackers.Bootstrap.Controls
 
             foreach (var item in label)
             {
-                this.labelText += item.ToHtmlString();
+                labelText += item.ToHtmlString();
             }
 
             return this;
@@ -48,7 +48,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
 
 			this.labelText = labelText;
-			
+
             return this;
 		}
 
@@ -57,7 +57,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(Contract.Result<LabelControl<TModel>>() != null);
 
 			this.showRequiredStar = new bool?(showRequiredStar);
-			
+
             return this;
 		}
 
@@ -68,15 +68,15 @@ namespace HyperSlackers.Bootstrap.Controls
             TagBuilder labelTagBuilder = GetLabelTagBuilder();
 
             SetLabelText();
-            if (this.labelText.IsNullOrWhiteSpace())
+            if (labelText.IsNullOrWhiteSpace())
             {
-                labelTagBuilder.InnerHtml = this.labelText;
+                labelTagBuilder.InnerHtml = labelText;
             }
             else
             {
-                labelTagBuilder.InnerHtml = this.labelText + GetRequiredStarTagBuilder().ToString();
+                labelTagBuilder.InnerHtml = labelText + GetRequiredStarTagBuilder().ToString();
             }
-            
+
             return MvcHtmlString.Create("{0}".FormatWith(labelTagBuilder.ToString(TagRenderMode.Normal))).ToHtmlString();
 		}
 
@@ -84,23 +84,23 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            return html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+            return html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
         }
 
         protected void SetLabelText()
         {
-            if (!this.labelText.IsNullOrWhiteSpace())
+            if (!labelText.IsNullOrWhiteSpace())
             {
                 return;
             }
 
-            string displayName = this.metadata.DisplayName;
+            string displayName = metadata.DisplayName;
 
             if (displayName == null)
             {
-                if (this.metadata.PropertyName != null)
+                if (metadata.PropertyName != null)
                 {
-                    displayName = this.metadata.PropertyName.SpaceOnUpperCase();
+                    displayName = metadata.PropertyName.SpaceOnUpperCase();
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace HyperSlackers.Bootstrap.Controls
                 }
             }
 
-            this.labelText = displayName;
+            labelText = displayName;
         }
 
         protected TagBuilder GetLabelTagBuilder()
@@ -123,8 +123,8 @@ namespace HyperSlackers.Bootstrap.Controls
 
             TagBuilder labelTagBuilder = new TagBuilder("label");
 
-            labelTagBuilder.Attributes.Add("for", string.Concat(GetFullHtmlFieldName().FormatForMvcInputId(), (this.index.HasValue ? string.Concat("_", this.index.Value) : string.Empty)));
-            labelTagBuilder.MergeHtmlAttributes(this.controlHtmlAttributes.FormatHtmlAttributes());
+            labelTagBuilder.Attributes.Add("for", string.Concat(GetFullHtmlFieldName().FormatForMvcInputId(), (index.HasValue ? string.Concat("_", index.Value) : string.Empty)));
+            labelTagBuilder.MergeHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
 
             return labelTagBuilder;
         }
@@ -145,11 +145,11 @@ namespace HyperSlackers.Bootstrap.Controls
             }
             else if (html.BootstrapDefaults().DefaultShowRequiredStar.HasValue)
             {
-                showRequiredStar = (this.labelText.IsNullOrWhiteSpace() ? false : html.BootstrapDefaults().DefaultShowRequiredStar.Value);
+                showRequiredStar = (labelText.IsNullOrWhiteSpace() ? false : html.BootstrapDefaults().DefaultShowRequiredStar.Value);
             }
             else
             {
-                showRequiredStar = (this.labelText.IsNullOrWhiteSpace() || this.metadata == null ? false : this.metadata.IsRequired);
+                showRequiredStar = (labelText.IsNullOrWhiteSpace() || metadata == null ? false : metadata.IsRequired);
             }
 
             if (!showRequiredStar)

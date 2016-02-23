@@ -24,7 +24,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
 
-            this.isChecked = (metadata.Model == null ? false : (metadata.Model.GetType() == typeof(bool) ? (bool)metadata.Model : false));
+            isChecked = (metadata.Model == null ? false : (metadata.Model.GetType() == typeof(bool) ? (bool)metadata.Model : false));
 		}
 
         internal CheckBoxControl(HtmlHelper<TModel> html, string htmlFieldName, ModelMetadata metadata, object value, bool isSingleInput)
@@ -34,10 +34,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(htmlFieldName != null, "htmlFieldName");
             Contract.Requires<ArgumentException>(!htmlFieldName.IsNullOrWhiteSpace());
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
-            //x Contract.Requires<ArgumentNullException>(value != null, "value"); 
+            //x Contract.Requires<ArgumentNullException>(value != null, "value");
 
-            this.isChecked = (metadata.Model == null ? false : (metadata.Model.GetType() == typeof(bool) ? (bool)metadata.Model : false));
-            this.value = value;
+            isChecked = (metadata.Model == null ? false : (metadata.Model.GetType() == typeof(bool) ? (bool)metadata.Model : false));
+            selectedValue = value;
             this.isSingleInput = isSingleInput;
 		}
 
@@ -54,68 +54,68 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            if (!this.isSingleInput) // TODO: what does this flag really mean?
+            if (!isSingleInput) // TODO: what does this flag really mean?
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
                 SetDefaultTooltip();
-                if (this.tooltip != null)
+                if (tooltip != null)
                 {
-                    this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                    controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
                 }
 
-                if (!this.id.IsNullOrWhiteSpace())
+                if (!id.IsNullOrWhiteSpace())
                 {
-                    this.controlHtmlAttributes.AddOrReplace("id", this.id);
+                    controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
                 }
 
-                string validationHtml = this.RenderValidationMessage();
+                string validationHtml = RenderValidationMessage();
 
-                return string.Concat(html.CheckBox(this.htmlFieldName, this.isChecked, this.controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), validationHtml);
+                return string.Concat(html.CheckBox(htmlFieldName, isChecked, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString(), validationHtml);
             }
             else
             {
                 ModelState modelState = null;
-                string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(this.htmlFieldName);
+                string fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName);
 
-                this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
                 SetDefaultTooltip();
-                if (this.tooltip != null)
+                if (tooltip != null)
                 {
-                    this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                    controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
                 }
 
                 if (html.ViewData.ModelState.TryGetValue(fullHtmlFieldName, out modelState))
                 {
                     if (modelState.Errors.Count > 0)
                     {
-                        this.controlHtmlAttributes.AddClass("input-validation-error");
+                        controlHtmlAttributes.AddIfNotExistsCssClass("input-validation-error");
                     }
 
-                    if (modelState.Value != null && ((string[])modelState.Value.RawValue).Contains(this.value.ToString()))
+                    if (modelState.Value != null && ((string[])modelState.Value.RawValue).Contains(selectedValue.ToString()))
                     {
-                        this.isChecked = true;
+                        isChecked = true;
                     }
                 }
 
                 TagBuilder tagBuilder = new TagBuilder("input");
                 tagBuilder.Attributes.Add("type", "checkbox");
                 tagBuilder.Attributes.Add("name", fullHtmlFieldName);
-                tagBuilder.Attributes.Add("id", this.id);
-                tagBuilder.Attributes.Add("value", this.@value.ToString());
+                tagBuilder.Attributes.Add("id", id);
+                tagBuilder.Attributes.Add("value", selectedValue.ToString());
 
-                if (this.isChecked)
+                if (isChecked)
                 {
                     tagBuilder.Attributes.Add("checked", "checked");
                 }
 
-                if (this.isDisabled)
+                if (isDisabled)
                 {
                     tagBuilder.Attributes.Add("disabled", "disabled");
                 }
 
-                tagBuilder.MergeHtmlAttributes(this.controlHtmlAttributes.FormatHtmlAttributes());
+                tagBuilder.MergeHtmlAttributes(controlHtmlAttributes.FormatHtmlAttributes());
 
                 return tagBuilder.ToString(TagRenderMode.SelfClosing);
             }
@@ -127,23 +127,23 @@ namespace HyperSlackers.Bootstrap.Controls
 
             TagBuilder labelTagBuilder = GetLabelTagBuilder();
 
-            if (this.controlHtmlAttributes.Keys.Contains("id"))
+            if (controlHtmlAttributes.Keys.Contains("id"))
             {
-                labelTagBuilder.Attributes["for"] = this.controlHtmlAttributes["id"].ToString();
+                labelTagBuilder.Attributes["for"] = controlHtmlAttributes["id"].ToString();
             }
 
-            this.displayValidationMessage = false;
+            displayValidationMessage = false;
 
-            string htmlString = MvcHtmlString.Create(this.RenderControl()).ToHtmlString();
+            string htmlString = MvcHtmlString.Create(RenderControl()).ToHtmlString();
 
             SetLabelText();
-            if (this.labelText.IsNullOrWhiteSpace())
+            if (labelText.IsNullOrWhiteSpace())
             {
                 labelTagBuilder.InnerHtml = htmlString;
             }
             else
             {
-                labelTagBuilder.InnerHtml = htmlString + this.labelText + GetRequiredStarTagBuilder().ToString();
+                labelTagBuilder.InnerHtml = htmlString + labelText + GetRequiredStarTagBuilder().ToString();
             }
 
             return MvcHtmlString.Create("<div class=\"checkbox\">{0}</div>".FormatWith(labelTagBuilder.ToString(TagRenderMode.Normal))).ToHtmlString();
@@ -153,9 +153,9 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            this.validationMessage = RenderValidationMessage();
+            validationMessage = RenderValidationMessage();
 
-            bool isValid = this.html.ViewData.ModelState.IsValidField(this.htmlFieldName);
+            bool isValid = html.ViewData.ModelState.IsValidField(htmlFieldName);
 
             return RenderFormGroupControl(string.Empty, RenderLabeledControl(), validationMessage, true);
         }
@@ -165,8 +165,10 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
             TagBuilder controlTagBuilder = new TagBuilder("div");
-            controlTagBuilder.MergeHtmlAttributes(this.formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
+            controlTagBuilder.MergeHtmlAttributes(formGroup.formGroupHtmlAttributes.FormatHtmlAttributes());
             controlTagBuilder.AddOrMergeCssClass("form-group");
+
+            controlTagBuilder.AddOrMergeCssClass((string)Helpers.GetCssClass(html, formGroup.size).Replace("input", "form-group"));
 
             if (!fieldIsValid)
             {
@@ -176,13 +178,13 @@ namespace HyperSlackers.Bootstrap.Controls
             controlTagBuilder.AddCssClass(GetFormGroupControlCssClass());
 
             string formatString = "{0}";
-            
-            if (this.formGroup.formType == FormType.Horizontal)
+
+            if (formGroup.formType == FormType.Horizontal)
             {
                 TagBuilder horizontalFormControlTagBuilder = new TagBuilder("div");
-                horizontalFormControlTagBuilder.MergeAttributes<string, object>(this.formGroup.controlHtmlAttributes);
+                horizontalFormControlTagBuilder.MergeAttributes<string, object>(formGroup.controlHtmlAttributes);
                 horizontalFormControlTagBuilder.AddCssClass(GetHorizontalFromGroupControlCssClass());
-                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(this.labelWidthXs, this.labelWidthSm, this.labelWidthMd, this.labelWidthLg));
+                horizontalFormControlTagBuilder.AddCssClass(Helpers.CssColClassOffset(labelWidthXs, labelWidthSm, labelWidthMd, labelWidthLg));
                 horizontalFormControlTagBuilder.SetInnerText(formatString);
                 formatString = horizontalFormControlTagBuilder.ToString();
             }

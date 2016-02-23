@@ -29,7 +29,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showRequiredStar] = show;
+            html.ViewData[showRequiredStar] = show;
 
             return this;
 		}
@@ -38,12 +38,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showRequiredStar] == null)
+                if (html.ViewData[showRequiredStar] == null)
                 {
                     return null;
                 }
 
-                return (bool?)this.html.ViewData[showRequiredStar];
+                return (bool?)html.ViewData[showRequiredStar];
             }
         }
 
@@ -51,7 +51,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showTooltip] = show;
+            html.ViewData[showTooltip] = show;
 
             return this;
         }
@@ -60,12 +60,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showTooltip] == null)
+                if (html.ViewData[showTooltip] == null)
                 {
                     return true;
                 }
 
-                return (bool)this.html.ViewData[showTooltip];
+                return (bool)html.ViewData[showTooltip];
             }
         }
 
@@ -73,7 +73,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showPlaceholder] = show;
+            html.ViewData[showPlaceholder] = show;
 
             return this;
 		}
@@ -82,12 +82,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showPlaceholder] == null)
+                if (html.ViewData[showPlaceholder] == null)
                 {
                     return null;
                 }
 
-                return (bool?)this.html.ViewData[showPlaceholder];
+                return (bool?)html.ViewData[showPlaceholder];
             }
         }
 
@@ -95,7 +95,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showHelpText] = show;
+            html.ViewData[showHelpText] = show;
 
             return this;
         }
@@ -104,12 +104,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showHelpText] == null)
+                if (html.ViewData[showHelpText] == null)
                 {
                     return true;
                 }
 
-                return (bool)this.html.ViewData[showHelpText];
+                return (bool)html.ViewData[showHelpText];
             }
         }
 
@@ -117,7 +117,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[buttonStyle] = style;
+            html.ViewData[buttonStyle] = style;
 
             return this;
         }
@@ -126,12 +126,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[buttonStyle] == null)
+                if (html.ViewData[buttonStyle] == null)
                 {
                     return Bootstrap.ButtonStyle.Default;
                 }
 
-                return (ButtonStyle)this.html.ViewData[buttonStyle];
+                return (ButtonStyle)html.ViewData[buttonStyle];
             }
         }
 
@@ -139,7 +139,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[inputSize] = size;
+            html.ViewData[inputSize] = size;
 
             return this;
         }
@@ -148,12 +148,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[inputSize] == null)
+                if (html.ViewData[inputSize] == null)
                 {
                     return Bootstrap.InputSize.Default;
                 }
 
-                return (InputSize)this.html.ViewData[inputSize];
+                return (InputSize)html.ViewData[inputSize];
             }
         }
 
@@ -161,7 +161,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showValidationMessageBeforeInput] = validationBeforeInput;
+            html.ViewData[showValidationMessageBeforeInput] = validationBeforeInput;
 
             return this;
 		}
@@ -170,12 +170,12 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showValidationMessageBeforeInput] == null)
+                if (html.ViewData[showValidationMessageBeforeInput] == null)
                 {
                     return null;
                 }
 
-                return (bool?)this.html.ViewData[showValidationMessageBeforeInput];
+                return (bool?)html.ViewData[showValidationMessageBeforeInput];
             }
         }
 
@@ -183,7 +183,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<Defaults>() != null);
 
-            this.html.ViewData[showValidationMessageInline] = validationInline;
+            html.ViewData[showValidationMessageInline] = validationInline;
 
             return this;
 		}
@@ -192,37 +192,37 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             get
             {
-                if (this.html.ViewData[showValidationMessageInline] == null)
+                if (html.ViewData[showValidationMessageInline] == null)
                 {
                     return null;
                 }
 
-                return (bool?)this.html.ViewData[showValidationMessageInline];
+                return (bool?)html.ViewData[showValidationMessageInline];
             }
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
 		public override string ToString()
 		{
-			return this.ToString();
+			return ToString();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override bool Equals(object obj)
 		{
-			return this.Equals(obj);
+			return Equals(obj);
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override int GetHashCode()
 		{
-			return this.GetHashCode();
+			return GetHashCode();
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public new Type GetType()
 		{
-			return this.GetType();
+			return GetType();
 		}
 	}
 }

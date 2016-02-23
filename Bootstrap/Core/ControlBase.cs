@@ -23,13 +23,14 @@ namespace HyperSlackers.Bootstrap.Core
         internal IDictionary<string, object> controlHtmlAttributes = new Dictionary<string, object>();
         internal int? index; // in case the control is a member of a control list
         internal CursorType? cursorType;
+        internal WrapperTag wrapper;
 
         [ContractInvariantMethod]
-        private void ObjectInvariant () 
+        private void ObjectInvariant ()
         {
-            Contract.Invariant(this.html != null);
-            Contract.Invariant(this.id != null);
-            Contract.Invariant(this.controlHtmlAttributes != null);
+            Contract.Invariant(html != null);
+            Contract.Invariant(id != null);
+            Contract.Invariant(controlHtmlAttributes != null);
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Ensures(Contract.Result<TControl>() != null);
 
             this.id = id;
-            this.controlHtmlAttributes.AddOrReplace("id", id);
+            controlHtmlAttributes.AddOrReplaceHtmlAttribute("id", id);
 
             return (TControl)this;
         }
@@ -70,7 +71,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.AddClass(cssClass);
+            controlHtmlAttributes.AddIfNotExistsCssClass(cssClass);
 
             return (TControl)this;
         }
@@ -87,7 +88,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(value != null, "value");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttribute(key, value);
+            controlHtmlAttributes.AddOrReplaceHtmlAttribute(key, value);
 
             return (TControl)this;
         }
@@ -102,7 +103,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes.ToDictionary());
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes.ToDictionary());
 
             return (TControl)this;
         }
@@ -117,7 +118,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(htmlAttributes != null, "htmlAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(htmlAttributes);
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(htmlAttributes);
 
             return (TControl)this;
         }
@@ -132,7 +133,7 @@ namespace HyperSlackers.Bootstrap.Core
             //x Contract.Requires<ArgumentNullException>(dataAttributes != null, "dataAttributes");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(dataAttributes.ToHtmlDataAttributes());
 
             return (TControl)this;
         }
@@ -146,8 +147,8 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.cursorType = cursor;
-            this.ControlHtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(cursor)));
+            cursorType = cursor;
+            ControlHtmlAttribute("style", "cursor: {0};".FormatWith(Helpers.GetCssClass(cursor)));
 
             return (TControl)this;
         }
@@ -163,6 +164,15 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Ensures(Contract.Result<TControl>() != null);
 
             this.index = index;
+
+            return (TControl)this;
+        }
+
+        internal TControl WrapInto(WrapperTag wrapper)
+        {
+            Contract.Requires<ArgumentNullException>(wrapper != null, "wrapper");
+
+            this.wrapper = wrapper;
 
             return (TControl)this;
         }
@@ -190,7 +200,7 @@ namespace HyperSlackers.Bootstrap.Core
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
-            return this.ToHtmlString();
+            return ToHtmlString();
         }
 
         /// <summary>
@@ -210,7 +220,7 @@ namespace HyperSlackers.Bootstrap.Core
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
@@ -242,6 +252,25 @@ namespace HyperSlackers.Bootstrap.Core
         }
 
         /// <summary>
+        /// Returns the format string for the wrapper tag with {0} in the innerHtml position.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string WrapperTagFromatString()
+        {
+            Contract.Ensures(Contract.Result<string>() != null);
+
+            // no wrapper
+            if (wrapper == null)
+            {
+                return "{0}";
+            }
+
+            // TODO: how should we handle active/disabled? other attributes? derived classes?
+
+            return wrapper.ToString();
+        }
+
+        /// <summary>
         /// Renders the control.
         /// </summary>
         /// <returns></returns>
@@ -250,7 +279,7 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
-            throw new NotImplementedException(); 
+            throw new NotImplementedException();
         }
     }
 }

@@ -59,7 +59,12 @@ namespace HyperSlackers.Bootstrap.Extensions
         {
             Contract.Requires<ArgumentNullException>(tagBuilder != null, "tagBuilder");
             Contract.Requires<ArgumentNullException>(attributeValue != null, "attributeValue");
-            Contract.Requires<ArgumentException>(!attributeValue.IsNullOrWhiteSpace());
+            //x Contract.Requires<ArgumentException>(!attributeValue.IsNullOrWhiteSpace());
+
+            if (attributeValue.IsNullOrWhiteSpace())
+            {
+                return tagBuilder;
+            }
 
             if (!tagBuilder.Attributes.ContainsKey("class"))
             {

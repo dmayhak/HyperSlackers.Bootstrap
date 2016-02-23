@@ -2,7 +2,8 @@
 {
     public enum TableColor
     {
-        None,
+        Default, // default means "leave it alone"
+        None, // none means "remove all the others"
         Active,
         Success,
         Warning,

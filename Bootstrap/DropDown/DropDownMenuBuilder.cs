@@ -27,7 +27,7 @@ namespace HyperSlackers.Bootstrap.Controls
 			{
                 Contract.Ensures(Contract.Result<int>() >= 0);
 
-                return this.menuItems.Count<DropDownMenuItemControl<TModel>>();
+                return menuItems.Count<DropDownMenuItemControl<TModel>>();
 			}
 		}
 
@@ -45,40 +45,40 @@ namespace HyperSlackers.Bootstrap.Controls
 			{
                 Contract.Ensures(Contract.Result<DropDownMenuItemControl<TModel>>() != null);
 
-				return this.menuItems[index];
+				return menuItems[index];
 			}
 			set
 			{
-                this.menuItems[index] = value;
+                menuItems[index] = value;
 			}
 		}
 
         public void Add(DropDownMenuItemControl<TModel> item)
 		{
-            this.menuItems.Add(item);
+            menuItems.Add(item);
 		}
 
 		public void Clear()
 		{
-			this.menuItems.Clear();
+            menuItems.Clear();
 		}
 
         public bool Contains(DropDownMenuItemControl<TModel> item)
 		{
-            return this.menuItems.Contains(item);
+            return menuItems.Contains(item);
 		}
 
         public void CopyTo(DropDownMenuItemControl<TModel>[] array, int arrayIndex)
 		{
-            this.menuItems.CopyTo(array, arrayIndex);
+            menuItems.CopyTo(array, arrayIndex);
 		}
 
         public DropDownMenuItemControl<TModel> Divider()
 		{
             Contract.Ensures(Contract.Result<DropDownMenuItemControl<TModel>>() != null);
 
-            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(this.html, true);
-			this.Add(bootstrapDropDownMenuItem);
+            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(html, true);
+            Add(bootstrapDropDownMenuItem);
 			
             return bootstrapDropDownMenuItem;
 		}
@@ -87,19 +87,19 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Ensures(Contract.Result<IEnumerator<DropDownMenuItemControl<TModel>>>() != null);
 
-			return this.menuItems.GetEnumerator();
+			return menuItems.GetEnumerator();
 		}
 
         public int IndexOf(DropDownMenuItemControl<TModel> item)
 		{
             Contract.Ensures(Contract.Result<int>() >= 0);  // TODO: can this be -1 or???
 
-			return this.menuItems.IndexOf(item);
+			return menuItems.IndexOf(item);
 		}
 
         public void Insert(int index, DropDownMenuItemControl<TModel> item)
 		{
-            this.menuItems.Insert(index, item);
+            menuItems.Insert(index, item);
 		}
 
         public DropDownMenuItemControl<TModel> MenuItem(MvcHtmlString actionLink)
@@ -107,8 +107,8 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(actionLink != null, "actionLink");
             Contract.Ensures(Contract.Result<DropDownMenuItemControl<TModel>>() != null);
 
-            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(this.html, actionLink);
-			this.Add(bootstrapDropDownMenuItem);
+            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(html, actionLink);
+            Add(bootstrapDropDownMenuItem);
 			
             return bootstrapDropDownMenuItem;
 		}
@@ -118,27 +118,27 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!link.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<DropDownMenuItemControl<TModel>>() != null);
 
-            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(this.html, link);
-			this.Add(bootstrapDropDownMenuItem);
+            DropDownMenuItemControl<TModel> bootstrapDropDownMenuItem = new DropDownMenuItemControl<TModel>(html, link);
+            Add(bootstrapDropDownMenuItem);
 			
             return bootstrapDropDownMenuItem;
 		}
 
         public bool Remove(DropDownMenuItemControl<TModel> item)
 		{
-            return this.menuItems.Remove(item);
+            return menuItems.Remove(item);
 		}
 
 		public void RemoveAt(int index)
 		{
-            this.menuItems.RemoveAt(index);
+            menuItems.RemoveAt(index);
 		}
 
 		IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
             Contract.Ensures(Contract.Result<IEnumerator>() != null);
 
-			return this.GetEnumerator();
+			return GetEnumerator();
 		}
 	}
 }

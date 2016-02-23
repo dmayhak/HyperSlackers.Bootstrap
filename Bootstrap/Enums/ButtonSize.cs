@@ -5,6 +5,6 @@ namespace HyperSlackers.Bootstrap
 		Default,
 		Large,
 		Small,
-		Mini
+		ExtraSmall
 	}
 }

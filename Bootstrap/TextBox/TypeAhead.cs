@@ -31,7 +31,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!action.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TypeAhead>() != null);
 
-			this.actionName = action;
+            actionName = action;
 
             return this;
 		}
@@ -51,7 +51,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!controller.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<TypeAhead>() != null);
 
-			this.controllerName = controller;
+            controllerName = controller;
 			
             return this;
 		}
@@ -147,56 +147,56 @@ namespace HyperSlackers.Bootstrap
 			attributes.AddIfNotExist("data-provide", "typeahead");
 			attributes.AddIfNotExist("autocomplete", "off");
 
-			if (this.result != null)
+			if (result != null)
 			{
-				attributes.AddIfNotExist("data-url", urlHelper.Action(this.result));
+				attributes.AddIfNotExist("data-url", urlHelper.Action(result));
 			}
 
-			if (this.taskResult != null)
+			if (taskResult != null)
 			{
-				attributes.AddIfNotExist("data-url", urlHelper.Action(this.taskResult));
+				attributes.AddIfNotExist("data-url", urlHelper.Action(taskResult));
 			}
 
-            if (!this.actionName.IsNullOrWhiteSpace() || !this.controllerName.IsNullOrWhiteSpace())
+            if (!actionName.IsNullOrWhiteSpace() || !controllerName.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-url", urlHelper.Action(this.actionName, this.controllerName));
+				attributes.AddIfNotExist("data-url", urlHelper.Action(actionName, controllerName));
 			}
 			
-            if (this.items.HasValue)
+            if (items.HasValue)
 			{
-				int value = this.items.Value;
+				int value = items.Value;
 				attributes.AddIfNotExist("data-items", value.ToString());
 			}
 			
-            if (this.minLength.HasValue)
+            if (minLength.HasValue)
 			{
-				int num = this.minLength.Value;
+				int num = minLength.Value;
 				attributes.AddIfNotExist("data-minLength", num.ToString());
 			}
 
-            if (!this.source.IsNullOrWhiteSpace())
+            if (!source.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-source", this.source);
+				attributes.AddIfNotExist("data-source", source);
 			}
 
-            if (!this.matcher.IsNullOrWhiteSpace())
+            if (!matcher.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-matcher", this.matcher);
+				attributes.AddIfNotExist("data-matcher", matcher);
 			}
 
-            if (!this.sorter.IsNullOrWhiteSpace())
+            if (!sorter.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-sorter", this.sorter);
+				attributes.AddIfNotExist("data-sorter", sorter);
 			}
 
-            if (!this.updater.IsNullOrWhiteSpace())
+            if (!updater.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-updater", this.updater);
+				attributes.AddIfNotExist("data-updater", updater);
 			}
 
-            if (!this.highlighter.IsNullOrWhiteSpace())
+            if (!highlighter.IsNullOrWhiteSpace())
 			{
-				attributes.AddIfNotExist("data-highlighter", this.highlighter);
+				attributes.AddIfNotExist("data-highlighter", highlighter);
 			}
 			
             return attributes;

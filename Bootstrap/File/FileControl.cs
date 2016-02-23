@@ -24,7 +24,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<FileControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, GetHelpTextText());
+            helpText = new HelpTextControl<TModel>(html, GetHelpTextText());
 
             return this;
         }
@@ -35,7 +35,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<FileControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, text);
+            helpText = new HelpTextControl<TModel>(html, text);
 
             return this;
         }
@@ -45,7 +45,7 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Ensures(Contract.Result<FileControl<TModel>>() != null);
 
-            this.helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
+            helpText = new HelpTextControl<TModel>(this.html, html.ToHtmlString());
 
             return this;
         }
@@ -58,19 +58,19 @@ namespace HyperSlackers.Bootstrap.Controls
             bool showValidationMessageBeforeInput = html.BootstrapDefaults().DefaultShowValidationMessageBeforeInput ?? false;
             string formatString = showValidationMessageBeforeInput ? "{2}{0}{1}" : "{0}{1}{2}";
 
-            this.controlHtmlAttributes.MergeHtmlAttributes(html.GetUnobtrusiveValidationAttributes(this.htmlFieldName, this.metadata));
+            controlHtmlAttributes.AddOrReplaceHtmlAttributes(html.GetUnobtrusiveValidationAttributes(htmlFieldName, metadata));
 
             SetDefaultTooltip();
-            if (this.tooltip != null)
+            if (tooltip != null)
             {
-                this.controlHtmlAttributes.MergeHtmlAttributes(this.tooltip.ToDictionary());
+                controlHtmlAttributes.AddOrReplaceHtmlAttributes(tooltip.ToDictionary());
             }
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes().AddOrReplace("type", "File");
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes().AddOrReplaceHtmlAttribute("type", "File");
 
-            if (!this.id.IsNullOrWhiteSpace())
+            if (!id.IsNullOrWhiteSpace())
             {
-                attributes.AddOrReplace("id", this.id);
+                attributes.AddOrReplaceHtmlAttribute("id", id);
             }
 
             string helpText = string.Empty;
@@ -82,10 +82,10 @@ namespace HyperSlackers.Bootstrap.Controls
             string validationText = string.Empty;
             if (!showValidationMessageInline)
             {
-                validationText = this.RenderValidationMessage();
+                validationText = RenderValidationMessage();
             }
 
-            return formatString.FormatWith(html.TextBox(this.htmlFieldName, null, attributes).ToHtmlString(), helpText, validationText);
+            return formatString.FormatWith(html.TextBox(htmlFieldName, null, attributes).ToHtmlString(), helpText, validationText);
         }
 	}
 }

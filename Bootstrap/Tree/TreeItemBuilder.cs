@@ -22,18 +22,18 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(item != null, "item");
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     //this.textWriter.Write("");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

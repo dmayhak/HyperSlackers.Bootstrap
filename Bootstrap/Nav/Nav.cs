@@ -11,11 +11,12 @@ namespace HyperSlackers.Bootstrap
 		internal bool activeLinksByController;
 		internal bool activeLinksByControllerAndAction;
 
-		public Nav() 
+        public Nav(NavType type = NavType.Tabs) 
             : base("ul")
 		{
-			base.AddClass("nav");
-		}
+            AddClass("nav");
+            AddClass(Helpers.GetCssClass(type));
+        }
 
 		internal Nav(bool isSubNav) 
             : base(string.Empty)
@@ -27,7 +28,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!cssClass.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-			this.AddClass(cssClass);
+            AddClass(cssClass);
 
 			return this;
 		}
@@ -67,7 +68,7 @@ namespace HyperSlackers.Bootstrap
             Contract.Requires<ArgumentException>(!id.IsNullOrWhiteSpace());
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-			base.MergeHtmlAttribute("id", id);
+            MergeHtmlAttribute("id", id);
 
 			return this;
 		}
@@ -76,7 +77,7 @@ namespace HyperSlackers.Bootstrap
         {
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-            base.AddClass("nav-justified");
+            AddClass("nav-justified");
 
             return this;
         }
@@ -85,7 +86,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-			this.activeLinksByController = true;
+            activeLinksByController = true;
 
 			return this;
 		}
@@ -94,7 +95,7 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-			this.activeLinksByControllerAndAction = true;
+            activeLinksByControllerAndAction = true;
 
 			return this;
 		}
@@ -103,18 +104,18 @@ namespace HyperSlackers.Bootstrap
 		{
             Contract.Ensures(Contract.Result<Nav>() != null);
 
-			base.AddClass("nav-stacked");
+            AddClass("nav-stacked");
 
 			return this;
 		}
 
-        public Nav Style(NavType type)
-        {
-            Contract.Ensures(Contract.Result<Nav>() != null);
+        //public Nav Style(NavType type)
+        //{
+        //    Contract.Ensures(Contract.Result<Nav>() != null);
 
-            base.AddClass(Helpers.GetCssClass(type));
+        //    AddClass(Helpers.GetCssClass(type));
 
-            return this;
-        }
+        //    return this;
+        //}
 	}
 }

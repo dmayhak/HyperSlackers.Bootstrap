@@ -21,43 +21,43 @@ namespace HyperSlackers.Bootstrap.Controls
             Contract.Requires<ArgumentNullException>(html != null, "html");
             Contract.Requires<ArgumentNullException>(panel != null, "panel");
 
-            this.element.Class(Helpers.GetCssClass(this.element.style));
-            if (this.element.collapsed)
+            element.Class(Helpers.GetCssClass(element.style));
+            if (element.collapsed)
             {
-                this.element.Class("collapsed");
+                element.Class("collapsed");
             }
 
-            this.textWriter.Write(this.element.StartTag);
+            textWriter.Write(element.StartTag);
 		}
 
         public PanelBodyBuilder BeginBody()
 		{
             Contract.Ensures(Contract.Result<PanelBodyBuilder>() != null);
 
-            return new PanelBodyBuilder(this.textWriter, this.element);
+            return new PanelBodyBuilder(textWriter, element);
 		}
 
         public PanelFooterBuilder BeginFooter()
 		{
             Contract.Ensures(Contract.Result<PanelFooterBuilder>() != null);
 
-            return new PanelFooterBuilder(this.textWriter);
+            return new PanelFooterBuilder(textWriter);
 		}
 
         public PanelHeaderBuilder BeginHeader()
 		{
             Contract.Ensures(Contract.Result<PanelHeaderBuilder>() != null);
 
-            return new PanelHeaderBuilder(this.textWriter, this.element);
+            return new PanelHeaderBuilder(textWriter, element);
 		}
 
 		public IHtmlString Header(string text)
 		{
             StringBuilder header = new StringBuilder();
 
-            if (this.element.collapsible)
+            if (element.collapsible)
             {
-                header.Append("<div class=\"panel-heading{1}\" data-toggle=\"collapse\" data-target=\"{0}\" style=\"cursor:pointer;\">".FormatWith("#" + this.element.id + "Collapse", this.element.collapsed ? " collapsed" : string.Empty));
+                header.Append("<div class=\"panel-heading{1}\" data-toggle=\"collapse\" data-target=\"{0}\" style=\"cursor:pointer;\">".FormatWith("#" + element.id + "Collapse", element.collapsed ? " collapsed" : string.Empty));
             }
             else
             {
@@ -77,7 +77,7 @@ namespace HyperSlackers.Bootstrap.Controls
             //}
             //else
             //{
-                header.Append("<h4 class=\"panel-title{1}\">{0}</h4>".FormatWith(text, this.element.collapsible ? " accordion-toggle" : string.Empty));
+                header.Append("<h4 class=\"panel-title{1}\">{0}</h4>".FormatWith(text, element.collapsible ? " accordion-toggle" : string.Empty));
             //}
 
             header.Append("</div>");
@@ -98,19 +98,19 @@ namespace HyperSlackers.Bootstrap.Controls
 
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    if (this.element.collapsible)
+                    if (element.collapsible)
                     {
-                        this.textWriter.Write("</div>");
+                        textWriter.Write("</div>");
                     }
 
                     // element end tag handles in base class
                     //x this.textWriter.Write("</div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

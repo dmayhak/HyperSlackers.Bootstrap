@@ -55,7 +55,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             try
             {
-                this.sourceData = sourceDataExpression.Compile()((TModel)html.ViewData.Model).ToList<TSource>();
+                sourceData = sourceDataExpression.Compile()((TModel)html.ViewData.Model).ToList<TSource>();
             }
             catch (ArgumentNullException argumentNullException)  // TODO: redo this?
             {
@@ -139,7 +139,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             this.numberOfColumns = new int?(numberOfColumns);
             this.columnPixelWidth = columnPixelWidth;
-            this.displayInColumnsCondition = condition;
+            displayInColumnsCondition = condition;
 
             return (TControl)this;
         }
@@ -152,7 +152,7 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.displayInlineBlock = true;
+            displayInlineBlock = true;
 
             return (TControl)this;
         }
@@ -167,7 +167,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(htmlAttributesExpression != null, "htmlAttributesExpression");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.controlHtmlAttributesExpression = htmlAttributesExpression;
+            controlHtmlAttributesExpression = htmlAttributesExpression;
 
             return (TControl)this;
         }
@@ -182,7 +182,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(htmlAttributesExpression != null, "htmlAttributesExpression");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.labelHtmlAttributesExpression = htmlAttributesExpression;
+            labelHtmlAttributesExpression = htmlAttributesExpression;
 
             return (TControl)this;
         }
@@ -197,7 +197,7 @@ namespace HyperSlackers.Bootstrap.Core
             Contract.Requires<ArgumentNullException>(selectedValueExpression != null, "selectedValueExpression");
             Contract.Ensures(Contract.Result<TControl>() != null);
 
-            this.checkedValueExpression = selectedValueExpression;
+            checkedValueExpression = selectedValueExpression;
 
             return (TControl)this;
         }
@@ -210,42 +210,42 @@ namespace HyperSlackers.Bootstrap.Core
         {
             Contract.Ensures(!String.IsNullOrEmpty(Contract.Result<string>()));
 
-            if (this.sourceData == null)
+            if (sourceData == null)
             {
                 return string.Empty;
             }
 
-            if (this.html.ViewData.Model == null)
+            if (html.ViewData.Model == null)
             {
                 return string.Empty;
             }
 
-            Func<TSource, SValue> valueFunc = this.valueExpression.Compile();
+            Func<TSource, SValue> valueFunc = valueExpression.Compile();
 
-            Func<TSource, SText> textFunc = this.textExpression.Compile();
+            Func<TSource, SText> textFunc = textExpression.Compile();
 
             Func<TSource, object> inputAttributesFunc = null;
-            if (this.controlHtmlAttributesExpression != null)
+            if (controlHtmlAttributesExpression != null)
             {
-                inputAttributesFunc = this.controlHtmlAttributesExpression.Compile();
+                inputAttributesFunc = controlHtmlAttributesExpression.Compile();
             }
 
             Func<TSource, object> labelHtmlAttributesFunc = null;
-            if (this.labelHtmlAttributesExpression != null)
+            if (labelHtmlAttributesExpression != null)
             {
-                labelHtmlAttributesFunc = this.labelHtmlAttributesExpression.Compile();
+                labelHtmlAttributesFunc = labelHtmlAttributesExpression.Compile();
             }
 
             Func<TSource, bool> checkedValueFunc = null;
-            if (this.checkedValueExpression != null)
+            if (checkedValueExpression != null)
             {
-                checkedValueFunc = this.checkedValueExpression.Compile();
+                checkedValueFunc = checkedValueExpression.Compile();
             }
 
             Func<TSource, bool> disabledValueFunc = null;
-            if (this.disabledValueExpression != null)
+            if (disabledValueExpression != null)
             {
-                disabledValueFunc = this.disabledValueExpression.Compile();
+                disabledValueFunc = disabledValueExpression.Compile();
             }
 
             Func<TSource, object> inputAttributesFunc2 = inputAttributesFunc;
@@ -255,7 +255,7 @@ namespace HyperSlackers.Bootstrap.Core
 
             List<string> inputs = new List<string>();
             int inputCount = 0;
-            foreach (TSource item in this.sourceData)
+            foreach (TSource item in sourceData)
             {
                 string itemValue = valueFunc(item).ToString();
                 string itemText = textFunc(item).ToString();

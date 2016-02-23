@@ -20,14 +20,14 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Requires<ArgumentNullException>(html != null, "html");
 
-            this.controlHtmlAttributes.AddClass("alert");
+            controlHtmlAttributes.AddIfNotExistsCssClass("alert");
         }
 
         public MessageAlertControl<TModel> Style(AlertStyle style)
         {
             Contract.Ensures(Contract.Result<MessageAlertControl<TModel>>() != null);
 
-            this.alertStyle = style;
+            alertStyle = style;
 
             return this;
         }
@@ -36,7 +36,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<MessageAlertControl<TModel>>() != null);
 
-            this.controlHtmlAttributes.AddClass("alert-block");
+            controlHtmlAttributes.AddIfNotExistsCssClass("alert-block");
 
             return this;
         }
@@ -60,21 +60,21 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            string alertHtml = this.html.ViewBag.Message;
+            string alertHtml = html.ViewBag.Message;
 
             if (html.ViewContext.TempData.ContainsKey("Message"))
             {
                 alertHtml = html.ViewContext.TempData["Message"].ToString();
             }
 
-            return RenderAlert(alertHtml, this.alertStyle);
+            return RenderAlert(alertHtml, alertStyle);
         }
 
         private string RenderSuccessMessage()
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            string alertHtml = this.html.ViewBag.Message_Success;
+            string alertHtml = html.ViewBag.Message_Success;
 
             if (html.ViewContext.TempData.ContainsKey("Message_Success"))
             {
@@ -88,7 +88,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            string alertHtml = this.html.ViewBag.Message_Info;
+            string alertHtml = html.ViewBag.Message_Info;
 
             if (html.ViewContext.TempData.ContainsKey("Message_Info"))
             {
@@ -102,7 +102,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            string alertHtml = this.html.ViewBag.Message_Warning;
+            string alertHtml = html.ViewBag.Message_Warning;
 
             if (html.ViewContext.TempData.ContainsKey("Message_Warning"))
             {
@@ -116,7 +116,7 @@ namespace HyperSlackers.Bootstrap.Controls
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            string alertHtml = this.html.ViewBag.Message_Danger;
+            string alertHtml = html.ViewBag.Message_Danger;
 
             if (html.ViewContext.TempData.ContainsKey("Message_Danger"))
             {
@@ -135,9 +135,9 @@ namespace HyperSlackers.Bootstrap.Controls
                 return string.Empty;
             }
 
-            IDictionary<string, object> attributes = this.controlHtmlAttributes.FormatHtmlAttributes();
+            IDictionary<string, object> attributes = controlHtmlAttributes.FormatHtmlAttributes();
 
-            attributes.AddClass(Helpers.GetCssClass(style));
+            attributes.AddIfNotExistsCssClass(Helpers.GetCssClass(style));
 
             TagBuilder tagBuilder = new TagBuilder("div");
 

@@ -23,7 +23,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		{
             Contract.Requires<ArgumentNullException>(writer != null, "writer");
 
-			this.textWriter.Write("<div class=\"carousel-caption\">");
+            textWriter.Write("<div class=\"carousel-caption\">");
 		}
 
         /// <summary>
@@ -32,13 +32,13 @@ namespace HyperSlackers.Bootstrap.Controls
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    this.textWriter.Write("</div></div>");
+                    textWriter.Write("</div></div>");
 
-                    this.disposed = true;
+                    disposed = true;
                 }
             }
 

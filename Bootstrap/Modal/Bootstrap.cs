@@ -19,7 +19,7 @@ namespace HyperSlackers.Bootstrap.BootstrapMethods
             Contract.Requires<ArgumentNullException>(modal != null, "modal");
             Contract.Ensures(Contract.Result<ModalBuilder<TModel>>() != null);
 
-            return new ModalBuilder<TModel>(this.html, modal);
+            return new ModalBuilder<TModel>(html, modal);
         }
     }
 }

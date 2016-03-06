@@ -182,3 +182,10 @@
 @Html.Bootstrap().ActionLink("ActionLink (ActionName, ControllerName)", "ButtonsAndLinks", "Home")
 <br />
 @Html.Bootstrap().ActionLink("ActionLink async (ActionResult)", MVC.Home.ButtonsAndLinksAsync())
+<br />
+@Html.Bootstrap().ActionLink("ActionLink with Badge", MVC.Home.ButtonsAndLinks()).Badge("13")
+
+<h3>ActionLinkButton</h3>
+
+@Html.Bootstrap().ActionLinkButton("ActionLinkButton 1", MVC.Home.ButtonsAndLinks())
+@Html.Bootstrap().ActionLinkButton("ActionLinkButton 2 with Badge", MVC.Home.ButtonsAndLinks()).Badge("24")

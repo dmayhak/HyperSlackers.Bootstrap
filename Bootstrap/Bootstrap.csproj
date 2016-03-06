@@ -213,6 +213,7 @@
     <Compile Include="Alert\AlertControl.cs" />
     <Compile Include="Alert\Bootstrap.cs" />
     <Compile Include="Alert\MessageAlertControl.cs" />
+    <Compile Include="Badge\Badge.cs" />
     <Compile Include="ButtonAndLink\ActionLinkButtonControl.cs" />
     <Compile Include="ButtonAndLink\ActionLinkControl.cs" />
     <Compile Include="ButtonAndLink\Bootstrap.cs" />

@@ -29,6 +29,7 @@ namespace HyperSlackers.Bootstrap.Controls
         internal string value;
         internal bool withCaret;
         internal bool dismissModal;
+        internal Badge badge;
 
         internal ButtonControl(HtmlHelper<TModel> html, ButtonType type)
             : base(html)
@@ -312,6 +313,15 @@ namespace HyperSlackers.Bootstrap.Controls
             return this;
         }
 
+        public ButtonControl<TModel> Badge(string text)
+        {
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<ButtonControl<TModel>>() != null);
+
+            badge = new Controls.Badge(text);
+            return this;
+        }
+
         /// <summary>
         /// Renders this instance.
         /// </summary>
@@ -414,7 +424,7 @@ namespace HyperSlackers.Bootstrap.Controls
             {
                 html.Append(" ");
             }
-            html.Append(text);
+            html.Append(text + (badge == null ? "" : " {0}".FormatWith(badge.ToHtmlString())));
             if (withCaret)
             {
                 if (!text.IsNullOrWhiteSpace())

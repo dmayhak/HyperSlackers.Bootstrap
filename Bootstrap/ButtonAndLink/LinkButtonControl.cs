@@ -22,6 +22,7 @@ namespace HyperSlackers.Bootstrap.Controls
         internal string modalId;
         internal ButtonSize size = ButtonSize.Default;
         internal ButtonStyle style = ButtonStyle.Default;
+        internal Badge badge;
 
         internal LinkButtonControl(HtmlHelper<TModel> html, string linkText, string url)
             : base(html)
@@ -216,6 +217,15 @@ namespace HyperSlackers.Bootstrap.Controls
             return this;
         }
 
+        public LinkButtonControl<TModel> Badge(string text)
+        {
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<LinkButtonControl<TModel>>() != null);
+
+            badge = new Controls.Badge(text);
+            return this;
+        }
+
         protected override string Render()
         {
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
@@ -275,7 +285,7 @@ namespace HyperSlackers.Bootstrap.Controls
             {
                 text.Append(" ");
             }
-            text.Append(linkText);
+            text.Append(linkText + (badge == null ? "" : " {0}".FormatWith(badge.ToHtmlString())));
             if (text.Length > 0 && iconAppend != null)
             {
                 text.Append(" ");

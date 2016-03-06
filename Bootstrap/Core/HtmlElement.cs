@@ -212,16 +212,14 @@ namespace HyperSlackers.Bootstrap.Core
 			}
 		}
 
+        internal virtual string ToHtmlString()
+        {
+            return ToHtmlString(string.Empty);
+        }
+
         internal virtual string ToHtmlString(string innerHtml)
         {
-
-            StringBuilder tag = new StringBuilder();
-
-            tag.Append(StartTag);
-            tag.Append(innerHtml ?? string.Empty);
-            tag.Append(EndTag);
-
-            return tag.ToString();
+            return ToHtmlString(new HtmlString(innerHtml));
         }
 
         internal virtual string ToHtmlString(IHtmlString innerHtml)
@@ -372,7 +370,7 @@ namespace HyperSlackers.Bootstrap.Core
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public override string ToString()
 		{
-			return base.ToString();
+			return ToHtmlString();
 		}
 
         /// <summary>

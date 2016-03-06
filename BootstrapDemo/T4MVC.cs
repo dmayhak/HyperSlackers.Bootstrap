@@ -1088,6 +1088,8 @@ namespace Links
             public static readonly string autoFill_jqueryui_min_js = Url("autoFill.jqueryui.min.js");
             public static readonly string buttons_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.bootstrap.min.js") ? Url("buttons.bootstrap.min.js") : Url("buttons.bootstrap.js");
             public static readonly string buttons_bootstrap_min_js = Url("buttons.bootstrap.min.js");
+            public static readonly string buttons_bootstrap4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.bootstrap4.min.js") ? Url("buttons.bootstrap4.min.js") : Url("buttons.bootstrap4.js");
+            public static readonly string buttons_bootstrap4_min_js = Url("buttons.bootstrap4.min.js");
             public static readonly string buttons_colVis_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.colVis.min.js") ? Url("buttons.colVis.min.js") : Url("buttons.colVis.js");
             public static readonly string buttons_colVis_min_js = Url("buttons.colVis.min.js");
             public static readonly string buttons_flash_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.flash.min.js") ? Url("buttons.flash.min.js") : Url("buttons.flash.js");
@@ -1104,6 +1106,8 @@ namespace Links
             public static readonly string dataTables_autoFill_min_js = Url("dataTables.autoFill.min.js");
             public static readonly string dataTables_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap.min.js") ? Url("dataTables.bootstrap.min.js") : Url("dataTables.bootstrap.js");
             public static readonly string dataTables_bootstrap_min_js = Url("dataTables.bootstrap.min.js");
+            public static readonly string dataTables_bootstrap4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap4.min.js") ? Url("dataTables.bootstrap4.min.js") : Url("dataTables.bootstrap4.js");
+            public static readonly string dataTables_bootstrap4_min_js = Url("dataTables.bootstrap4.min.js");
             public static readonly string dataTables_buttons_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.buttons.min.js") ? Url("dataTables.buttons.min.js") : Url("dataTables.buttons.js");
             public static readonly string dataTables_buttons_min_js = Url("dataTables.buttons.min.js");
             public static readonly string dataTables_colReorder_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.colReorder.min.js") ? Url("dataTables.colReorder.min.js") : Url("dataTables.colReorder.js");
@@ -1118,6 +1122,8 @@ namespace Links
             public static readonly string dataTables_jqueryui_min_js = Url("dataTables.jqueryui.min.js");
             public static readonly string dataTables_keyTable_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.keyTable.min.js") ? Url("dataTables.keyTable.min.js") : Url("dataTables.keyTable.js");
             public static readonly string dataTables_keyTable_min_js = Url("dataTables.keyTable.min.js");
+            public static readonly string dataTables_material_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.material.min.js") ? Url("dataTables.material.min.js") : Url("dataTables.material.js");
+            public static readonly string dataTables_material_min_js = Url("dataTables.material.min.js");
             public static readonly string dataTables_responsive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.responsive.min.js") ? Url("dataTables.responsive.min.js") : Url("dataTables.responsive.js");
             public static readonly string dataTables_responsive_min_js = Url("dataTables.responsive.min.js");
             public static readonly string dataTables_rowReorder_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.rowReorder.min.js") ? Url("dataTables.rowReorder.min.js") : Url("dataTables.rowReorder.js");
@@ -1126,6 +1132,10 @@ namespace Links
             public static readonly string dataTables_scroller_min_js = Url("dataTables.scroller.min.js");
             public static readonly string dataTables_select_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.select.min.js") ? Url("dataTables.select.min.js") : Url("dataTables.select.js");
             public static readonly string dataTables_select_min_js = Url("dataTables.select.min.js");
+            public static readonly string dataTables_semanticui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.semanticui.min.js") ? Url("dataTables.semanticui.min.js") : Url("dataTables.semanticui.js");
+            public static readonly string dataTables_semanticui_min_js = Url("dataTables.semanticui.min.js");
+            public static readonly string dataTables_uikit_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.uikit.min.js") ? Url("dataTables.uikit.min.js") : Url("dataTables.uikit.js");
+            public static readonly string dataTables_uikit_min_js = Url("dataTables.uikit.min.js");
             public static readonly string jquery_dataTables_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.dataTables.min.js") ? Url("jquery.dataTables.min.js") : Url("jquery.dataTables.js");
             public static readonly string jquery_dataTables_min_js = Url("jquery.dataTables.min.js");
             public static readonly string responsive_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsive.bootstrap.min.js") ? Url("responsive.bootstrap.min.js") : Url("responsive.bootstrap.js");
@@ -1198,6 +1208,7 @@ namespace Links
             public static readonly string bootstrap_datepicker_da_min_js = Url("bootstrap-datepicker.da.min.js");
             public static readonly string bootstrap_datepicker_de_min_js = Url("bootstrap-datepicker.de.min.js");
             public static readonly string bootstrap_datepicker_el_min_js = Url("bootstrap-datepicker.el.min.js");
+            public static readonly string bootstrap_datepicker_en_AU_min_js = Url("bootstrap-datepicker.en-AU.min.js");
             public static readonly string bootstrap_datepicker_en_GB_min_js = Url("bootstrap-datepicker.en-GB.min.js");
             public static readonly string bootstrap_datepicker_eo_min_js = Url("bootstrap-datepicker.eo.min.js");
             public static readonly string bootstrap_datepicker_es_min_js = Url("bootstrap-datepicker.es.min.js");
@@ -1307,13 +1318,21 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string bootstrap_datepicker_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-datepicker.min.css") ? Url("bootstrap-datepicker.min.css") : Url("bootstrap-datepicker.css");
+        public static readonly string bootstrap_datepicker_css_map = Url("bootstrap-datepicker.css.map");
         public static readonly string bootstrap_datepicker_min_css = Url("bootstrap-datepicker.min.css");
+        public static readonly string bootstrap_datepicker_min_css_map = Url("bootstrap-datepicker.min.css.map");
         public static readonly string bootstrap_datepicker_standalone_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-datepicker.standalone.min.css") ? Url("bootstrap-datepicker.standalone.min.css") : Url("bootstrap-datepicker.standalone.css");
+        public static readonly string bootstrap_datepicker_standalone_css_map = Url("bootstrap-datepicker.standalone.css.map");
         public static readonly string bootstrap_datepicker_standalone_min_css = Url("bootstrap-datepicker.standalone.min.css");
+        public static readonly string bootstrap_datepicker_standalone_min_css_map = Url("bootstrap-datepicker.standalone.min.css.map");
         public static readonly string bootstrap_datepicker3_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-datepicker3.min.css") ? Url("bootstrap-datepicker3.min.css") : Url("bootstrap-datepicker3.css");
+        public static readonly string bootstrap_datepicker3_css_map = Url("bootstrap-datepicker3.css.map");
         public static readonly string bootstrap_datepicker3_min_css = Url("bootstrap-datepicker3.min.css");
+        public static readonly string bootstrap_datepicker3_min_css_map = Url("bootstrap-datepicker3.min.css.map");
         public static readonly string bootstrap_datepicker3_standalone_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-datepicker3.standalone.min.css") ? Url("bootstrap-datepicker3.standalone.min.css") : Url("bootstrap-datepicker3.standalone.css");
+        public static readonly string bootstrap_datepicker3_standalone_css_map = Url("bootstrap-datepicker3.standalone.css.map");
         public static readonly string bootstrap_datepicker3_standalone_min_css = Url("bootstrap-datepicker3.standalone.min.css");
+        public static readonly string bootstrap_datepicker3_standalone_min_css_map = Url("bootstrap-datepicker3.standalone.min.css.map");
         public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
         public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
         public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
@@ -1519,6 +1538,8 @@ namespace Links
                 public static readonly string autoFill_jqueryui_min_css = Url("autoFill.jqueryui.min.css");
                 public static readonly string buttons_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.bootstrap.min.css") ? Url("buttons.bootstrap.min.css") : Url("buttons.bootstrap.css");
                 public static readonly string buttons_bootstrap_min_css = Url("buttons.bootstrap.min.css");
+                public static readonly string buttons_bootstrap4_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.bootstrap4.min.css") ? Url("buttons.bootstrap4.min.css") : Url("buttons.bootstrap4.css");
+                public static readonly string buttons_bootstrap4_min_css = Url("buttons.bootstrap4.min.css");
                 public static readonly string buttons_dataTables_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.dataTables.min.css") ? Url("buttons.dataTables.min.css") : Url("buttons.dataTables.css");
                 public static readonly string buttons_dataTables_min_css = Url("buttons.dataTables.min.css");
                 public static readonly string buttons_foundation_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/buttons.foundation.min.css") ? Url("buttons.foundation.min.css") : Url("buttons.foundation.css");
@@ -1536,10 +1557,18 @@ namespace Links
                 public static readonly string common_scss = Url("common.scss");
                 public static readonly string dataTables_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap.min.css") ? Url("dataTables.bootstrap.min.css") : Url("dataTables.bootstrap.css");
                 public static readonly string dataTables_bootstrap_min_css = Url("dataTables.bootstrap.min.css");
+                public static readonly string dataTables_bootstrap4_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.bootstrap4.min.css") ? Url("dataTables.bootstrap4.min.css") : Url("dataTables.bootstrap4.css");
+                public static readonly string dataTables_bootstrap4_min_css = Url("dataTables.bootstrap4.min.css");
                 public static readonly string dataTables_foundation_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.foundation.min.css") ? Url("dataTables.foundation.min.css") : Url("dataTables.foundation.css");
                 public static readonly string dataTables_foundation_min_css = Url("dataTables.foundation.min.css");
                 public static readonly string dataTables_jqueryui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.jqueryui.min.css") ? Url("dataTables.jqueryui.min.css") : Url("dataTables.jqueryui.css");
                 public static readonly string dataTables_jqueryui_min_css = Url("dataTables.jqueryui.min.css");
+                public static readonly string dataTables_material_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.material.min.css") ? Url("dataTables.material.min.css") : Url("dataTables.material.css");
+                public static readonly string dataTables_material_min_css = Url("dataTables.material.min.css");
+                public static readonly string dataTables_semanticui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.semanticui.min.css") ? Url("dataTables.semanticui.min.css") : Url("dataTables.semanticui.css");
+                public static readonly string dataTables_semanticui_min_css = Url("dataTables.semanticui.min.css");
+                public static readonly string dataTables_uikit_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dataTables.uikit.min.css") ? Url("dataTables.uikit.min.css") : Url("dataTables.uikit.css");
+                public static readonly string dataTables_uikit_min_css = Url("dataTables.uikit.min.css");
                 public static readonly string fixedColumns_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fixedColumns.bootstrap.min.css") ? Url("fixedColumns.bootstrap.min.css") : Url("fixedColumns.bootstrap.css");
                 public static readonly string fixedColumns_bootstrap_min_css = Url("fixedColumns.bootstrap.min.css");
                 public static readonly string fixedColumns_dataTables_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fixedColumns.dataTables.min.css") ? Url("fixedColumns.dataTables.min.css") : Url("fixedColumns.dataTables.css");
@@ -2508,6 +2537,8 @@ namespace Links
                     public const string autoFill_jqueryui_min_js = "~/Scripts/DataTables/autoFill.jqueryui.min.js"; 
                     public const string buttons_bootstrap_js = "~/Scripts/DataTables/buttons.bootstrap.js"; 
                     public const string buttons_bootstrap_min_js = "~/Scripts/DataTables/buttons.bootstrap.min.js"; 
+                    public const string buttons_bootstrap4_js = "~/Scripts/DataTables/buttons.bootstrap4.js"; 
+                    public const string buttons_bootstrap4_min_js = "~/Scripts/DataTables/buttons.bootstrap4.min.js"; 
                     public const string buttons_colVis_js = "~/Scripts/DataTables/buttons.colVis.js"; 
                     public const string buttons_colVis_min_js = "~/Scripts/DataTables/buttons.colVis.min.js"; 
                     public const string buttons_flash_js = "~/Scripts/DataTables/buttons.flash.js"; 
@@ -2524,6 +2555,8 @@ namespace Links
                     public const string dataTables_autoFill_min_js = "~/Scripts/DataTables/dataTables.autoFill.min.js"; 
                     public const string dataTables_bootstrap_js = "~/Scripts/DataTables/dataTables.bootstrap.js"; 
                     public const string dataTables_bootstrap_min_js = "~/Scripts/DataTables/dataTables.bootstrap.min.js"; 
+                    public const string dataTables_bootstrap4_js = "~/Scripts/DataTables/dataTables.bootstrap4.js"; 
+                    public const string dataTables_bootstrap4_min_js = "~/Scripts/DataTables/dataTables.bootstrap4.min.js"; 
                     public const string dataTables_buttons_js = "~/Scripts/DataTables/dataTables.buttons.js"; 
                     public const string dataTables_buttons_min_js = "~/Scripts/DataTables/dataTables.buttons.min.js"; 
                     public const string dataTables_colReorder_js = "~/Scripts/DataTables/dataTables.colReorder.js"; 
@@ -2538,6 +2571,8 @@ namespace Links
                     public const string dataTables_jqueryui_min_js = "~/Scripts/DataTables/dataTables.jqueryui.min.js"; 
                     public const string dataTables_keyTable_js = "~/Scripts/DataTables/dataTables.keyTable.js"; 
                     public const string dataTables_keyTable_min_js = "~/Scripts/DataTables/dataTables.keyTable.min.js"; 
+                    public const string dataTables_material_js = "~/Scripts/DataTables/dataTables.material.js"; 
+                    public const string dataTables_material_min_js = "~/Scripts/DataTables/dataTables.material.min.js"; 
                     public const string dataTables_responsive_js = "~/Scripts/DataTables/dataTables.responsive.js"; 
                     public const string dataTables_responsive_min_js = "~/Scripts/DataTables/dataTables.responsive.min.js"; 
                     public const string dataTables_rowReorder_js = "~/Scripts/DataTables/dataTables.rowReorder.js"; 
@@ -2546,6 +2581,10 @@ namespace Links
                     public const string dataTables_scroller_min_js = "~/Scripts/DataTables/dataTables.scroller.min.js"; 
                     public const string dataTables_select_js = "~/Scripts/DataTables/dataTables.select.js"; 
                     public const string dataTables_select_min_js = "~/Scripts/DataTables/dataTables.select.min.js"; 
+                    public const string dataTables_semanticui_js = "~/Scripts/DataTables/dataTables.semanticui.js"; 
+                    public const string dataTables_semanticui_min_js = "~/Scripts/DataTables/dataTables.semanticui.min.js"; 
+                    public const string dataTables_uikit_js = "~/Scripts/DataTables/dataTables.uikit.js"; 
+                    public const string dataTables_uikit_min_js = "~/Scripts/DataTables/dataTables.uikit.min.js"; 
                     public const string jquery_dataTables_js = "~/Scripts/DataTables/jquery.dataTables.js"; 
                     public const string jquery_dataTables_min_js = "~/Scripts/DataTables/jquery.dataTables.min.js"; 
                     public const string responsive_bootstrap_js = "~/Scripts/DataTables/responsive.bootstrap.js"; 
@@ -2596,6 +2635,7 @@ namespace Links
                     public const string bootstrap_datepicker_da_min_js = "~/Scripts/locales/bootstrap-datepicker.da.min.js"; 
                     public const string bootstrap_datepicker_de_min_js = "~/Scripts/locales/bootstrap-datepicker.de.min.js"; 
                     public const string bootstrap_datepicker_el_min_js = "~/Scripts/locales/bootstrap-datepicker.el.min.js"; 
+                    public const string bootstrap_datepicker_en_AU_min_js = "~/Scripts/locales/bootstrap-datepicker.en-AU.min.js"; 
                     public const string bootstrap_datepicker_en_GB_min_js = "~/Scripts/locales/bootstrap-datepicker.en-GB.min.js"; 
                     public const string bootstrap_datepicker_eo_min_js = "~/Scripts/locales/bootstrap-datepicker.eo.min.js"; 
                     public const string bootstrap_datepicker_es_min_js = "~/Scripts/locales/bootstrap-datepicker.es.min.js"; 
@@ -2882,6 +2922,8 @@ namespace Links
                         public const string autoFill_jqueryui_min_css = "~/Content/DataTables/css/autoFill.jqueryui.min.css";
                         public const string buttons_bootstrap_css = "~/Content/DataTables/css/buttons.bootstrap.css";
                         public const string buttons_bootstrap_min_css = "~/Content/DataTables/css/buttons.bootstrap.min.css";
+                        public const string buttons_bootstrap4_css = "~/Content/DataTables/css/buttons.bootstrap4.css";
+                        public const string buttons_bootstrap4_min_css = "~/Content/DataTables/css/buttons.bootstrap4.min.css";
                         public const string buttons_dataTables_css = "~/Content/DataTables/css/buttons.dataTables.css";
                         public const string buttons_dataTables_min_css = "~/Content/DataTables/css/buttons.dataTables.min.css";
                         public const string buttons_foundation_css = "~/Content/DataTables/css/buttons.foundation.css";
@@ -2898,10 +2940,18 @@ namespace Links
                         public const string colReorder_jqueryui_min_css = "~/Content/DataTables/css/colReorder.jqueryui.min.css";
                         public const string dataTables_bootstrap_css = "~/Content/DataTables/css/dataTables.bootstrap.css";
                         public const string dataTables_bootstrap_min_css = "~/Content/DataTables/css/dataTables.bootstrap.min.css";
+                        public const string dataTables_bootstrap4_css = "~/Content/DataTables/css/dataTables.bootstrap4.css";
+                        public const string dataTables_bootstrap4_min_css = "~/Content/DataTables/css/dataTables.bootstrap4.min.css";
                         public const string dataTables_foundation_css = "~/Content/DataTables/css/dataTables.foundation.css";
                         public const string dataTables_foundation_min_css = "~/Content/DataTables/css/dataTables.foundation.min.css";
                         public const string dataTables_jqueryui_css = "~/Content/DataTables/css/dataTables.jqueryui.css";
                         public const string dataTables_jqueryui_min_css = "~/Content/DataTables/css/dataTables.jqueryui.min.css";
+                        public const string dataTables_material_css = "~/Content/DataTables/css/dataTables.material.css";
+                        public const string dataTables_material_min_css = "~/Content/DataTables/css/dataTables.material.min.css";
+                        public const string dataTables_semanticui_css = "~/Content/DataTables/css/dataTables.semanticui.css";
+                        public const string dataTables_semanticui_min_css = "~/Content/DataTables/css/dataTables.semanticui.min.css";
+                        public const string dataTables_uikit_css = "~/Content/DataTables/css/dataTables.uikit.css";
+                        public const string dataTables_uikit_min_css = "~/Content/DataTables/css/dataTables.uikit.min.css";
                         public const string fixedColumns_bootstrap_css = "~/Content/DataTables/css/fixedColumns.bootstrap.css";
                         public const string fixedColumns_bootstrap_min_css = "~/Content/DataTables/css/fixedColumns.bootstrap.min.css";
                         public const string fixedColumns_dataTables_css = "~/Content/DataTables/css/fixedColumns.dataTables.css";

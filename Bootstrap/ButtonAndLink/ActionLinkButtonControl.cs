@@ -31,7 +31,7 @@ namespace HyperSlackers.Bootstrap.Controls
         internal string fragment;
         internal string title;
         internal RouteValueDictionary routeValues = new RouteValueDictionary();
-        internal bool isTextHtml;
+        //internal bool isTextHtml;
         internal bool buttonBlock;
         internal bool disabled;
         internal Icon iconAppend;
@@ -44,8 +44,9 @@ namespace HyperSlackers.Bootstrap.Controls
         internal string text;
         internal Tooltip tooltip;
         internal string value;
+        internal Badge badge;
 
-        internal ActionLinkButtonControl(HtmlHelper<TModel> html, string linkText, ActionResult result) 
+        internal ActionLinkButtonControl(HtmlHelper<TModel> html, string linkText, ActionResult result)
             : base(html)
         {
             Contract.Requires<ArgumentNullException>(html != null, "html");
@@ -99,7 +100,7 @@ namespace HyperSlackers.Bootstrap.Controls
             actionTypePassed = ActionType.HtmlRegular;
         }
 
-        internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, ActionResult result, AjaxOptions ajaxOptions) 
+        internal ActionLinkButtonControl(AjaxHelper<TModel> ajax, string linkText, ActionResult result, AjaxOptions ajaxOptions)
             : base(new HtmlHelper<TModel>(ajax.ViewContext, ajax.ViewDataContainer, ajax.RouteCollection))
         {
             Contract.Requires<ArgumentNullException>(ajax != null, "ajax");
@@ -285,14 +286,14 @@ namespace HyperSlackers.Bootstrap.Controls
             return this;
         }
 
-        public ActionLinkButtonControl<TModel> LinkTextAsHtml(bool isHtml = true)
-        {
-            Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
+        //public ActionLinkButtonControl<TModel> LinkTextAsHtml(bool isHtml = true)
+        //{
+        //    Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
 
-            isTextHtml = isHtml;
+        //    isTextHtml = isHtml;
 
-            return this;
-        }
+        //    return this;
+        //}
 
         public ActionLinkButtonControl<TModel> LoadingText(string loadingText)
         {
@@ -487,6 +488,15 @@ namespace HyperSlackers.Bootstrap.Controls
             return this;
         }
 
+        public ActionLinkButtonControl<TModel> Badge(string text)
+        {
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<ActionLinkButtonControl<TModel>>() != null);
+
+            badge = new Controls.Badge(text);
+            return this;
+        }
+
         private string GenerateActionLink(string linkText, IDictionary<string, object> htmlAttributes)
         {
             Contract.Requires<ArgumentException>(!linkText.IsNullOrWhiteSpace());
@@ -578,7 +588,7 @@ namespace HyperSlackers.Bootstrap.Controls
             }
 
             string replaceMe = Guid.NewGuid().ToString();
-            string linkText = text;
+            string linkText = text + (badge == null ? "" : " {0}".FormatWith(badge.ToHtmlString()));
             string linkHtml = GenerateActionLink(replaceMe, attributes);
 
             if (iconPrepend != null || iconAppend != null)

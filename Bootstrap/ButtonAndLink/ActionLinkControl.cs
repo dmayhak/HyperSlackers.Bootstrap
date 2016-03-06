@@ -37,6 +37,7 @@ namespace HyperSlackers.Bootstrap.Controls
 		internal bool wrapTagControllerAndActionAware;
 		internal string title;
 		internal Tooltip tooltip;
+        internal Badge badge;
 
         internal ActionLinkControl(HtmlHelper<TModel> html, string linkText, ActionResult result)
             : base(html)
@@ -391,7 +392,16 @@ namespace HyperSlackers.Bootstrap.Controls
             return this;
         }
 
-		protected override string Render()
+        public ActionLinkControl<TModel> Badge(string text)
+        {
+            Contract.Requires<ArgumentException>(!text.IsNullOrWhiteSpace());
+            Contract.Ensures(Contract.Result<ActionLinkControl<TModel>>() != null);
+
+            badge = new Controls.Badge(text);
+            return this;
+        }
+
+        protected override string Render()
 		{
             Contract.Ensures(!Contract.Result<string>().IsNullOrWhiteSpace());
 
@@ -511,7 +521,7 @@ namespace HyperSlackers.Bootstrap.Controls
                     }
             }
 
-            linkHtml = linkHtml.Replace(replaceMe, prepend + this.linkText + append);
+            linkHtml = linkHtml.Replace(replaceMe, prepend + this.linkText + (badge == null ? "" : " {0}".FormatWith(badge.ToHtmlString())) + append);
 
             if (wrapper != null)
             {

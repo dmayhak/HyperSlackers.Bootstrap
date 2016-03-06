@@ -6,7 +6,7 @@
 
 // TODO: pagination / pager
 
-// TODO: labels / badges
+// TODO: labels / badges  done? additional places
 
 // TODO: AJAX forms (putting a different form on each tab or accordion panel)
 
@@ -21,3 +21,19 @@
 // TODO: inline form spacing between controls
 
 // TODO: pagination & pager
+
+// TODO: progress bar
+
+// TODO: jumbotron
+
+// TODO: thumbnails
+
+// TODO: media and media list
+
+// TODO: list group
+
+// TODO: panel with table & list group
+
+// TODO: scrollspy
+
+// TODO: button as checkbox/radio

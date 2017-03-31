@@ -455,7 +455,12 @@ namespace HyperSlackers.Bootstrap.Controls
 
             SetFormatText();
 
-            string controlHtml = html.TextBox(htmlFieldName, selectedValue, format, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
+            if (!string.IsNullOrWhiteSpace(format))
+            {
+                controlHtmlAttributes.AddOrReplaceHtmlAttribute("data-date-format", format);
+            }
+
+            string controlHtml = html.TextBox(htmlFieldName, selectedValue, string.Empty, controlHtmlAttributes.FormatHtmlAttributes()).ToHtmlString();
 
             //formatString = AddPrependAppend(formatString, this.prependHtml, this.appendHtml);
             string helpHtml = helpText != null ? helpText.ToHtmlString() : string.Empty;
